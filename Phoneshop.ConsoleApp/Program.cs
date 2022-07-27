@@ -1,4 +1,5 @@
 ﻿Console.WriteLine("type productnummer\n");
+// initialisation of hte phone object
 List<Phone> List = new()
 {
 new Phone() {Id = 1, Brand ="Huawei",Type = "p30",Description="6.47\" FHD+ (2340x1080) OLED, Kirin 980 Octa-Core(2x Cortex-A76 2.6GHz + 2x Cortex-A76 1.92GHz +4x Cortex-A55 1.8GHz), 8GB RAM, 128GB ROM,40+20+8+TOF/32MP, Dual SIM, 4200mAh, Android9.0 + EMUI 9.1", Price = 697 },
@@ -12,6 +13,7 @@ ConsoleKeyInfo input = Console.ReadKey();
 string InputValue = input.KeyChar.ToString();
 Console.WriteLine("\n");
 Console.Clear();
+//de switch statement that handels the choice of the user and prints the respons
 switch (InputValue)
 {
     case "1":
@@ -34,7 +36,7 @@ switch (InputValue)
         break;
 }
 
-
+//the class defining the "phone" object
 public class Phone
 {
     public int Id { get; set; }
