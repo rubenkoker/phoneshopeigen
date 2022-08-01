@@ -1,9 +1,11 @@
-using Phoneshop.Domain.Models;
-class PhoneServic
+namespace Phoneshop.Business
 {
+    using Phoneshop.Domain.Models;
+    public class PhoneService
+    {
 
 
-    private List<Phone> list = new()
+        private List<Phone> list = new()
 {
 
     new Phone() {Id = 1, Brand ="Huawei",Type = "p30",Description="6.47\" FHD+ (2340x1080) OLED,"+
@@ -24,23 +26,24 @@ class PhoneServic
       Description = "108 megapixel camera, 4k videokwaliteit 6.67 inchAMOLED scherm "+
       "128 GB opslaggeheugen(Uitbreidbaar met Micro-sd) Water- en stofbestendig(IP53)", Price = 298 },
 };
-    Phone GetPhoneById(int input)
-    {
-        foreach (var item in list)
+        public Phone GetPhoneById(int input)
         {
-            if (input = item.Id)
+            foreach (var item in list)
             {
-                return item;
-            }
-            else
-            {
-                return null;
+                if (input == item.Id)
+                {
+                    return item;
+                }
+
+
             }
 
+            return null;
+
         }
-    }
-    List<Phone> GetPhoneById()
-    {
-        return list;
+        public List<Phone> GetAllPhones()
+        {
+            return list;
+        }
     }
 }

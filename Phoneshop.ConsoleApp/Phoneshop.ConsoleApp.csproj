@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Phoneshop.Business\Phoneshop.Business.csproj" />
     <ProjectReference Include="..\Phoneshop.Domain\Phoneshop.Domain.csproj" />
   </ItemGroup>
 
