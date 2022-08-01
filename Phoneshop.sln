@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phoneshop.ConsoleApp", "Phoneshop.ConsoleApp\Phoneshop.ConsoleApp.csproj", "{DA3FF6CC-295F-4BB8-8377-47AF1A239A39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phoneshop.ConsoleApp", "Phoneshop.ConsoleApp\Phoneshop.ConsoleApp.csproj", "{DA3FF6CC-295F-4BB8-8377-47AF1A239A39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phoneshop.Business", "Phoneshop.Business\Phoneshop.Business.csproj", "{1FDC09C8-4BCC-4BD9-9477-8F0653545877}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phoneshop.Domain", "Phoneshop.Domain\Phoneshop.Domain.csproj", "{7BE3D8CD-83BA-4F31-9C10-2404D6A54810}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{DA3FF6CC-295F-4BB8-8377-47AF1A239A39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA3FF6CC-295F-4BB8-8377-47AF1A239A39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA3FF6CC-295F-4BB8-8377-47AF1A239A39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FDC09C8-4BCC-4BD9-9477-8F0653545877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FDC09C8-4BCC-4BD9-9477-8F0653545877}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FDC09C8-4BCC-4BD9-9477-8F0653545877}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FDC09C8-4BCC-4BD9-9477-8F0653545877}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BE3D8CD-83BA-4F31-9C10-2404D6A54810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BE3D8CD-83BA-4F31-9C10-2404D6A54810}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BE3D8CD-83BA-4F31-9C10-2404D6A54810}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BE3D8CD-83BA-4F31-9C10-2404D6A54810}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

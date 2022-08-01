@@ -1,13 +1,3 @@
-﻿using Phoneshop.Domain.Models;
-
-Console.WriteLine("type productnummer\n");
-// initialisation of the phone object
-
-
-ConsoleKeyInfo input = Console.ReadKey();
-string inputValue = input.KeyChar.ToString();
-Console.WriteLine("\n");
-Console.Clear();
 List<Phone> list = new()
 {
 
@@ -29,28 +19,17 @@ List<Phone> list = new()
       Description = "108 megapixel camera, 4k videokwaliteit 6.67 inchAMOLED scherm "+
       "128 GB opslaggeheugen(Uitbreidbaar met Micro-sd) Water- en stofbestendig(IP53)", Price = 298 },
 };
-//de switch statement that handels the choice of the user and prints the respons
-switch (inputValue)
-{
-    case "1":
-        Console.WriteLine(list[0]);
-        //Console.WriteLine($"{list[0].Brand} \n{list[0].Type}\n {list[0].Description}\n  prijs ={list[0].Price}");
-        break;
-    case "2":
-        Console.WriteLine($"{list[1].Brand}\n{list[1].Type}\n{list[1].Description}\n prijs ={list[1].Price}");
-        break;
-    case "3":
-        Console.WriteLine($"{list[2].Brand}\n{list[2].Type}\n{list[2].Description}\n prijs ={list[2].Price}");
-        break;
-    case "4":
-        Console.WriteLine($"{list[3].Brand}\n{list[3].Type}\n{list[3].Description}\n prijs ={list[3].Price}");
-        break;
-    case "5":
-        Console.WriteLine($"{list[4].Brand}\n{list[4].Type}\n{list[4].Description}\n prijs ={list[4].Price}");
-        break;
-    default:
-        Console.WriteLine("geen geldige knop");
-        break;
-}
+GetPhoneById(int input)
+    {
+    foreach (var item in list)
+    {
+        if (input = item.Id)
+        {
+        }
+        else
+        {
+            return null;
+        }
 
-//the class defining the "phone" object
+    }
+}
