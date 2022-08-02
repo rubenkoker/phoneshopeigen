@@ -45,5 +45,64 @@ namespace Phoneshop.Business
         {
             return list;
         }
+        public void DisplayPhones()
+        {
+            foreach (var item in list)
+            {
+                Console.WriteLine($"{item.Id}" + " " + $"{item.Brand}" + " " + $"{item.Type}");
+            }
+            Console.WriteLine("type productnummer\n");
+            // initialisation of the phone object
+
+
+
+            // initialisation of the phone object
+            Console.WriteLine("\n");
+        }
+        public Phone SelectPhone()
+        {
+            foreach (var item in list)
+            {
+                Console.WriteLine($"{item.Id}{item.Brand}{item.Type}");
+            }
+            Console.WriteLine("type productnummer\n");
+            // initialisation of the phone object
+
+
+
+            // initialisation of the phone object
+            Console.WriteLine("\n");
+
+
+            ConsoleKeyInfo input = Console.ReadKey();
+            string inputValue = input.KeyChar.ToString();
+
+
+            //de switch statement that handels the choice of the user and prints the respons
+            switch (inputValue)
+            {
+                case "1":
+                    return list[0];
+                //Console.WriteLine($"{list[0].Brand} \n{list[0].Type}\n {list[0].Description}\n  prijs ={list[0].Price}");
+
+                case "2":
+                    return list[1];
+
+
+                case "3":
+                    return list[2];
+
+                case "4":
+                    return list[3];
+
+
+                case "5":
+                    return list[4];
+
+                default:
+                    return null;
+
+            }
+        }
     }
 }
