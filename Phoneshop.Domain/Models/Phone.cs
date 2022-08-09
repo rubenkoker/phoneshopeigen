@@ -8,9 +8,13 @@
         public string Type { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
+        public decimal VATFreePrice()
+        {
+            return Price / 1.21m;
+        }
         public override string ToString()
         {
-            return $"Brand: {Brand}\nType:{Type}\n";
+            return $"Brand: {Brand}\nType:{Type}\nPrice:{Decimal.Round(VATFreePrice(), 2)}\n\"";
         }
 
     }

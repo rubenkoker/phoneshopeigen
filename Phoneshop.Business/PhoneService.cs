@@ -1,7 +1,10 @@
 namespace Phoneshop.Business
 {
+    using Phoneshop.Domain.Interfaces;
     using Phoneshop.Domain.Models;
-    public class PhoneService
+
+
+    public class PhoneService : IPhoneServicecs
     {
 
 
