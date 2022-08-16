@@ -14,7 +14,7 @@
         }
         public override string ToString()
         {
-            return $"Brand: {Brand}\nType:{Type}\nPrice:{Decimal.Round(VATFreePrice(), 2)}\n\"";
+            return $"Brand: {Brand}\nType:{Type}\nPrice:{Price}\nPricewihout VAT:{Decimal.Round(VATFreePrice(), 2)}\n\"";
         }
 
     }

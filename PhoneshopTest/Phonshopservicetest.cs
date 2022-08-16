@@ -5,7 +5,7 @@ namespace PhoneshopTest
     public class Phonshopservicetest
     {
         [Fact]
-        public void GetByIDTest()
+        public void GetByIDTest_ShouldReturnIphone()
         {
             //arrange
             PhoneService phoneService = new();
@@ -16,7 +16,7 @@ namespace PhoneshopTest
 
         }
         [Fact]
-        public void GetAllPhonesTest()
+        public void GetAllPhonesTest_shouldReturn5phones()
         {
             //arrange
             PhoneService phoneService = new();
@@ -27,7 +27,7 @@ namespace PhoneshopTest
 
         }
         [Fact]
-        public void GetByIDZeroTest()
+        public void GetByIDZeroTest_SHouldReturnNull()
         {
             //arrange
             PhoneService phoneService = new();

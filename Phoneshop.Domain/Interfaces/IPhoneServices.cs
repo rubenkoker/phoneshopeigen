@@ -11,10 +11,11 @@ namespace Phoneshop.Domain.Interfaces
 
         public List<Phone> GetAllPhones();
 
-        public void DisplayPhones();
+
 
 
         public Phone SelectPhone();
+        public List<Phone> SearchPhonesByString(string input);
 
     }
 }
