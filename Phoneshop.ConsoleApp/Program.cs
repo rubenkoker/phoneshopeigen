@@ -23,11 +23,16 @@ while (true)
         Console.WriteLine($"{Count} return");
         Console.WriteLine("type productnummer\n");
         Console.WriteLine("\n");
+
         ConsoleKeyInfo searchinput = Console.ReadKey();
         int SearchValue = Int32.Parse(searchinput.KeyChar.ToString());
-        Console.WriteLine(answer[SearchValue - 1]);
-        Console.ReadKey();
-        Console.Clear();
+        if (SearchValue != Count)
+        {
+            Console.WriteLine(answer[SearchValue - 1]);
+            Console.ReadKey();
+            Console.Clear();
+        }
+
 
     }
     ConsoleKeyInfo input = Console.ReadKey();

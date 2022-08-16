@@ -48,6 +48,7 @@ namespace Phoneshop.Business
             }
             Console.WriteLine("type productnummer\n");
             Console.WriteLine("\n");
+            Console.WriteLine("press \"s\" to search");
         }
         public Phone SelectPhone()
         {
@@ -70,6 +71,10 @@ namespace Phoneshop.Business
         }
         public List<Phone> SearchPhonesByString(string input)
         {
+            if (input == "")
+            {
+                return new List<Phone>();
+            }
             IEnumerable<Phone> results = list;
             IEnumerable<Phone> sorted = results.OrderBy(s => s.Id).ToList();
 
