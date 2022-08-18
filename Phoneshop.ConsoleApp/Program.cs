@@ -35,13 +35,13 @@ while (true)
 
 
     }
-    ConsoleKeyInfo input = Console.ReadKey();
-    string inputValue = input.KeyChar.ToString();
+
+    string inputValue = inputchoice.ToString();
     Console.Clear();
     int number;
     if (int.TryParse(inputValue, out number))
     {
-        Console.WriteLine(number);
+
         Phone chosen = phoneservice.GetPhoneById(number);
         if (number == 6)
         {
@@ -49,9 +49,10 @@ while (true)
         }
         if (chosen != null)
         {
-            Console.WriteLine($"{chosen.Brand}\n{chosen.Type}\n prijs ={chosen.Price}\n{chosen.Description}");
+            Console.WriteLine($"{chosen.Brand}-{chosen.Type}-prijs ={chosen.Price}\n{chosen.Description}");
         }
-        Console.WriteLine(chosen);
+
+
     }
     else
     {

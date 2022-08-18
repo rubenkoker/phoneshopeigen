@@ -42,10 +42,12 @@ namespace Phoneshop.Business
         }
         public void DisplayPhones()
         {
+            int count = list.Count + 1;
             foreach (var item in list)
             {
                 Console.WriteLine($"{item.Id}" + " " + $"{item.Brand}" + " " + $"{item.Type}");
             }
+            Console.WriteLine($"druk op{count} om te stoppen");
             Console.WriteLine("type productnummer\n");
             Console.WriteLine("\n");
             Console.WriteLine("press \"s\" to search");
