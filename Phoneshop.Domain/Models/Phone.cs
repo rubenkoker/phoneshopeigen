@@ -1,12 +1,12 @@
 ﻿namespace Phoneshop.Domain.Models
 {
-
+    using System;
     public class Phone
     {
         public int Id { get; set; }
-        public string Brand { get; set; }
-        public string Type { get; set; }
-        public string Description { get; set; }
+        public string Brand { get; set; } = string.Empty;
+        public string Type { get; set; } = String.Empty;
+        public string Description { get; set; } = String.Empty;
         public decimal Price { get; set; }
         public decimal VATFreePrice()
         {
@@ -16,7 +16,8 @@
         {
             return $"Brand: {Brand}\nType:{Type}\nPrice:{Price}\nPricewihout VAT:{Decimal.Round(VATFreePrice(), 2)}\n\"";
         }
-
+        public string FullName { get { return $" {Brand} {Type}"; } }
+        public int Stock { get; set; }
     }
 
 }

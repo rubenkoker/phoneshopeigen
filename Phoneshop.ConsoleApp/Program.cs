@@ -1,7 +1,7 @@
 ﻿using Phoneshop.Domain.Models;
+using System.Text;
 
-
-
+Console.OutputEncoding = Encoding.UTF8;
 Phoneshop.Business.PhoneService phoneservice = new();
 List<Phone> list = phoneservice.GetAllPhones();
 while (true)
@@ -49,7 +49,7 @@ while (true)
         }
         if (chosen != null)
         {
-            Console.WriteLine($"{chosen.Brand}-{chosen.Type}-prijs ={chosen.Price}\n{chosen.Description}");
+            Console.WriteLine($"{chosen.Brand} {chosen.Type}  € {chosen.Price}€\" {Decimal.Round(chosen.VATFreePrice(), 2)} \"\n\n{chosen.Description}");
         }
 
 
