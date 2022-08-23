@@ -14,30 +14,37 @@ while (true)
         Console.WriteLine("what do you search for?");
         string SearchQuery = Console.ReadLine();
         List<Phone> answer = phoneservice.SearchPhonesByString(SearchQuery);
-        int Count = 1;
-        foreach (Phone phone in answer)
-        {
-            Console.WriteLine($"{Count} {phone}");
-            Count++;
-        }
-        Console.WriteLine($"{Count} return");
-        Console.WriteLine("type productnummer\n");
-        Console.WriteLine("\n");
 
-        ConsoleKeyInfo searchinput = Console.ReadKey();
-        int SearchValue = Int32.Parse(searchinput.KeyChar.ToString());
-        if (SearchValue != Count)
+        while (true)
         {
-            Console.WriteLine(answer[SearchValue - 1]);
-            Console.ReadKey();
+            int Count = 1;
             Console.Clear();
+            foreach (Phone phone in answer)
+            {
+                Console.WriteLine($"{Count} {phone}");
+                Count++;
+            }
+            Console.WriteLine($"{Count} return");
+            Console.WriteLine("type productnummer\n");
+            Console.WriteLine("\n");
+
+            ConsoleKeyInfo searchinput = Console.ReadKey();
+            int SearchValue = Int32.Parse(searchinput.KeyChar.ToString());
+            if (SearchValue != Count)
+            {
+                Console.WriteLine(answer[SearchValue - 1] + "\n" + answer[SearchValue - 1].Description);
+                Console.ReadKey();
+                Console.Clear();
+            }
+            if (SearchValue == Count)
+            {
+                break;
+            }
         }
-
-
     }
-
-    string inputValue = inputchoice.ToString();
     Console.Clear();
+    string inputValue = inputchoice.ToString();
+
     int number;
     if (int.TryParse(inputValue, out number))
     {
