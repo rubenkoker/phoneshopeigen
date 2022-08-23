@@ -1,6 +1,6 @@
 ﻿namespace WinFormsApp
 {
-    partial class Form1
+    partial class PhoneOverview
     {
         /// <summary>
         ///  Required designer variable.
@@ -40,7 +40,8 @@
             this.lblStock = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.lblDescription = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.tbDescription = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // SearchBar
@@ -50,6 +51,7 @@
             this.SearchBar.PlaceholderText = "search";
             this.SearchBar.Size = new System.Drawing.Size(369, 27);
             this.SearchBar.TabIndex = 0;
+            this.SearchBar.TextChanged += new System.EventHandler(this.SearchBar_TextChanged);
             // 
             // SearchResultPanel
             // 
@@ -58,6 +60,7 @@
             this.SearchResultPanel.Size = new System.Drawing.Size(368, 349);
             this.SearchResultPanel.TabIndex = 1;
             this.SearchResultPanel.Text = "";
+            this.SearchResultPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PanelClicked);
             // 
             // label1
             // 
@@ -136,7 +139,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(425, 136);
+            this.label7.Location = new System.Drawing.Point(426, 128);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(83, 20);
             this.label7.TabIndex = 11;
@@ -148,26 +151,35 @@
             this.lblDescription.Location = new System.Drawing.Point(425, 179);
             this.lblDescription.MaximumSize = new System.Drawing.Size(100, 50);
             this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(58, 20);
+            this.lblDescription.Size = new System.Drawing.Size(0, 20);
             this.lblDescription.TabIndex = 12;
-            this.lblDescription.Text = "label10";
-            this.lblDescription.Click += new System.EventHandler(this.label10_Click);
             // 
-            // button1
+            // btnExit
             // 
-            this.button1.Location = new System.Drawing.Point(651, 393);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 29);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnExit.Location = new System.Drawing.Point(651, 393);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(94, 29);
+            this.btnExit.TabIndex = 13;
+            this.btnExit.Text = "exit";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.bteExit_Click);
             // 
-            // Form1
+            // tbDescription
+            // 
+            this.tbDescription.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.tbDescription.Location = new System.Drawing.Point(431, 159);
+            this.tbDescription.Name = "tbDescription";
+            this.tbDescription.Size = new System.Drawing.Size(328, 215);
+            this.tbDescription.TabIndex = 14;
+            this.tbDescription.Text = "";
+            // 
+            // PhoneOverview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.tbDescription);
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.lblStock);
@@ -180,7 +192,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SearchResultPanel);
             this.Controls.Add(this.SearchBar);
-            this.Name = "Form1";
+            this.Name = "PhoneOverview";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -201,6 +213,7 @@
         private Label lblStock;
         private Label label7;
         private Label lblDescription;
-        private Button button1;
+        private Button btnExit;
+        private RichTextBox tbDescription;
     }
 }
