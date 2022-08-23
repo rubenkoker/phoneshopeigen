@@ -4,7 +4,7 @@ namespace WinFormsApp
 {
     public partial class PhoneOverview : Form
     {
-        public event EventHandler<EventArgs> UserChanged;
+        public event EventHandler<EventArgs> ListChanged;
         public List<Phone> Currentlist;
         Phoneshop.Business.PhoneService phoneservice = new();
         public PhoneOverview()
@@ -13,12 +13,12 @@ namespace WinFormsApp
 
 
             List<Phone> list = phoneservice.GetAllPhones();
-            UserChanged += List_ListChanged;
+            ListChanged += List_ListChanged;
             Currentlist = list;
             int count = list.Count + 1;
             foreach (var item in list)
             {
-                SearchResultPanel.Text += $"{item.Brand}" + " " + $"{item.Type}\n";
+                listBox1.Items.Add($"{item.Brand}" + " " + $"{item.Type}");
             }
         }
 
@@ -38,19 +38,7 @@ namespace WinFormsApp
 
         private void PanelClicked(object sender, MouseEventArgs e)
         {
-            int index = SearchResultPanel.SelectionStart;
-            int line = SearchResultPanel.GetLineFromCharIndex(index);
-            if (line < Currentlist.Count())
-            {
-                Phone SelectedPhone = Currentlist[line];
-                lblBrand.Text = SelectedPhone.Brand;
-                lblType.Text = SelectedPhone.Type;
-                lblPrice.Text = SelectedPhone.Price.ToString();
 
-                lblStock.Text = SelectedPhone.Stock.ToString();
-                tbDescription.Text = SelectedPhone.Description;
-
-            }
 
         }
 
@@ -66,19 +54,41 @@ namespace WinFormsApp
                 Currentlist = phoneservice.SearchPhonesByString(SearchBar.Text);
 
 
-                UserChanged(this, EventArgs.Empty);
+                ListChanged(this, EventArgs.Empty);
             }
 
         }
         void List_ListChanged(object? sender, EventArgs e)
         {
 
-            SearchResultPanel.Text = string.Empty;
+            listBox1.Items.Clear();
             foreach (var item in Currentlist)
             {
-                SearchResultPanel.Text += $"{item.Brand}" + " " + $"{item.Type}\n";
+                listBox1.Items.Add($"{item.Brand}" + " " + $"{item.Type}\n");
             }
 
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PanelClicked(object sender, EventArgs e)
+        {
+            int index = listBox1.SelectedIndex;
+
+            if (index < Currentlist.Count())
+            {
+                Phone SelectedPhone = Currentlist[index];
+                lblBrand.Text = SelectedPhone.Brand;
+                lblType.Text = SelectedPhone.Type;
+                lblPrice.Text = SelectedPhone.Price.ToString();
+
+                lblStock.Text = SelectedPhone.Stock.ToString();
+                tbDescription.Text = SelectedPhone.Description;
+
+            }
         }
     }
 }

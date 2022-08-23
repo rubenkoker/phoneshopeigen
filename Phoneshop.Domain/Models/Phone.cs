@@ -16,7 +16,7 @@
         {
             return $"Brand: {Brand}\nType:{Type}\nPrice:{Price}\nPricewihout VAT:{Decimal.Round(VATFreePrice(), 2)}\n\"";
         }
-        public string FullName { get { return $" {Brand} {Type}"; } }
+        public string FullName => $" {Brand} {Type}";
         public int Stock { get; set; }
     }
 

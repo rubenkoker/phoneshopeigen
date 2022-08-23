@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.SearchBar = new System.Windows.Forms.TextBox();
-            this.SearchResultPanel = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblBrand = new System.Windows.Forms.Label();
@@ -42,6 +41,7 @@
             this.lblDescription = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.tbDescription = new System.Windows.Forms.RichTextBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // SearchBar
@@ -52,15 +52,6 @@
             this.SearchBar.Size = new System.Drawing.Size(369, 27);
             this.SearchBar.TabIndex = 0;
             this.SearchBar.TextChanged += new System.EventHandler(this.SearchBar_TextChanged);
-            // 
-            // SearchResultPanel
-            // 
-            this.SearchResultPanel.Location = new System.Drawing.Point(23, 73);
-            this.SearchResultPanel.Name = "SearchResultPanel";
-            this.SearchResultPanel.Size = new System.Drawing.Size(368, 349);
-            this.SearchResultPanel.TabIndex = 1;
-            this.SearchResultPanel.Text = "";
-            this.SearchResultPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PanelClicked);
             // 
             // label1
             // 
@@ -173,11 +164,23 @@
             this.tbDescription.TabIndex = 14;
             this.tbDescription.Text = "";
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 20;
+            this.listBox1.Location = new System.Drawing.Point(23, 66);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(369, 364);
+            this.listBox1.TabIndex = 15;
+            this.listBox1.Click += new System.EventHandler(this.PanelClicked);
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
             // PhoneOverview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.tbDescription);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.lblDescription);
@@ -190,7 +193,6 @@
             this.Controls.Add(this.lblBrand);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.SearchResultPanel);
             this.Controls.Add(this.SearchBar);
             this.Name = "PhoneOverview";
             this.Text = "Form1";
@@ -202,7 +204,6 @@
         #endregion
 
         private TextBox SearchBar;
-        private RichTextBox SearchResultPanel;
         private Label label1;
         private Label label2;
         private Label lblBrand;
@@ -215,5 +216,6 @@
         private Label lblDescription;
         private Button btnExit;
         private RichTextBox tbDescription;
+        private ListBox listBox1;
     }
 }

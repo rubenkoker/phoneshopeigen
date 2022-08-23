@@ -50,14 +50,19 @@ while (true)
     {
 
         Phone chosen = phoneservice.GetPhoneById(number);
-        if (number == 6)
+        if (number == list.Count() + 1)
         {
             break;
+        }
+        if (number > list.Count() + 1)
+        {
+            Console.WriteLine("too high number");
         }
         if (chosen != null)
         {
             Console.WriteLine($"{chosen.Brand} {chosen.Type}  € {chosen.Price}€\" {Decimal.Round(chosen.VATFreePrice(), 2)} \"\n\n{chosen.Description}");
         }
+
 
 
     }
