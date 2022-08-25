@@ -28,6 +28,10 @@ namespace Phoneshop.Business
         };
         public Phone GetPhoneById(int input)
         {
+            if (input < 1)
+            {
+                throw new Exception("ID can't be below 1");
+            }
             IEnumerable<Phone> results = list.Where(s => s.Id == input);
             IEnumerable<Phone> sorted = results.OrderBy(s => s.Id).ToList();
 
