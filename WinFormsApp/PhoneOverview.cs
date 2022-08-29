@@ -1,3 +1,4 @@
+using Phoneshop.Business;
 using Phoneshop.Domain.Models;
 
 namespace WinFormsApp
@@ -5,58 +6,33 @@ namespace WinFormsApp
     public partial class PhoneOverview : Form
     {
         public event EventHandler<EventArgs> ListChanged;
-        public List<Phone> Currentlist;
-        Phoneshop.Business.PhoneService phoneservice = new();
+        private List<Phone> Currentlist;
+        private List<Phone> Baselist;
+        PhoneService phoneservice = new();
         public PhoneOverview()
         {
             InitializeComponent();
 
-
-            List<Phone> list = phoneservice.GetAllPhones();
+            Baselist = phoneservice.GetAllPhones();
             ListChanged += List_ListChanged;
-            Currentlist = list;
-            int count = list.Count + 1;
-            foreach (var item in list)
+            Currentlist = Baselist;
+
+            foreach (var item in Baselist)
             {
-                listBox1.Items.Add($"{item.Brand}" + " " + $"{item.Type}");
+                listBox1.Items.Add($"{item.Brand} {item.Type}");
             }
-        }
+            Phone SelectedPhone = Currentlist[0];
+            lblBrand.Text = SelectedPhone.Brand;
+            lblType.Text = SelectedPhone.Type;
+            lblPrice.Text = SelectedPhone.Price.ToString();
 
-
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        private void PanelClicked(object sender, MouseEventArgs e)
-        {
-
-
+            lblStock.Text = SelectedPhone.Stock.ToString();
+            tbDescription.Text = SelectedPhone.Description;
         }
 
         private void bteExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }
-
-        private void SearchBar_TextChanged(object sender, EventArgs e)
-        {
-            if (SearchBar.Text.Length > 3)
-            {
-                Currentlist = phoneservice.SearchPhonesByString(SearchBar.Text);
-
-
-                ListChanged(this, EventArgs.Empty);
-            }
-
         }
         void List_ListChanged(object? sender, EventArgs e)
         {
@@ -69,18 +45,37 @@ namespace WinFormsApp
 
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void SearchBar_TextChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void PanelClicked(object sender, EventArgs e)
-        {
-            int index = listBox1.SelectedIndex;
-
-            if (index < Currentlist.Count())
+            if (SearchBar.Text.Length > 3)
             {
-                Phone SelectedPhone = Currentlist[index];
+                Currentlist = phoneservice.SearchPhonesByString(SearchBar.Text);
+                if (Currentlist.Count == 0)
+
+                {
+
+                    lblBrand.Text = "";
+                    lblType.Text = "";
+                    lblPrice.Text = "";
+                    lblStock.Text = "";
+                    tbDescription.Text = "";
+                }
+                else
+                {
+                    Phone SelectedPhone = Currentlist[0];
+                    lblBrand.Text = SelectedPhone.Brand;
+                    lblType.Text = SelectedPhone.Type;
+                    lblPrice.Text = SelectedPhone.Price.ToString();
+
+                    lblStock.Text = SelectedPhone.Stock.ToString();
+                    tbDescription.Text = SelectedPhone.Description;
+                }
+
+            }
+            else
+            {
+                Currentlist = Baselist;
+                Phone SelectedPhone = Currentlist[0];
                 lblBrand.Text = SelectedPhone.Brand;
                 lblType.Text = SelectedPhone.Type;
                 lblPrice.Text = SelectedPhone.Price.ToString();
@@ -89,6 +84,37 @@ namespace WinFormsApp
                 tbDescription.Text = SelectedPhone.Description;
 
             }
+            ListChanged(this, EventArgs.Empty);
         }
+
+        private void PanelClicked(object sender, EventArgs e)
+        {
+            int index = listBox1.SelectedIndex;
+            if (Currentlist.Count() > 0)
+            {
+                if (index < Currentlist.Count())
+                {
+                    Phone SelectedPhone = Currentlist[index];
+                    lblBrand.Text = SelectedPhone.Brand;
+                    lblType.Text = SelectedPhone.Type;
+                    lblPrice.Text = SelectedPhone.Price.ToString();
+
+                    lblStock.Text = SelectedPhone.Stock.ToString();
+                    tbDescription.Text = SelectedPhone.Description;
+
+                }
+            }
+            else
+            {
+
+                lblBrand.Text = "";
+                lblType.Text = "";
+                lblPrice.Text = "";
+
+                lblStock.Text = "";
+                tbDescription.Text = "";
+            }
+        }
+
     }
 }

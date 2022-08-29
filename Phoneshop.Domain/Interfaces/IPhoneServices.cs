@@ -6,16 +6,13 @@ namespace Phoneshop.Domain.Interfaces
     {
 
 
-        public Phone GetPhoneById(int input);
+        Phone? GetPhoneById(int input);
 
+        List<Phone> GetAllPhones();
 
-        public List<Phone> GetAllPhones();
+        Phone SelectPhone();
 
-
-
-
-        public Phone SelectPhone();
-        public List<Phone> SearchPhonesByString(string input);
+        List<Phone>? SearchPhonesByString(string input);
 
     }
 }

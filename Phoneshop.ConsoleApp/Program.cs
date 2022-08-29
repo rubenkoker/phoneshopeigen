@@ -3,12 +3,14 @@ using System.Text;
 
 Console.OutputEncoding = Encoding.UTF8;
 Phoneshop.Business.PhoneService phoneservice = new();
+bool ChoiceMade = false;
 List<Phone> list = phoneservice.GetAllPhones();
 while (true)
 {
     phoneservice.DisplayPhones();
 
     string inputchoice = Console.ReadLine();
+    ChoiceMade = true;
     if (inputchoice.ToLower() == "s")
     {
         Console.WriteLine("what do you search for?");
@@ -19,6 +21,7 @@ while (true)
         {
             int Count = 1;
             Console.Clear();
+
             foreach (Phone phone in answer)
             {
                 Console.WriteLine($"{Count} {phone}");
@@ -30,6 +33,7 @@ while (true)
 
             ConsoleKeyInfo searchinput = Console.ReadKey();
             int SearchValue = Int32.Parse(searchinput.KeyChar.ToString());
+            Console.Clear();
             if (SearchValue != Count)
             {
                 Console.WriteLine(answer[SearchValue - 1] + "\n" + answer[SearchValue - 1].Description);
@@ -40,41 +44,43 @@ while (true)
             {
                 break;
             }
+            ChoiceMade = false;
         }
     }
     Console.Clear();
+
+
     string inputValue = inputchoice.ToString();
-
-    int number;
-    if (int.TryParse(inputValue, out number))
+    if (ChoiceMade)
     {
-
-        Phone chosen = phoneservice.GetPhoneById(number);
-        if (number == list.Count() + 1)
+        int number;
+        if (int.TryParse(inputValue, out number))
         {
-            break;
+
+            Phone chosen = phoneservice.GetPhoneById(number);
+            if (number == list.Count() + 1)
+            {
+                break;
+            }
+            if (number > list.Count() + 1)
+            {
+                Console.WriteLine("too high number");
+            }
+            if (chosen != null)
+            {
+                Console.WriteLine($"{chosen.Brand} {chosen.Type}  €{chosen.Price} €\" {Decimal.Round(chosen.VATFreePrice(), 2)} \"\n\n{chosen.Description}");
+            }
+
         }
-        if (number > list.Count() + 1)
+        else
         {
-            Console.WriteLine("too high number");
+            Console.WriteLine("wrong number");
+
         }
-        if (chosen != null)
-        {
-            Console.WriteLine($"{chosen.Brand} {chosen.Type}  € {chosen.Price}€\" {Decimal.Round(chosen.VATFreePrice(), 2)} \"\n\n{chosen.Description}");
-        }
-
-
-
     }
-    else
-    {
-        Console.WriteLine("wrong number");
-
-    }
-
-
     //de switch statement that handels the choice of the user and prints the respons
 
     //the class defining the "phone" object
-    Console.ReadLine();
+    Console.ReadKey();
+    Console.Clear();
 }

@@ -56,7 +56,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(426, 37);
+            this.label1.Location = new System.Drawing.Point(431, 37);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(48, 20);
             this.label1.TabIndex = 2;
@@ -65,7 +65,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(423, 84);
+            this.label2.Location = new System.Drawing.Point(431, 84);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 20);
             this.label2.TabIndex = 3;
@@ -74,22 +74,20 @@
             // lblBrand
             // 
             this.lblBrand.AutoSize = true;
-            this.lblBrand.Location = new System.Drawing.Point(468, 37);
+            this.lblBrand.Location = new System.Drawing.Point(485, 37);
             this.lblBrand.Name = "lblBrand";
             this.lblBrand.Size = new System.Drawing.Size(50, 20);
             this.lblBrand.TabIndex = 4;
             this.lblBrand.Text = "label3";
-            this.lblBrand.Click += new System.EventHandler(this.label3_Click);
             // 
             // lblType
             // 
             this.lblType.AutoSize = true;
-            this.lblType.Location = new System.Drawing.Point(468, 84);
+            this.lblType.Location = new System.Drawing.Point(485, 84);
             this.lblType.Name = "lblType";
             this.lblType.Size = new System.Drawing.Size(50, 20);
             this.lblType.TabIndex = 5;
             this.lblType.Text = "label4";
-            this.lblType.Click += new System.EventHandler(this.label4_Click);
             // 
             // label5
             // 
@@ -130,7 +128,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(426, 128);
+            this.label7.Location = new System.Drawing.Point(431, 126);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(83, 20);
             this.label7.TabIndex = 11;
@@ -172,8 +170,7 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(369, 364);
             this.listBox1.TabIndex = 15;
-            this.listBox1.Click += new System.EventHandler(this.PanelClicked);
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.PanelClicked);
             // 
             // PhoneOverview
             // 
@@ -195,7 +192,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SearchBar);
             this.Name = "PhoneOverview";
-            this.Text = "Form1";
+            this.Text = "Phone Overview";
             this.ResumeLayout(false);
             this.PerformLayout();
 
