@@ -5,9 +5,10 @@ Console.OutputEncoding = Encoding.UTF8;
 Phoneshop.Business.PhoneService phoneservice = new();
 bool ChoiceMade = false;
 List<Phone> list = phoneservice.GetAllPhones();
+
 while (true)
 {
-    phoneservice.DisplayPhones();
+    DisplayPhones();
 
     string inputchoice = Console.ReadLine();
     ChoiceMade = true;
@@ -49,7 +50,6 @@ while (true)
     }
     Console.Clear();
 
-
     string inputValue = inputchoice.ToString();
     if (ChoiceMade)
     {
@@ -58,6 +58,11 @@ while (true)
         {
 
             Phone chosen = phoneservice.GetPhoneById(number);
+            if (number < 1)
+            {
+                Console.WriteLine("getal kan niet onder 0 zijn");
+
+            }
             if (number == list.Count() + 1)
             {
                 break;
@@ -83,4 +88,16 @@ while (true)
     //the class defining the "phone" object
     Console.ReadKey();
     Console.Clear();
+}
+void DisplayPhones()
+{
+    int count = list.Count + 1;
+    foreach (var item in list)
+    {
+        Console.WriteLine($"{item.Id}" + " " + $"{item.Brand}" + " " + $"{item.Type}");
+    }
+    Console.WriteLine($"druk op {count} om te stoppen");
+    Console.WriteLine("type productnummer\n");
+    Console.WriteLine("\n");
+    Console.WriteLine("press \"s\" to search");
 }

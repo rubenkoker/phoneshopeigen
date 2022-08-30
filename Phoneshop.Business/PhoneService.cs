@@ -1,7 +1,8 @@
+using Phoneshop.Domain.Interfaces;
+using Phoneshop.Domain.Models;
+
 namespace Phoneshop.Business
 {
-    using Phoneshop.Domain.Interfaces;
-    using Phoneshop.Domain.Models;
 
 
     public class PhoneService : IPhoneServicecs
@@ -26,56 +27,30 @@ namespace Phoneshop.Business
               Description = "108 megapixel camera, 4k videokwaliteit 6.67 inch AMOLED scherm "+
               "128 GB opslaggeheugen (Uitbreidbaar met Micro-sd) Water- en stofbestendig(IP53)", Price = 298,Stock =91 },
         };
-        public Phone? GetPhoneById(int input)
+        /// <summary>
+        /// returns the phone corresponding to the ID
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public Phone GetPhoneById(int input)
         {
-            if (input < 1)
-            {
-                Console.WriteLine("getal kan niet onder 0 zijn");
-                return null;
-            }
-            IEnumerable<Phone> results = list.Where(s => s.Id == input);
-            IEnumerable<Phone> sorted = results.OrderBy(s => s.Id).ToList();
 
-            Phone? returned = sorted.Where(c => c.Id == input).SingleOrDefault();
-            return returned;
-
+            return list.Where(s => s.Id == input).FirstOrDefault();
 
         }
+        /// <summary>
+        /// public getter for the phone list
+        /// </summary>
+        /// <returns></returns>
         public List<Phone> GetAllPhones()
         {
             return list;
         }
-        public void DisplayPhones()
-        {
-            int count = list.Count + 1;
-            foreach (var item in list)
-            {
-                Console.WriteLine($"{item.Id}" + " " + $"{item.Brand}" + " " + $"{item.Type}");
-            }
-            Console.WriteLine($"druk op {count} om te stoppen");
-            Console.WriteLine("type productnummer\n");
-            Console.WriteLine("\n");
-            Console.WriteLine("press \"s\" to search");
-        }
-        public Phone SelectPhone()
-        {
-            foreach (var item in list)
-            {
-                Console.WriteLine($"{item.Id}{item.Brand}{item.Type}");
-            }
-            Console.WriteLine("type productnummer\n");
-            Console.WriteLine("\n");
-
-
-            ConsoleKeyInfo input = Console.ReadKey();
-            int inputValue = Int32.Parse(input.KeyChar.ToString());
-
-
-
-            return list[inputValue + 1];
-
-
-        }
+        /// <summary>
+        ///search function fot hte phone list (non case sensitive) 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public List<Phone> SearchPhonesByString(string input)
         {
             if (input == "")
@@ -84,7 +59,6 @@ namespace Phoneshop.Business
             }
             IEnumerable<Phone> results = list;
             IEnumerable<Phone> sorted = results.OrderBy(s => s.Id).ToList();
-
 
             var Output = (from t in list
 
@@ -95,8 +69,6 @@ namespace Phoneshop.Business
                           select t).ToList();
             return Output;
         }
-
-
 
     }
 }

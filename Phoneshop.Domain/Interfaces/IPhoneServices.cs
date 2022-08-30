@@ -5,16 +5,12 @@ namespace Phoneshop.Domain.Interfaces
     public interface IPhoneServicecs
     {
 
-
-        Phone? GetPhoneById(int input);
+        Phone GetPhoneById(int input);
 
         List<Phone> GetAllPhones();
 
-        Phone SelectPhone();
-
-        List<Phone>? SearchPhonesByString(string input);
+        List<Phone> SearchPhonesByString(string input);
 
     }
 }
-
 

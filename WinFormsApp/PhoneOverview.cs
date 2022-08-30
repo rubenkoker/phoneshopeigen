@@ -34,7 +34,8 @@ namespace WinFormsApp
         {
             Application.Exit();
         }
-        void List_ListChanged(object? sender, EventArgs e)
+
+        void List_ListChanged(object sender, EventArgs e)
         {
 
             listBox1.Items.Clear();
