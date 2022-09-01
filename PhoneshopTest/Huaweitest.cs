@@ -1,5 +1,6 @@
 ﻿using Phoneshop.Business;
 using Phoneshop.Domain.Models;
+
 namespace PhoneshopTest
 {
     public class Huaweitest
@@ -13,7 +14,6 @@ namespace PhoneshopTest
             List<Phone> phone = phoneService.SearchPhonesByString("Huawei");
             //asses
             Assert.Equal(1, phone.Count());
-
         }
     }
 }

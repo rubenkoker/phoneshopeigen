@@ -1,9 +1,10 @@
-﻿using Phoneshop.Domain.Models;
+﻿using Phoneshop.Business;
+using Phoneshop.Domain.Models;
 using System.Text;
 
 Console.OutputEncoding = Encoding.UTF8;
-Phoneshop.Business.PhoneService phoneservice = new();
-bool ChoiceMade = false;
+PhoneService phoneservice = new();
+
 List<Phone> list = phoneservice.GetAllPhones();
 
 while (true)
@@ -11,57 +12,55 @@ while (true)
     DisplayPhones();
 
     string inputchoice = Console.ReadLine();
-    ChoiceMade = true;
+    bool choiceMade = true;
     if (inputchoice.ToLower() == "s")
     {
-        Console.WriteLine("what do you search for?");
-        string SearchQuery = Console.ReadLine();
-        List<Phone> answer = phoneservice.SearchPhonesByString(SearchQuery);
+        Console.WriteLine("Wat wil je zoeken?");
+        string searchQuery = Console.ReadLine();
+        List<Phone> answer = phoneservice.SearchPhonesByString(searchQuery);
 
         while (true)
         {
-            int Count = 1;
+            int count = 1;
             Console.Clear();
 
             foreach (Phone phone in answer)
             {
-                Console.WriteLine($"{Count} {phone}");
-                Count++;
+                Console.WriteLine($"{count} {phone}");
+                count++;
             }
-            Console.WriteLine($"{Count} return");
+            Console.WriteLine($"{count} return");
             Console.WriteLine("type productnummer\n");
             Console.WriteLine("\n");
 
             ConsoleKeyInfo searchinput = Console.ReadKey();
-            int SearchValue = Int32.Parse(searchinput.KeyChar.ToString());
+            int searchValue = int.Parse(searchinput.KeyChar.ToString());
             Console.Clear();
-            if (SearchValue != Count)
+            if (searchValue != count)
             {
-                Console.WriteLine(answer[SearchValue - 1] + "\n" + answer[SearchValue - 1].Description);
+                Console.WriteLine(answer[searchValue - 1] + "\n" + answer[searchValue - 1].Description);
                 Console.ReadKey();
                 Console.Clear();
             }
-            if (SearchValue == Count)
+            if (searchValue == count)
             {
                 break;
             }
-            ChoiceMade = false;
+            choiceMade = false;
         }
     }
     Console.Clear();
 
     string inputValue = inputchoice.ToString();
-    if (ChoiceMade)
+    if (choiceMade)
     {
         int number;
         if (int.TryParse(inputValue, out number))
         {
-
             Phone chosen = phoneservice.GetPhoneById(number);
             if (number < 1)
             {
-                Console.WriteLine("getal kan niet onder 0 zijn");
-
+                Console.WriteLine("getal kan niet onder 1 zijn");
             }
             if (number == list.Count() + 1)
             {
@@ -69,18 +68,16 @@ while (true)
             }
             if (number > list.Count() + 1)
             {
-                Console.WriteLine("too high number");
+                Console.WriteLine("te hoog nummer");
             }
             if (chosen != null)
             {
-                Console.WriteLine($"{chosen.Brand} {chosen.Type}  €{chosen.Price} €\" {Decimal.Round(chosen.VATFreePrice(), 2)} \"\n\n{chosen.Description}");
+                Console.WriteLine($"{chosen.Brand} {chosen.Type}  €{chosen.Price} €\" {decimal.Round(chosen.VATFreePrice(), 2)} \"\n\n{chosen.Description}");
             }
-
         }
         else
         {
-            Console.WriteLine("wrong number");
-
+            Console.WriteLine("verkeerd nummer");
         }
     }
     //de switch statement that handels the choice of the user and prints the respons

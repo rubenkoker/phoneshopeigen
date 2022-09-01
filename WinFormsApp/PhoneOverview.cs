@@ -6,9 +6,11 @@ namespace WinFormsApp
     public partial class PhoneOverview : Form
     {
         public event EventHandler<EventArgs> ListChanged;
+
         private List<Phone> Currentlist;
         private List<Phone> Baselist;
-        PhoneService phoneservice = new();
+        private PhoneService phoneservice = new();
+
         public PhoneOverview()
         {
             InitializeComponent();
@@ -35,15 +37,13 @@ namespace WinFormsApp
             Application.Exit();
         }
 
-        void List_ListChanged(object sender, EventArgs e)
+        private void List_ListChanged(object sender, EventArgs e)
         {
-
             listBox1.Items.Clear();
             foreach (var item in Currentlist)
             {
                 listBox1.Items.Add($"{item.Brand}" + " " + $"{item.Type}\n");
             }
-
         }
 
         private void SearchBar_TextChanged(object sender, EventArgs e)
@@ -54,7 +54,6 @@ namespace WinFormsApp
                 if (Currentlist.Count == 0)
 
                 {
-
                     lblBrand.Text = "";
                     lblType.Text = "";
                     lblPrice.Text = "";
@@ -71,7 +70,6 @@ namespace WinFormsApp
                     lblStock.Text = SelectedPhone.Stock.ToString();
                     tbDescription.Text = SelectedPhone.Description;
                 }
-
             }
             else
             {
@@ -83,7 +81,6 @@ namespace WinFormsApp
 
                 lblStock.Text = SelectedPhone.Stock.ToString();
                 tbDescription.Text = SelectedPhone.Description;
-
             }
             ListChanged(this, EventArgs.Empty);
         }
@@ -102,12 +99,10 @@ namespace WinFormsApp
 
                     lblStock.Text = SelectedPhone.Stock.ToString();
                     tbDescription.Text = SelectedPhone.Description;
-
                 }
             }
             else
             {
-
                 lblBrand.Text = "";
                 lblType.Text = "";
                 lblPrice.Text = "";
@@ -116,6 +111,5 @@ namespace WinFormsApp
                 tbDescription.Text = "";
             }
         }
-
     }
 }
