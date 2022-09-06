@@ -26,4 +26,8 @@
     <ProjectReference Include="..\Phoneshop.Domain\Phoneshop.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PhoneServiceTests\" />
+  </ItemGroup>
+
 </Project>

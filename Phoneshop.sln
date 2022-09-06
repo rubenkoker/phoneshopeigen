@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phoneshop.Business", "Phone
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phoneshop.Domain", "Phoneshop.Domain\Phoneshop.Domain.csproj", "{7BE3D8CD-83BA-4F31-9C10-2404D6A54810}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneshopTest", "PhoneshopTest\PhoneshopTest.csproj", "{568CE3E1-DAC9-49CE-87F5-8125551DE12D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phoneshop.Business,Test", "PhoneshopTest\Phoneshop.Business,Test.csproj", "{568CE3E1-DAC9-49CE-87F5-8125551DE12D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phoneshop.WinForms", "WinFormsApp\Phoneshop.WinForms.csproj", "{A3CD2967-7B4F-491B-B04D-01EE643A5161}"
 EndProject
@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{40BEF4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{78C07CAE-A0CA-4732-999E-2C3D76A0BFF9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PhonserviceTest", "PhonserviceTest", "{95B7B2B6-BDE5-4270-8210-428D4E10E45A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Phoneshop.Business.Test", "Phoneshop.Business.Test", "{95B7B2B6-BDE5-4270-8210-428D4E10E45A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
