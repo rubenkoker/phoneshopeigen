@@ -2,7 +2,7 @@ namespace PhoneshopTest
 {
     using Phoneshop.Business;
     using Phoneshop.Domain.Models;
-
+    using System.Diagnostics;
     public class Phonshopservicetest
     {
         [Fact]
@@ -11,8 +11,9 @@ namespace PhoneshopTest
             //arrange
             PhoneService phoneService = new();
             //act
-            Phone phone = phoneService.GetPhoneById(3);
+            Phone phone = phoneService.GetPhoneById(12);
             //asses
+            Debug.WriteLine(phone.Type);
             Assert.Equal("IPhone 11", phone.Type);
         }
 

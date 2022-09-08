@@ -11,9 +11,9 @@ namespace PhoneshopTest
             //arrange
             PhoneService phoneService = new();
             //act
-            List<Phone> phone = phoneService.SearchPhonesByString("");
+            List<Phone> phone = phoneService.SearchPhonesByString("cam");
             //asses
-            Assert.Equal(0, phone.Count());
+            Assert.Equal(4, phone.Count());
         }
     }
 }
