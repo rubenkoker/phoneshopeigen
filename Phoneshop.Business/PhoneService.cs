@@ -130,4 +130,30 @@ public class PhoneService : IPhoneService
         return _result;
 
     }
+    public void AddPhone(Phone input)
+    {
+        Phone _result = new();
+        string queryString = @$"INSERT INTO phones (Brand, Type, Description, Price,Stock)
+                                VALUES ({input.Brand}, {input.Type}, {input.Description}.,{input.Stock}); ' ; ";
+        string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=phoneshop;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+        using (SqlConnection connection = new SqlConnection(
+                   connectionString))
+        {
+            SqlCommand command = new SqlCommand(queryString, connection);
+            command.Connection.Open();
+            command.ExecuteNonQuery();
+            SqlDataReader reader = command.ExecuteReader();
+
+            // Call Read before accessing data.
+
+
+
+            // Call Close when done reading.
+            reader.Close();
+        }
+
+
+
+    }
 }
