@@ -17,7 +17,7 @@ while (true)
     {
         Console.WriteLine("Wat wil je zoeken?");
         string searchQuery = Console.ReadLine();
-        List<Phone> answer = phoneservice.SearchPhonesByString(searchQuery);
+        List<Phone> answer = phoneservice.Search(searchQuery);
 
         while (true)
         {

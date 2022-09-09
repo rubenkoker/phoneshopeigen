@@ -12,7 +12,7 @@ namespace PhoneshopTest
             //arrange
             PhoneService phoneService = new();
             //act
-            List<Phone> phone = phoneService.SearchPhonesByString("camera");
+            List<Phone> phone = phoneService.Search("camera");
             //asses
             Debug.WriteLine(phone);
             Assert.Equal(4, phone.Count());

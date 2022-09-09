@@ -8,6 +8,6 @@ namespace Phoneshop.Domain.Interfaces
 
         List<Phone> GetAllPhones();
 
-        List<Phone> SearchPhonesByString(string input);
+        List<Phone> Search(string input);
     }
 }

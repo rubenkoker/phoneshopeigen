@@ -50,7 +50,7 @@ namespace WinFormsApp
         {
             if (SearchBar.Text.Length > 3)
             {
-                Currentlist = phoneservice.SearchPhonesByString(SearchBar.Text);
+                Currentlist = phoneservice.Search(SearchBar.Text);
                 if (Currentlist.Count == 0)
 
                 {

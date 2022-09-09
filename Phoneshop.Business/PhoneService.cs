@@ -6,18 +6,13 @@ namespace Phoneshop.Business;
 
 public class PhoneService : IPhoneService
 {
-    private string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=phoneshop;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-    /// <summary>
-    /// returns the phone corresponding to the ID
-    /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
+    private readonly string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=phoneshop;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
     public Phone? GetPhoneById(int input)
     {
-        Phone _result = new();
+        Phone? _result = new();
         string queryString = @$"SELECT * FROM Phones
                                 WHERE Id = {input} ; ";
-
 
         using (SqlConnection connection = new SqlConnection(
                    _connectionString))
@@ -36,7 +31,7 @@ public class PhoneService : IPhoneService
                     Brand = reader.GetString(reader.GetOrdinal("Brand")),
                     Type = reader.GetString(reader.GetOrdinal("Type")),
                     Description = reader.GetString(reader.GetOrdinal("Description")),
-                    Price = (Decimal)reader.GetSqlDecimal(reader.GetOrdinal("Price")),
+                    Price = (decimal)reader.GetSqlDecimal(reader.GetOrdinal("Price")),
                     Stock = reader.GetInt32(reader.GetOrdinal("Stock")),
 
                 });
@@ -62,7 +57,6 @@ public class PhoneService : IPhoneService
         List<Phone> _result = new();
         string queryString = "SELECT * FROM Phones";
 
-
         using (SqlConnection connection = new SqlConnection(
                    _connectionString))
         {
@@ -80,7 +74,7 @@ public class PhoneService : IPhoneService
                     Brand = reader.GetString(reader.GetOrdinal("Brand")),
                     Type = reader.GetString(reader.GetOrdinal("Type")),
                     Description = reader.GetString(reader.GetOrdinal("Description")),
-                    Price = (Decimal)reader.GetSqlDecimal(reader.GetOrdinal("Price")),
+                    Price = (decimal)reader.GetSqlDecimal(reader.GetOrdinal("Price")),
                     Stock = reader.GetInt32(reader.GetOrdinal("Stock")),
 
                 });
@@ -93,12 +87,7 @@ public class PhoneService : IPhoneService
         return _result;
     }
 
-    /// <summary>
-    ///search function fot hte phone list (non case sensitive)
-    /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
-    public List<Phone>? SearchPhonesByString(string input)
+    public List<Phone>? Search(string input)
     {
         if (input == "")
         {
@@ -108,7 +97,6 @@ public class PhoneService : IPhoneService
         string queryString = @$"SELECT * FROM Phones
                                 WHERE Brand LIKE '%{input}%' OR Type LIKE '%{input}%' OR Description LIKE '%{input}%' ; ";
 
-
         using (SqlConnection connection = new SqlConnection(
                    _connectionString))
         {
@@ -126,7 +114,7 @@ public class PhoneService : IPhoneService
                     Brand = reader.GetString(reader.GetOrdinal("Brand")),
                     Type = reader.GetString(reader.GetOrdinal("Type")),
                     Description = reader.GetString(reader.GetOrdinal("Description")),
-                    Price = (Decimal)reader.GetSqlDecimal(reader.GetOrdinal("Price")),
+                    Price = (decimal)reader.GetSqlDecimal(reader.GetOrdinal("Price")),
                     Stock = reader.GetInt32(reader.GetOrdinal("Stock")),
 
                 });
@@ -139,26 +127,32 @@ public class PhoneService : IPhoneService
         return _result;
 
     }
-    public void AddPhone(Phone input)
+    public bool AddPhone(Phone input)
     {
-        Phone _result = new();
-        string queryString = @$"INSERT INTO phones (Brand, Type, Description, Price,Stock)
-                                VALUES ({input.Brand}, {input.Type}, {input.Description}.,{input.Stock}); ' ; ";
 
+        Phone _phone = new();
+        string queryString = @$"INSERT INTO phones (Brand, Type, Description, Price,Stock)
+                                VALUES ('{input.Brand}', {input.Type}, '{input.Description}',{input.Price},{input.Stock});";
 
         using (SqlConnection connection = new SqlConnection(
                    _connectionString))
         {
             SqlCommand command = new SqlCommand(queryString, connection);
             command.Connection.Open();
-            command.ExecuteNonQuery();
-            SqlDataReader reader = command.ExecuteReader();
+            int _commandresult = command.ExecuteNonQuery();
 
             // Call Read before accessing data.
 
             // Call Close when done reading.
-            reader.Close();
+
+            if (_commandresult > 0)
+            {
+                return true;
+            }
+            return false;
+
         }
 
     }
+
 }
