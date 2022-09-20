@@ -55,7 +55,7 @@ public class PhoneService : IPhoneService
     public List<Phone> GetAllPhones()
     {
         List<Phone> _result = new();
-        string queryString = "SELECT * FROM Phones";
+        string queryString = "SELECT Phones.Description,Phones.Id,Phones.Stock,Phones.Price, Brands.Name, Phones.Type FROM Phones INNER JOIN Brands ON Phones.Brands = Brands.ID; ";
 
         using (SqlConnection connection = new SqlConnection(
                    _connectionString))
@@ -71,7 +71,7 @@ public class PhoneService : IPhoneService
                 _result.Add(new Phone()
                 {
                     Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                    Brand = reader.GetString(reader.GetOrdinal("Brand")),
+                    Brand = reader.GetString(reader.GetOrdinal("Name")),
                     Type = reader.GetString(reader.GetOrdinal("Type")),
                     Description = reader.GetString(reader.GetOrdinal("Description")),
                     Price = (decimal)reader.GetSqlDecimal(reader.GetOrdinal("Price")),
