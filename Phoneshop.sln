@@ -23,6 +23,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{78C07CAE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Phoneshop.Business.Test", "Phoneshop.Business.Test", "{95B7B2B6-BDE5-4270-8210-428D4E10E45A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "'ImportTool.ConsoleApp", "'ImportTool.ConsoleApp\'ImportTool.ConsoleApp.csproj", "{8C22447B-1625-4308-B331-020EEA9165EA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{A43CF2FE-DEF6-4B12-A831-ED4E7EDCE041}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,10 @@ Global
 		{A3CD2967-7B4F-491B-B04D-01EE643A5161}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3CD2967-7B4F-491B-B04D-01EE643A5161}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3CD2967-7B4F-491B-B04D-01EE643A5161}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C22447B-1625-4308-B331-020EEA9165EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C22447B-1625-4308-B331-020EEA9165EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C22447B-1625-4308-B331-020EEA9165EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C22447B-1625-4308-B331-020EEA9165EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +68,7 @@ Global
 		{568CE3E1-DAC9-49CE-87F5-8125551DE12D} = {95B7B2B6-BDE5-4270-8210-428D4E10E45A}
 		{A3CD2967-7B4F-491B-B04D-01EE643A5161} = {DF45A3DC-E4AA-404E-8ECB-A13D9760A24C}
 		{95B7B2B6-BDE5-4270-8210-428D4E10E45A} = {78C07CAE-A0CA-4732-999E-2C3D76A0BFF9}
+		{8C22447B-1625-4308-B331-020EEA9165EA} = {A43CF2FE-DEF6-4B12-A831-ED4E7EDCE041}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FDCDB718-2B6A-4AE9-ABB1-A1A2A0FD94A3}

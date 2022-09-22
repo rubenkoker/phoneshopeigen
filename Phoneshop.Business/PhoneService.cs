@@ -1,6 +1,7 @@
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace Phoneshop.Business;
 
@@ -94,9 +95,13 @@ public class PhoneService : IPhoneService
             return null;
         }
         List<Phone> _result = new();
-        string queryString = @$"SELECT * FROM Phones
-                                WHERE Brand LIKE '%{input}%' OR Type LIKE '%{input}%' OR Description LIKE '%{input}%' ; ";
-
+        // string queryString = @$"SELECT * FROM Phones
+        //  WHERE Brand LIKE '%{input}%' OR Type LIKE '%{input}%' OR Description LIKE '%{input}%' ; ";
+        string queryString = @$"SELECT Brands.name ,Phones.type,Phones.Description,Phones.Price,Phones.Stock,Phones.Id
+FROM Phones
+INNER JOIN Brands ON Phones.Brands=Brands.ID
+WHERE Brands.name LIKE '%{input}%' OR Type LIKE '%{input}%' OR Description LIKE '%{input}%';";
+        Debug.WriteLine(queryString);
         using (SqlConnection connection = new SqlConnection(
                    _connectionString))
         {
@@ -111,7 +116,7 @@ public class PhoneService : IPhoneService
                 _result.Add(new Phone()
                 {
                     Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                    Brand = reader.GetString(reader.GetOrdinal("Brand")),
+                    Brand = reader.GetString(reader.GetOrdinal("Name")),
                     Type = reader.GetString(reader.GetOrdinal("Type")),
                     Description = reader.GetString(reader.GetOrdinal("Description")),
                     Price = (decimal)reader.GetSqlDecimal(reader.GetOrdinal("Price")),
@@ -131,9 +136,12 @@ public class PhoneService : IPhoneService
     {
 
         Phone _phone = new();
-        string queryString = @$"INSERT INTO phones (Brand, Type, Description, Price,Stock)
-                                VALUES ('{input.Brand}', {input.Type}, '{input.Description}',{input.Price},{input.Stock});";
-
+        // string queryString = @$"INSERT INTO phones (Brand, Type, Description, Price,Stock)
+        ///                        VALUES ('{input.Brand}', {input.Type}, '{input.Description}',{input.Price},{input.Stock});";
+        string queryString = @"INSERT INTO phones (Price,Brands, Type, Description) 
+  VALUES('40.00',7,'playmobiel','Hello world!');
+INSERT INTO Brands ( Name)
+  VALUES('test');";
         using (SqlConnection connection = new SqlConnection(
                    _connectionString))
         {
@@ -154,5 +162,23 @@ public class PhoneService : IPhoneService
         }
 
     }
+    // public List<Phone> XMLRead(string path)
+    //{
+    ///   XDocument xml = XDocument.Load(path);
+
+    //  foreach (var node in xml.Nodes)
+    //  {
+    //   if (node is XText)
+    //   {
+
+    //           MessageBox.Show(((XText) node).Value);
+    //        some code...
+    //    }
+    //  if (node is XElement)
+    ///   {
+    //       some code for XElement...
+    //   }
+    //     }
+    //   }
 
 }
