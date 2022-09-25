@@ -56,14 +56,15 @@ public class PhoneService : IPhoneService
     public List<Phone> GetAllPhones()
     {
         List<Phone> _result = new();
-        string queryString = "SELECT Phones.Description,Phones.Id,Phones.Stock,Phones.Price, Brands.Name, Phones.Type FROM Phones INNER JOIN Brands ON Phones.Brands = Brands.ID; ";
+        string queryString = "SELECT Phones.Description,Phones.Id,Phones.Stock,Phones.Price,Brands.Name,Phones.Type FROM Phones INNER JOIN Brands ON Phones.Brands = Brands.ID; ";
 
         using (SqlConnection connection = new SqlConnection(
                    _connectionString))
         {
+            Debug.WriteLine(queryString);
             SqlCommand command = new SqlCommand(queryString, connection);
             command.Connection.Open();
-            command.ExecuteNonQuery();
+
             SqlDataReader reader = command.ExecuteReader();
 
             // Call Read before accessing data.
@@ -136,19 +137,20 @@ WHERE Brands.name LIKE '%{input}%' OR Type LIKE '%{input}%' OR Description LIKE 
     {
 
         Phone _phone = new();
+
         // string queryString = @$"INSERT INTO phones (Brand, Type, Description, Price,Stock)
         ///                        VALUES ('{input.Brand}', {input.Type}, '{input.Description}',{input.Price},{input.Stock});";
-        string queryString = @"INSERT INTO phones (Price,Brands, Type, Description) 
-  VALUES('40.00',7,'playmobiel','Hello world!');
-INSERT INTO Brands ( Name)
-  VALUES('test');";
+        string queryString = @$"INSERT INTO phones (Price,Brands, Type, Description,stock) 
+  VALUES({input.Price},7,'{input.Type}','{input.Description}','{input.Stock}');
+";
+        Debug.WriteLine(queryString);
         using (SqlConnection connection = new SqlConnection(
                    _connectionString))
         {
             SqlCommand command = new SqlCommand(queryString, connection);
             command.Connection.Open();
             int _commandresult = command.ExecuteNonQuery();
-
+            Debug.WriteLine(queryString);
             // Call Read before accessing data.
 
             // Call Close when done reading.
