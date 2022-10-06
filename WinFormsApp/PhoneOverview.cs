@@ -111,5 +111,33 @@ namespace WinFormsApp
                 tbDescription.Text = "";
             }
         }
+
+        private void MinusButton_Click(object sender, EventArgs e)
+        {
+            DialogResult res = MessageBox.Show("Are you sure you want to Delete", "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (res == DialogResult.OK)
+            {
+                MessageBox.Show("You have clicked Ok Button");
+                if (listBox1.SelectedIndex > 0)
+                {
+                    int index = listBox1.SelectedIndex;
+                    Phone SelectedPhone = Currentlist[index];
+                    phoneservice.RemovePhone(SelectedPhone.Id);
+                    Currentlist = phoneservice.GetAllPhones();
+                    ListChanged(this, EventArgs.Empty);
+                    MessageBox.Show(SelectedPhone.Id.ToString());
+                }
+                else
+                {
+                    MessageBox.Show("selecteer een telefoon");
+                }
+
+            }
+            if (res == DialogResult.Cancel)
+            {
+                MessageBox.Show("You have clicked Cancel Button");
+                //Some task…
+            }
+        }
     }
 }

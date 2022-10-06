@@ -2,6 +2,7 @@ using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Xml;
 
 namespace Phoneshop.Business;
 
@@ -34,7 +35,6 @@ public class PhoneService : IPhoneService
                     Description = reader.GetString(reader.GetOrdinal("Description")),
                     Price = (decimal)reader.GetSqlDecimal(reader.GetOrdinal("Price")),
                     Stock = reader.GetInt32(reader.GetOrdinal("Stock")),
-
                 });
             }
             else
@@ -46,7 +46,6 @@ public class PhoneService : IPhoneService
         }
 
         return _result;
-
     }
 
     /// <summary>
@@ -78,7 +77,6 @@ public class PhoneService : IPhoneService
                     Description = reader.GetString(reader.GetOrdinal("Description")),
                     Price = (decimal)reader.GetSqlDecimal(reader.GetOrdinal("Price")),
                     Stock = reader.GetInt32(reader.GetOrdinal("Stock")),
-
                 });
             }
 
@@ -122,7 +120,6 @@ WHERE Brands.name LIKE '%{input}%' OR Type LIKE '%{input}%' OR Description LIKE 
                     Description = reader.GetString(reader.GetOrdinal("Description")),
                     Price = (decimal)reader.GetSqlDecimal(reader.GetOrdinal("Price")),
                     Stock = reader.GetInt32(reader.GetOrdinal("Stock")),
-
                 });
             }
 
@@ -131,56 +128,142 @@ WHERE Brands.name LIKE '%{input}%' OR Type LIKE '%{input}%' OR Description LIKE 
         }
 
         return _result;
-
     }
+
     public bool AddPhone(Phone input)
     {
 
-        Phone _phone = new();
+        string CheckQuery = @$"SELECT ID
+FROM Brands
+WHERE Name = '{input.Brand}'; ";
+        Debug.WriteLine(CheckQuery);
+        bool BrandExists = false;
+        Debug.WriteLine(CheckQuery);
+        BrandExists = DoesBrandExist(CheckQuery, BrandExists);
+        if (!BrandExists)
+        {
+            NewMethod(input);
+        }
+        int brandID;
 
-        // string queryString = @$"INSERT INTO phones (Brand, Type, Description, Price,Stock)
-        ///                        VALUES ('{input.Brand}', {input.Type}, '{input.Description}',{input.Price},{input.Stock});";
-        string queryString = @$"INSERT INTO phones (Price,Brands, Type, Description,stock) 
+        using (SqlConnection connection = new SqlConnection(
+              _connectionString))
+        {
+            string GetBrandIDQueryString = @$"SELECT ID FROM Brands Where Name ='{input.Brand}'";
+            Debug.WriteLine("nee" + GetBrandIDQueryString);
+            SqlCommand command = new SqlCommand(GetBrandIDQueryString, connection);
+
+            command.Connection.Open();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            // Call Read before accessing data.
+            if (reader.Read())
+            {
+                brandID = reader.GetInt32(reader.GetOrdinal("Id"));
+            }
+
+            string queryString = @$"INSERT INTO phones (Price,Brands, Type, Description,stock)
   VALUES({input.Price},7,'{input.Type}','{input.Description}','{input.Stock}');
 ";
-        Debug.WriteLine(queryString);
+            Debug.WriteLine(queryString);
+            using (SqlConnection insertconnection = new SqlConnection(
+                       _connectionString))
+            {
+                SqlCommand getcommand = new SqlCommand(queryString, insertconnection);
+                getcommand.Connection.Open();
+                int _commandresult = getcommand.ExecuteNonQuery();
+                Debug.WriteLine(queryString);
+                // Call Read before accessing data.
+
+                // Call Close when done reading.
+
+                if (_commandresult > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+    }
+    List<Phone> XMLRead(string path)
+    {
+        //https://www.youtube.com/watch?v=4dPWkEARptI
+        XmlDocument xml = new();
+        xml.Load(path);
+        XmlNodeList cList = xml.GetElementsByTagName("Phone");
+        foreach (XmlNode c in cList)
+        {
+
+            Phone phone = new Phone();
+            phone.Brand = c["Brand"].Value;
+            phone.Description = c["Description"].Value;
+            phone.Stock = Int32.Parse(c["Stock"].Value);
+            phone.Price = Int32.Parse(c["Price"].Value);
+            phone.Type = c["Type"].Value;
+        }
+        return null;
+    }
+    private void NewMethod(Phone input)
+    {
+        string BrandQueryString = @$"INSERT INTO Brands (Name)
+  VALUES('{input.Brand}')";
+        Debug.WriteLine("yee" + BrandQueryString);
+        using (SqlConnection connection = new SqlConnection(
+              _connectionString))
+        {
+            SqlCommand InsertBrandcommand = new SqlCommand(BrandQueryString, connection);
+            InsertBrandcommand.Connection.Open();
+            int _commandresult = InsertBrandcommand.ExecuteNonQuery();
+            Debug.WriteLine(BrandQueryString);
+            // Call Read before accessing data.
+
+            // Call Close when done reading.
+        }
+    }
+    public bool RemovePhone(int input)
+    {
+        bool IsRemoved = false;
+        string queryString = @$"DELETE FROM Phones
+                                WHERE Id = {input} ; ";
+
         using (SqlConnection connection = new SqlConnection(
                    _connectionString))
         {
             SqlCommand command = new SqlCommand(queryString, connection);
             command.Connection.Open();
-            int _commandresult = command.ExecuteNonQuery();
-            Debug.WriteLine(queryString);
+
+            int number = command.ExecuteNonQuery();
+            if (number > 0)
+            {
+                IsRemoved = true;
+            }
+            // Call Read before accessing data.
+
+        }
+        return IsRemoved;
+    }
+
+    private bool DoesBrandExist(string CheckQuery, bool BrandExists)
+    {
+        using (SqlConnection connection = new SqlConnection(
+                                   _connectionString))
+        {
+            SqlCommand getIDcommand = new SqlCommand(CheckQuery, connection);
+            getIDcommand.Connection.Open();
+            var _commandresult = getIDcommand.ExecuteReader();
+            Debug.WriteLine(_commandresult);
             // Call Read before accessing data.
 
             // Call Close when done reading.
 
-            if (_commandresult > 0)
+            if (_commandresult.Read())
             {
-                return true;
+                BrandExists = true;
             }
-            return false;
-
         }
 
+        return BrandExists;
     }
-    // public List<Phone> XMLRead(string path)
-    //{
-    ///   XDocument xml = XDocument.Load(path);
-
-    //  foreach (var node in xml.Nodes)
-    //  {
-    //   if (node is XText)
-    //   {
-
-    //           MessageBox.Show(((XText) node).Value);
-    //        some code...
-    //    }
-    //  if (node is XElement)
-    ///   {
-    //       some code for XElement...
-    //   }
-    //     }
-    //   }
-
 }

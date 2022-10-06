@@ -42,6 +42,8 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.tbDescription = new System.Windows.Forms.RichTextBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.PlusButton = new System.Windows.Forms.Button();
+            this.MinusButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // SearchBar
@@ -168,15 +170,36 @@
             this.listBox1.ItemHeight = 20;
             this.listBox1.Location = new System.Drawing.Point(23, 66);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(369, 364);
+            this.listBox1.Size = new System.Drawing.Size(369, 344);
             this.listBox1.TabIndex = 15;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.PanelClicked);
+            // 
+            // PlusButton
+            // 
+            this.PlusButton.Location = new System.Drawing.Point(59, 416);
+            this.PlusButton.Name = "PlusButton";
+            this.PlusButton.Size = new System.Drawing.Size(94, 29);
+            this.PlusButton.TabIndex = 16;
+            this.PlusButton.Text = "+";
+            this.PlusButton.UseVisualStyleBackColor = true;
+            // 
+            // MinusButton
+            // 
+            this.MinusButton.Location = new System.Drawing.Point(197, 416);
+            this.MinusButton.Name = "MinusButton";
+            this.MinusButton.Size = new System.Drawing.Size(94, 29);
+            this.MinusButton.TabIndex = 17;
+            this.MinusButton.Text = "-";
+            this.MinusButton.UseVisualStyleBackColor = true;
+            this.MinusButton.Click += new System.EventHandler(this.MinusButton_Click);
             // 
             // PhoneOverview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.MinusButton);
+            this.Controls.Add(this.PlusButton);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.tbDescription);
             this.Controls.Add(this.btnExit);
@@ -214,5 +237,7 @@
         private Button btnExit;
         private RichTextBox tbDescription;
         private ListBox listBox1;
+        private Button PlusButton;
+        private Button MinusButton;
     }
 }
