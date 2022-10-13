@@ -27,10 +27,13 @@ public class PhoneService : IPhoneService
             // Call Read before accessing data.
             if (reader.Read())
             {
+                Brand brand = new Brand();
+                brand.Name = reader.GetString(reader.GetOrdinal("Brand"));
                 _result = (new Phone()
                 {
                     Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                    Brand = reader.GetString(reader.GetOrdinal("Brand")),
+
+                    Brand = brand,
                     Type = reader.GetString(reader.GetOrdinal("Type")),
                     Description = reader.GetString(reader.GetOrdinal("Description")),
                     Price = (decimal)reader.GetSqlDecimal(reader.GetOrdinal("Price")),
@@ -69,10 +72,12 @@ public class PhoneService : IPhoneService
             // Call Read before accessing data.
             while (reader.Read())
             {
+                Brand brand = new();
+                brand.Name = reader.GetString(reader.GetOrdinal("Name"));
                 _result.Add(new Phone()
                 {
                     Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                    Brand = reader.GetString(reader.GetOrdinal("Name")),
+                    Brand = brand,
                     Type = reader.GetString(reader.GetOrdinal("Type")),
                     Description = reader.GetString(reader.GetOrdinal("Description")),
                     Price = (decimal)reader.GetSqlDecimal(reader.GetOrdinal("Price")),
@@ -112,10 +117,12 @@ WHERE Brands.name LIKE '%{input}%' OR Type LIKE '%{input}%' OR Description LIKE 
             // Call Read before accessing data.
             while (reader.Read())
             {
+                Brand brand = new Brand();
+                brand.Name = reader.GetString(reader.GetOrdinal("Name"));
                 _result.Add(new Phone()
                 {
                     Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                    Brand = reader.GetString(reader.GetOrdinal("Name")),
+                    Brand = brand,
                     Type = reader.GetString(reader.GetOrdinal("Type")),
                     Description = reader.GetString(reader.GetOrdinal("Description")),
                     Price = (decimal)reader.GetSqlDecimal(reader.GetOrdinal("Price")),
@@ -197,7 +204,7 @@ WHERE Name = '{input.Brand}'; ";
         {
 
             Phone phone = new Phone();
-            phone.Brand = c["Brand"].Value;
+            phone.Brand.Name = c["Brand"].Value;
             phone.Description = c["Description"].Value;
             phone.Stock = Int32.Parse(c["Stock"].Value);
             phone.Price = Int32.Parse(c["Price"].Value);

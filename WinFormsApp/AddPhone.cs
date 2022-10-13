@@ -23,7 +23,7 @@ namespace Phoneshop.WinForms
         private void DoneButton_Click(object sender, EventArgs e)
         {
             Phone phone = new();
-            phone.Brand = BrandtextBox.Text;
+            phone.Brand.Name = BrandtextBox.Text;
             decimal price;
             if (Decimal.TryParse(PricetextBox.Text, out price))
                 phone.Price = price;

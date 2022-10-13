@@ -6,7 +6,8 @@
     public class Phone
     {
         public int Id { get; set; }
-        public string Brand { get; set; } = string.Empty;
+        public int BrandID;
+        public Brand Brand { get; set; } = new Brand();
         public string Type { get; set; } = String.Empty;
         public string Description { get; set; } = String.Empty;
         public decimal Price { get; set; }

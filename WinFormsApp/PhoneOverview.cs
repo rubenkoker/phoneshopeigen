@@ -24,7 +24,7 @@ namespace WinFormsApp
                 listBox1.Items.Add($"{item.Brand} {item.Type}");
             }
             Phone SelectedPhone = Currentlist[0];
-            lblBrand.Text = SelectedPhone.Brand;
+            lblBrand.Text = SelectedPhone.Brand.Name;
             lblType.Text = SelectedPhone.Type;
             lblPrice.Text = SelectedPhone.Price.ToString();
 
@@ -63,7 +63,7 @@ namespace WinFormsApp
                 else
                 {
                     Phone SelectedPhone = Currentlist[0];
-                    lblBrand.Text = SelectedPhone.Brand;
+                    lblBrand.Text = SelectedPhone.Brand.Name;
                     lblType.Text = SelectedPhone.Type;
                     lblPrice.Text = SelectedPhone.Price.ToString();
 
@@ -75,7 +75,7 @@ namespace WinFormsApp
             {
                 Currentlist = Baselist;
                 Phone SelectedPhone = Currentlist[0];
-                lblBrand.Text = SelectedPhone.Brand;
+                lblBrand.Text = SelectedPhone.Brand.Name;
                 lblType.Text = SelectedPhone.Type;
                 lblPrice.Text = SelectedPhone.Price.ToString();
 
@@ -93,7 +93,7 @@ namespace WinFormsApp
                 if (index < Currentlist.Count())
                 {
                     Phone SelectedPhone = Currentlist[index];
-                    lblBrand.Text = SelectedPhone.Brand;
+                    lblBrand.Text = SelectedPhone.Brand.Name;
                     lblType.Text = SelectedPhone.Type;
                     lblPrice.Text = SelectedPhone.Price.ToString();
 
