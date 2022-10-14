@@ -72,7 +72,7 @@ while (true)
             }
             if (chosen != null)
             {
-                Console.WriteLine($"{chosen.Brand} {chosen.Type}  €{chosen.Price} €\" {decimal.Round(chosen.VATFreePrice(), 2)} \"\n\n{chosen.Description}");
+                Console.WriteLine($"{chosen.Brand.Name} {chosen.Type}  €{chosen.Price} €\" {decimal.Round(chosen.VATFreePrice(), 2)} \"\n\n{chosen.Description}");
             }
         }
         else
@@ -91,7 +91,7 @@ void DisplayPhones()
     int count = list.Count + 1;
     foreach (var item in list)
     {
-        Console.WriteLine($"{item.Id}" + " " + $"{item.Brand}" + " " + $"{item.Type}");
+        Console.WriteLine($"{item.Id}" + " " + $"{item.Brand.Name}" + " " + $"{item.Type}");
     }
     Console.WriteLine($"druk op {count} om te stoppen");
     Console.WriteLine("type productnummer\n");

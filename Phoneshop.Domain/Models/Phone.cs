@@ -6,7 +6,7 @@
     public class Phone
     {
         public int Id { get; set; }
-        public int BrandID;
+        public int BrandID { get; set; }
         public Brand Brand { get; set; } = new Brand();
         public string Type { get; set; } = String.Empty;
         public string Description { get; set; } = String.Empty;
@@ -19,10 +19,10 @@
 
         public override string ToString()
         {
-            return $"Brand: {Brand}\nType:{Type}\nPrice:{Price}\nPricewihout VAT:{Decimal.Round(VATFreePrice(), 2)}\n\"";
+            return $"Brand: {Brand.Name}\nType:{Type}\nPrice:{Price}\nPricewihout VAT:{Decimal.Round(VATFreePrice(), 2)}\n\"";
         }
 
-        public string FullName => $" {Brand} {Type}";
+        public string FullName => $" {Brand.Name} {Type}";
 
         public int Stock { get; set; }
     }

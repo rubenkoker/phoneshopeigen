@@ -21,7 +21,7 @@ namespace WinFormsApp
 
             foreach (var item in Baselist)
             {
-                listBox1.Items.Add($"{item.Brand} {item.Type}");
+                listBox1.Items.Add($"{item.Brand.Name} {item.Type}");
             }
             Phone SelectedPhone = Currentlist[0];
             lblBrand.Text = SelectedPhone.Brand.Name;

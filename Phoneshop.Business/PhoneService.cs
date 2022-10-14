@@ -58,7 +58,7 @@ public class PhoneService : IPhoneService
     public List<Phone> GetAllPhones()
     {
         List<Phone> _result = new();
-        string queryString = "SELECT Phones.Description,Phones.Id,Phones.Stock,Phones.Price,Brands.Name,Phones.Type FROM Phones INNER JOIN Brands ON Phones.Brands = Brands.ID; ";
+        string queryString = "SELECT Phones.Description,Phones.Id,Phones.Stock,Phones.Price,Brands.Name,Phones.Type FROM Phones INNER JOIN Brands ON Phones.BrandID = Brands.ID; ";
 
         using (SqlConnection connection = new SqlConnection(
                    _connectionString))
@@ -101,16 +101,17 @@ public class PhoneService : IPhoneService
         List<Phone> _result = new();
         // string queryString = @$"SELECT * FROM Phones
         //  WHERE Brand LIKE '%{input}%' OR Type LIKE '%{input}%' OR Description LIKE '%{input}%' ; ";
-        string queryString = @$"SELECT Brands.name ,Phones.type,Phones.Description,Phones.Price,Phones.Stock,Phones.Id
+        string queryString = @$"SELECT Brands.Name ,Phones.type,Phones.Description,Phones.Price,Phones.Stock,Phones.Id
 FROM Phones
-INNER JOIN Brands ON Phones.Brands=Brands.ID
-WHERE Brands.name LIKE '%{input}%' OR Type LIKE '%{input}%' OR Description LIKE '%{input}%';";
+INNER JOIN Brands ON Phones.BrandID=Brands.ID
+WHERE Brands.Name LIKE '%{input}%' OR Type LIKE '%{input}%' OR Description LIKE '%{input}%';";
         Debug.WriteLine(queryString);
         using (SqlConnection connection = new SqlConnection(
                    _connectionString))
         {
             SqlCommand command = new SqlCommand(queryString, connection);
             command.Connection.Open();
+            Debug.WriteLine(command.CommandText);
             command.ExecuteNonQuery();
             SqlDataReader reader = command.ExecuteReader();
 
