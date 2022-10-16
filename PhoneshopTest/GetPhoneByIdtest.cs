@@ -3,7 +3,7 @@ namespace PhoneshopTest
     using Phoneshop.Business;
     using Phoneshop.Domain.Models;
     using System.Diagnostics;
-    public class Phonshopservicetest
+    public class GetPhoneByIdtest
     {
         [Fact]
         public void GetByIDTest_ShouldReturnIphone()

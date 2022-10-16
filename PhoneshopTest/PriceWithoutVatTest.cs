@@ -9,12 +9,12 @@ namespace Phoneshop.Business.Test
         {
             //arrange
             var phone = new Phone();
-            phone.Brand = "redphone";
+            phone.Brand.Name = "redphone";
             phone.Price = 100;
 
             //act
-            var priceWithoutVat = phone.PriceWithoutVat();
 
+            var priceWithoutVat = phone.VATFreePrice();
 
             //asses
             Assert.Equal(121, priceWithoutVat);
