@@ -182,6 +182,7 @@
             this.PlusButton.TabIndex = 16;
             this.PlusButton.Text = "+";
             this.PlusButton.UseVisualStyleBackColor = true;
+            this.PlusButton.Click += new System.EventHandler(this.PlusButton_Click);
             // 
             // MinusButton
             // 

@@ -1,5 +1,6 @@
 using Phoneshop.Business;
 using Phoneshop.Domain.Models;
+using Phoneshop.WinForms;
 
 namespace WinFormsApp
 {
@@ -138,6 +139,13 @@ namespace WinFormsApp
                 MessageBox.Show("You have clicked Cancel Button");
                 //Some task…
             }
+        }
+
+        private void PlusButton_Click(object sender, EventArgs e)
+        {
+            AddPhone addPhone = new AddPhone();
+            addPhone.Show();
+
         }
     }
 }

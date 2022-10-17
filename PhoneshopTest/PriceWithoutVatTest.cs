@@ -10,14 +10,14 @@ namespace Phoneshop.Business.Test
             //arrange
             var phone = new Phone();
             phone.Brand.Name = "redphone";
-            phone.Price = 100;
+            phone.Price = 121;
 
             //act
 
             var priceWithoutVat = phone.VATFreePrice();
 
             //asses
-            Assert.Equal(121, priceWithoutVat);
+            Assert.Equal(100, priceWithoutVat);
         }
     }
 }

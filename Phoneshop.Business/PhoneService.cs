@@ -9,6 +9,11 @@ namespace Phoneshop.Business;
 public class PhoneService : IPhoneService
 {
     private readonly string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=phoneshop;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+    BrandService _brandService;
+    public PhoneService()
+    {
+        _brandService = new BrandService();
+    }
 
     public Phone? GetPhoneById(int input)
     {
@@ -147,10 +152,10 @@ WHERE Name = '{input.Brand}'; ";
         Debug.WriteLine(CheckQuery);
         bool BrandExists = false;
         Debug.WriteLine(CheckQuery);
-        BrandExists = DoesBrandExist(CheckQuery, BrandExists);
+        BrandExists = _brandService.DoesBrandExist(CheckQuery, BrandExists);
         if (!BrandExists)
         {
-            NewMethod(input);
+            _brandService.InsertBrand(input);
         }
         int brandID;
 
@@ -171,7 +176,7 @@ WHERE Name = '{input.Brand}'; ";
                 brandID = reader.GetInt32(reader.GetOrdinal("Id"));
             }
 
-            string queryString = @$"INSERT INTO phones (Price,Brands, Type, Description,stock)
+            string queryString = @$"INSERT INTO phones (Price,BrandID, Type, Description,stock)
   VALUES({input.Price},7,'{input.Type}','{input.Description}','{input.Stock}');
 ";
             Debug.WriteLine(queryString);
@@ -213,23 +218,7 @@ WHERE Name = '{input.Brand}'; ";
         }
         return null;
     }
-    private void NewMethod(Phone input)
-    {
-        string BrandQueryString = @$"INSERT INTO Brands (Name)
-  VALUES('{input.Brand}')";
-        Debug.WriteLine("yee" + BrandQueryString);
-        using (SqlConnection connection = new SqlConnection(
-              _connectionString))
-        {
-            SqlCommand InsertBrandcommand = new SqlCommand(BrandQueryString, connection);
-            InsertBrandcommand.Connection.Open();
-            int _commandresult = InsertBrandcommand.ExecuteNonQuery();
-            Debug.WriteLine(BrandQueryString);
-            // Call Read before accessing data.
 
-            // Call Close when done reading.
-        }
-    }
     public bool RemovePhone(int input)
     {
         bool IsRemoved = false;
@@ -253,25 +242,4 @@ WHERE Name = '{input.Brand}'; ";
         return IsRemoved;
     }
 
-    private bool DoesBrandExist(string CheckQuery, bool BrandExists)
-    {
-        using (SqlConnection connection = new SqlConnection(
-                                   _connectionString))
-        {
-            SqlCommand getIDcommand = new SqlCommand(CheckQuery, connection);
-            getIDcommand.Connection.Open();
-            var _commandresult = getIDcommand.ExecuteReader();
-            Debug.WriteLine(_commandresult);
-            // Call Read before accessing data.
-
-            // Call Close when done reading.
-
-            if (_commandresult.Read())
-            {
-                BrandExists = true;
-            }
-        }
-
-        return BrandExists;
-    }
 }
