@@ -32,7 +32,7 @@ namespace Phoneshop.WinForms
             phone.Description = DescriptiontextBox.Text;
             int stock;
             if (Int32.TryParse(StocktextBox.Text, out stock))
-                phone.Price = stock;
+                phone.Stock = stock;
             else
             {
                 MessageBox.Show("stock is wrongly formatted");

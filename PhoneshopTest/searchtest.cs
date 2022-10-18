@@ -13,7 +13,7 @@ namespace PhoneshopTest
             //act
             List<Phone> phone = phoneService.Search("cam");
             //asses
-            Assert.Equal(4, phone.Count());
+            Assert.Equal(1, phone.Count());
         }
         [Fact]
         public void GetByIDTest_ShouldReturHuaweiPhones()

@@ -1,8 +1,9 @@
-﻿using System;
-
-public class Class1
+﻿namespace Phoneshop.PhoneExtensions;
+public class PhoneExtensions
 {
-	public Class1()
-	{
-	}
+    public decimal VATFreePrice(this Phone phone)
+    {
+        return Price / 1.21m;
+    }
+
 }

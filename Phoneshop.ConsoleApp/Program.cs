@@ -1,5 +1,7 @@
 ﻿using Phoneshop.Business;
+using Phoneshop.Business.Extensions;
 using Phoneshop.Domain.Models;
+
 using System.Text;
 
 Console.OutputEncoding = Encoding.UTF8;

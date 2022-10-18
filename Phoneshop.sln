@@ -29,11 +29,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{A43CF2FE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "refillerforDB", "refillerforDB\refillerforDB.csproj", "{85AF8D11-166C-4F01-B488-D372F4A12083}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{FCBA4BF6-BD44-43FC-BDDB-925553BDD374}"
-	ProjectSection(SolutionItems) = preProject
-		PhoneExtensions.cs = PhoneExtensions.cs
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,7 +76,6 @@ Global
 		{95B7B2B6-BDE5-4270-8210-428D4E10E45A} = {78C07CAE-A0CA-4732-999E-2C3D76A0BFF9}
 		{8C22447B-1625-4308-B331-020EEA9165EA} = {A43CF2FE-DEF6-4B12-A831-ED4E7EDCE041}
 		{85AF8D11-166C-4F01-B488-D372F4A12083} = {DF45A3DC-E4AA-404E-8ECB-A13D9760A24C}
-		{FCBA4BF6-BD44-43FC-BDDB-925553BDD374} = {2556F0D4-E1B5-404E-892C-2D80663B822C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FDCDB718-2B6A-4AE9-ABB1-A1A2A0FD94A3}

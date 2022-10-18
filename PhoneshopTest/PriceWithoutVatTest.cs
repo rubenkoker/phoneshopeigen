@@ -1,5 +1,5 @@
-﻿using Phoneshop.Domain.Models;
-
+﻿using Phoneshop.Business.Extensions;
+using Phoneshop.Domain.Models;
 namespace Phoneshop.Business.Test
 {
     public class Should_ReturnPriceWithoutVAT

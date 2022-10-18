@@ -10,7 +10,7 @@ namespace Phoneshop.Business.Test.PhoneServiceTests
             //arrange
             PhoneService phoneService = new();
             Phone phone = new();
-            phone.Brand = "fairphone";
+            phone.Brand.Name = "fairphone";
             phone.Stock = 8;
             phone.Price = 500m;
             phone.Description = "deze nederlandse telefoon is fairtrade en heef 5g";

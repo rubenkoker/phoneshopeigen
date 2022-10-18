@@ -1,5 +1,7 @@
 ﻿namespace Phoneshop.Domain.Models
+
 {
+
     /// <summary>
     /// Phone type with custom ToString function
     /// </summary>
@@ -12,14 +14,9 @@
         public string Description { get; set; } = String.Empty;
         public decimal Price { get; set; }
 
-        public decimal VATFreePrice()
-        {
-            return Price / 1.21m;
-        }
-
         public override string ToString()
         {
-            return $"Brand: {Brand.Name}\nType:{Type}\nPrice:{Price}\nPricewihout VAT:{Decimal.Round(VATFreePrice(), 2)}\n\"";
+            return $"Brand: {Brand.Name}\nType:{Type}\nPrice:{Price}\n\n\"";
         }
 
         public string FullName => $" {Brand.Name} {Type}";

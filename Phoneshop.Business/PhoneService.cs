@@ -3,7 +3,6 @@ using Phoneshop.Domain.Models;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Xml;
-
 namespace Phoneshop.Business;
 
 public class PhoneService : IPhoneService
@@ -157,12 +156,12 @@ WHERE Name = '{input.Brand}'; ";
         {
             _brandService.InsertBrand(input);
         }
-        int brandID;
+        int brandID = 0;
 
         using (SqlConnection connection = new SqlConnection(
               _connectionString))
         {
-            string GetBrandIDQueryString = @$"SELECT ID FROM Brands Where Name ='{input.Brand}'";
+            string GetBrandIDQueryString = @$"SELECT ID FROM Brands Where Name ='{input.Brand.Name}'";
             Debug.WriteLine("nee" + GetBrandIDQueryString);
             SqlCommand command = new SqlCommand(GetBrandIDQueryString, connection);
 
@@ -177,7 +176,7 @@ WHERE Name = '{input.Brand}'; ";
             }
 
             string queryString = @$"INSERT INTO phones (Price,BrandID, Type, Description,stock)
-  VALUES({input.Price},7,'{input.Type}','{input.Description}','{input.Stock}');
+  VALUES({input.Price},{brandID},'{input.Type}','{input.Description}','{input.Stock}');
 ";
             Debug.WriteLine(queryString);
             using (SqlConnection insertconnection = new SqlConnection(
