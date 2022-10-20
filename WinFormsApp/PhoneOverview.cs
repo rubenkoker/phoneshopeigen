@@ -1,7 +1,8 @@
+using Microsoft.Extensions.DependencyInjection;
 using Phoneshop.Business;
+using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
 using Phoneshop.WinForms;
-
 namespace WinFormsApp
 {
     public partial class PhoneOverview : Form
@@ -10,12 +11,15 @@ namespace WinFormsApp
 
         private List<Phone> Currentlist;
         private List<Phone> Baselist;
-        private PhoneService phoneservice = new();
+        private IPhoneService phoneservice;
 
         public PhoneOverview()
         {
             InitializeComponent();
-
+            var phoneservices = new ServiceCollection();
+            ConfigureServices(phoneservices);
+            ServiceProvider serviceProvider = phoneservices.BuildServiceProvider();
+            phoneservice = serviceProvider.GetRequiredService<IPhoneService>();
             Baselist = phoneservice.GetAllPhones();
             ListChanged += List_ListChanged;
             Currentlist = Baselist;
@@ -147,5 +151,11 @@ namespace WinFormsApp
             addPhone.Show();
 
         }
+        private static void ConfigureServices(ServiceCollection services)
+        {
+            services.AddScoped<IPhoneService, PhoneService>();
+            services.AddScoped<IBrandservice, BrandService>();
+        }
+
     }
 }

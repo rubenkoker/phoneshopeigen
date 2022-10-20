@@ -1,10 +1,10 @@
+using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
 using System.Data.SqlClient;
 using System.Diagnostics;
-
 namespace Phoneshop.Business;
 
-public class BrandService //: IBrandService
+public class BrandService : IBrandservice
 {
     private readonly string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=phoneshop;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 

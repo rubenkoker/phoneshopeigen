@@ -1,5 +1,6 @@
 ﻿using Phoneshop.Business.Extensions;
 using Phoneshop.Domain.Models;
+using System.Diagnostics;
 namespace Phoneshop.Business.Test
 {
     public class IsValidTest
@@ -11,12 +12,16 @@ namespace Phoneshop.Business.Test
             phone.Brand.Name = "redphone";
             phone.Price = 121;
             phone.Stock = 42;
+            phone.Type = "3s";
             phone.Brand.Id = 43;
             phone.BrandID = phone.Brand.Id;
             phone.Description = "deze vietnamese telefoon is perfect voor lange afstands bellen";
             PhoneService phoneService = new PhoneService();
             string message;
-            Assert.True(phone.IsValid(out message));
+            bool result = phone.IsValid(out message);
+            Debug.WriteLine(message);
+            Assert.True(result);
+
         }
 
         [Fact]
@@ -26,7 +31,7 @@ namespace Phoneshop.Business.Test
             phone.Brand.Name = "redphone";
             phone.Price = 121;
             phone.Stock = 42;
-            phone.Brand.Id = 43;
+
             phone.BrandID = phone.Brand.Id;
             PhoneService phoneService = new PhoneService();
             string message;

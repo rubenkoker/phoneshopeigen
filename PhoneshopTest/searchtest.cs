@@ -23,7 +23,7 @@ namespace PhoneshopTest
             //act
             List<Phone> phone = phoneService.Search("Huawei");
             //asses
-            Assert.Equal(1, phone.Count());
+            Assert.Equal(2, phone.Count());
         }
     }
 }
