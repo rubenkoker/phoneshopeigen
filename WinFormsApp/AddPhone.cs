@@ -1,13 +1,20 @@
-﻿using Phoneshop.Business;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Phoneshop.Business;
+using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
 
 namespace Phoneshop.WinForms
 {
     public partial class AddPhone : Form
     {
+        private IPhoneService phoneservice;
         public AddPhone()
         {
             InitializeComponent();
+            var phoneservices = new ServiceCollection();
+            ConfigureServices(phoneservices);
+            ServiceProvider serviceProvider = phoneservices.BuildServiceProvider();
+            phoneservice = serviceProvider.GetRequiredService<IPhoneService>();
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -38,8 +45,13 @@ namespace Phoneshop.WinForms
                 MessageBox.Show("stock is wrongly formatted");
             }
             phone.Type = TypetextBox.Text;
-            PhoneService phoneservice = new();
+
             phoneservice.AddPhone(phone);
+        }
+        private static void ConfigureServices(ServiceCollection services)
+        {
+            services.AddScoped<IPhoneService, PhoneService>();
+            services.AddScoped<IBrandservice, BrandService>();
         }
 
     }

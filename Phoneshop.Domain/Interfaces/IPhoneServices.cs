@@ -10,5 +10,6 @@ namespace Phoneshop.Domain.Interfaces
 
         List<Phone> Search(string input);
         public bool RemovePhone(int input);
+        public bool AddPhone(Phone input);
     }
 }
