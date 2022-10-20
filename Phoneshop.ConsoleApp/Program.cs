@@ -1,12 +1,16 @@
-﻿using Phoneshop.Business;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Phoneshop.Business;
 using Phoneshop.Business.Extensions;
+using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
-
 using System.Text;
 
 Console.OutputEncoding = Encoding.UTF8;
-PhoneService phoneservice = new();
-
+IPhoneService phoneservice;
+var services = new ServiceCollection();
+ConfigureServices(services);
+ServiceProvider serviceProvider = services.BuildServiceProvider();
+phoneservice = serviceProvider.GetRequiredService<IPhoneService>();
 List<Phone> list = phoneservice.GetAllPhones();
 
 while (true)
@@ -99,4 +103,9 @@ void DisplayPhones()
     Console.WriteLine("type productnummer\n");
     Console.WriteLine("\n");
     Console.WriteLine("press \"s\" to search");
+}
+static void ConfigureServices(ServiceCollection services)
+{
+    services.AddScoped<IPhoneService, PhoneService>();
+    services.AddScoped<IBrandservice, BrandService>();
 }

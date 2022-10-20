@@ -47,7 +47,7 @@ namespace WinFormsApp
             listBox1.Items.Clear();
             foreach (var item in Currentlist)
             {
-                listBox1.Items.Add($"{item.Brand}" + " " + $"{item.Type}\n");
+                listBox1.Items.Add($"{item.Brand.Name}" + " " + $"{item.Type}\n");
             }
         }
 
