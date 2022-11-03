@@ -1,3 +1,4 @@
+using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
 using System.Data.SqlClient;
@@ -7,7 +8,7 @@ namespace Phoneshop.Business;
 
 public class PhoneService : IPhoneService
 {
-    private readonly string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=phoneshop;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+    private readonly string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
     BrandService _brandService;
     public PhoneService()
     {
@@ -103,6 +104,16 @@ public class PhoneService : IPhoneService
             return null;
         }
         List<Phone> _result = new();
+        using (var context = new PhoneshopContext())
+        {
+            // Query for all blogs with names starting with B
+            var phones = from b in context.Phones
+                         where b.Description.Contains(input) || b.Type.Contains(input) ||
+                        select b;
+
+            // Query for the Blog named ADO.NET Blog
+
+        }
         // string queryString = @$"SELECT * FROM Phones
         //  WHERE Brand LIKE '%{input}%' OR Type LIKE '%{input}%' OR Description LIKE '%{input}%' ; ";
         string queryString = @$"SELECT Brands.Name ,Phones.type,Phones.Description,Phones.Price,Phones.Stock,Phones.Id
