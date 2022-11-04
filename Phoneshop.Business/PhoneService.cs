@@ -8,11 +8,14 @@ namespace Phoneshop.Business;
 
 public class PhoneService : IPhoneService
 {
-    private readonly string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+    private readonly string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Phoneshop;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
     BrandService _brandService;
-    public PhoneService()
+    private readonly IRepository<Phone> repository;
+
+    public PhoneService(IRepository<Phone> repository)
     {
         _brandService = new BrandService();
+        this.repository = repository;
     }
 
     public Phone? GetPhoneById(int input)
@@ -62,95 +65,29 @@ public class PhoneService : IPhoneService
     /// <returns></returns>
     public List<Phone> GetAllPhones()
     {
-        List<Phone> _result = new();
-        string queryString = "SELECT Phones.Description,Phones.Id,Phones.Stock,Phones.Price,Brands.Name,Phones.Type FROM Phones INNER JOIN Brands ON Phones.BrandID = Brands.ID; ";
 
-        using (SqlConnection connection = new SqlConnection(
-                   _connectionString))
-        {
-            Debug.WriteLine(queryString);
-            SqlCommand command = new SqlCommand(queryString, connection);
-            command.Connection.Open();
+        List<Phone> _result = repository.GetAll().ToList();
 
-            SqlDataReader reader = command.ExecuteReader();
-
-            // Call Read before accessing data.
-            while (reader.Read())
-            {
-                Brand brand = new();
-                brand.Name = reader.GetString(reader.GetOrdinal("Name"));
-                _result.Add(new Phone()
-                {
-                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                    Brand = brand,
-                    Type = reader.GetString(reader.GetOrdinal("Type")),
-                    Description = reader.GetString(reader.GetOrdinal("Description")),
-                    Price = (decimal)reader.GetSqlDecimal(reader.GetOrdinal("Price")),
-                    Stock = reader.GetInt32(reader.GetOrdinal("Stock")),
-                });
-            }
-
-            // Call Close when done reading.
-            reader.Close();
-        }
 
         return _result;
     }
 
     public List<Phone>? Search(string input)
     {
+
         if (input == "")
         {
             return null;
         }
         List<Phone> _result = new();
-        using (var context = new PhoneshopContext())
-        {
-            // Query for all blogs with names starting with B
-            var phones = from b in context.Phones
-                         where b.Description.Contains(input) || b.Type.Contains(input) ||
-                        select b;
+        var context = new PhoneshopContext();
 
-            // Query for the Blog named ADO.NET Blog
+        // Query for all blogs with names starting with B
+        var phones = from b in context.Phones
+                     where b.Description.Contains(input) || b.Type.Contains(input) || b.Brand.Name.Contains(input)
+                     select b;
 
-        }
-        // string queryString = @$"SELECT * FROM Phones
-        //  WHERE Brand LIKE '%{input}%' OR Type LIKE '%{input}%' OR Description LIKE '%{input}%' ; ";
-        string queryString = @$"SELECT Brands.Name ,Phones.type,Phones.Description,Phones.Price,Phones.Stock,Phones.Id
-FROM Phones
-INNER JOIN Brands ON Phones.BrandID=Brands.ID
-WHERE Brands.Name LIKE '%{input}%' OR Type LIKE '%{input}%' OR Description LIKE '%{input}%';";
-        Debug.WriteLine(queryString);
-        using (SqlConnection connection = new SqlConnection(
-                   _connectionString))
-        {
-            SqlCommand command = new SqlCommand(queryString, connection);
-            command.Connection.Open();
-            Debug.WriteLine(command.CommandText);
-            command.ExecuteNonQuery();
-            SqlDataReader reader = command.ExecuteReader();
-
-            // Call Read before accessing data.
-            while (reader.Read())
-            {
-                Brand brand = new Brand();
-                brand.Name = reader.GetString(reader.GetOrdinal("Name"));
-                _result.Add(new Phone()
-                {
-                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                    Brand = brand,
-                    Type = reader.GetString(reader.GetOrdinal("Type")),
-                    Description = reader.GetString(reader.GetOrdinal("Description")),
-                    Price = (decimal)reader.GetSqlDecimal(reader.GetOrdinal("Price")),
-                    Stock = reader.GetInt32(reader.GetOrdinal("Stock")),
-                });
-            }
-
-            // Call Close when done reading.
-            reader.Close();
-        }
-
-        return _result;
+        return phones.ToList();
     }
 
     public bool AddPhone(Phone input)
