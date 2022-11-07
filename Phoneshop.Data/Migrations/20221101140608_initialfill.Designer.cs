@@ -10,7 +10,7 @@ using Phoneshop.Data;
 
 namespace Phoneshop.Data.Migrations
 {
-    [DbContext(typeof(PhoneshopContext))]
+    [DbContext(typeof(DataContext))]
     [Migration("20221101140608_initialfill")]
     partial class initialfill
     {

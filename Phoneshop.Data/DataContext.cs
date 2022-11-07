@@ -3,7 +3,7 @@ using Phoneshop.Domain.Models;
 
 namespace Phoneshop.Data
 {
-    public class PhoneshopContext : DbContext
+    public class DataContext : DbContext
     {
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

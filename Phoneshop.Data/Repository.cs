@@ -1,41 +1,42 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Phoneshop.Domain;
 using Phoneshop.Domain.Interfaces;
 
 namespace Phoneshop.Data
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : EntityBase
 
     {
-        private readonly DbSet<TEntity> entities;
-        private readonly PhoneshopContext context;
 
-        public Repository(PhoneshopContext context)
+        private readonly DataContext context;
+
+        public Repository(DataContext context)
         {
             this.context = context;
-            entities = context.Set<TEntity>();
+
         }
 
-        IQueryable GetAll()
+        IQueryable<TEntity> GetAll()
+
         {
-            return entities.AsQueryable();
+            return context.Set<TEntity>();
         }
         TEntity GetById(int id)
         {
-            return entities.Find(id);
+            return context.Set<TEntity>().Find(id);
 
         }
         void Create(TEntity entity)
         {
-            entities.Add(entity);
+            context.Set<TEntity>().Add(entity);
         }
         void Delete(int id)
         {
-            entities.Remove(entities.Find(id)); ;
+            context.Set<TEntity>().Remove(context.Set<TEntity>().Find(id)); ;
         }
 
         IQueryable<TEntity> IRepository<TEntity>.GetAll()
         {
-            return entities.AsQueryable();
+            return context.Set<TEntity>().AsQueryable();
         }
 
         TEntity IRepository<TEntity>.GetById(int id)
@@ -50,7 +51,7 @@ namespace Phoneshop.Data
 
         void IRepository<TEntity>.Delete(int id)
         {
-            entities.Remove(entities.Find(id));
+            context.Set<TEntity>().Remove(context.Set<TEntity>().Find(id));
         }
     }
 }

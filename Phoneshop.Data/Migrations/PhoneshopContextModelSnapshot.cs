@@ -9,7 +9,7 @@ using Phoneshop.Data;
 
 namespace Phoneshop.Data.Migrations
 {
-    [DbContext(typeof(PhoneshopContext))]
+    [DbContext(typeof(DataContext))]
     partial class PhoneshopContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

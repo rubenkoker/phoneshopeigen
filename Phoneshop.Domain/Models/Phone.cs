@@ -5,7 +5,7 @@
     /// <summary>
     /// Phone type with custom ToString function
     /// </summary>
-    public class Phone
+    public class Phone : EntityBase
     {
         public int Id { get; set; }
         public int BrandID { get; set; }

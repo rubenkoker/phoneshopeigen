@@ -80,7 +80,7 @@ public class PhoneService : IPhoneService
             return null;
         }
         List<Phone> _result = new();
-        var context = new PhoneshopContext();
+        var context = new DataContext();
 
         // Query for all blogs with names starting with B
         var phones = from b in context.Phones

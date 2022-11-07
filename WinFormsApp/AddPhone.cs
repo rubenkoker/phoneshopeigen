@@ -54,7 +54,7 @@ namespace Phoneshop.WinForms
             services.AddScoped<IBrandservice, BrandService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            services.AddDbContext<PhoneshopContext>();
+            services.AddDbContext<DataContext>();
         }
 
     }
