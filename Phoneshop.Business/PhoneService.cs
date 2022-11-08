@@ -1,6 +1,7 @@
 using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Xml;
@@ -66,8 +67,7 @@ public class PhoneService : IPhoneService
     public List<Phone> GetAllPhones()
     {
 
-        List<Phone> _result = repository.GetAll().ToList();
-
+        List<Phone> _result = repository.GetAll().Include(Phone => Phone.Brand).ToList();
 
         return _result;
     }
@@ -188,5 +188,18 @@ WHERE Name = '{input.Brand}'; ";
         }
         return IsRemoved;
     }
+    public List<Phone>? GetPhonesByBrand(Brand brand)
+    {
 
+
+        List<Phone> _result = new();
+        var context = new DataContext();
+
+        // Query for all blogs with names starting with B
+        var phones = from b in context.Phones
+                     where b.BrandID == brand.Id
+                     select b;
+
+        return phones.ToList();
+    }
 }
