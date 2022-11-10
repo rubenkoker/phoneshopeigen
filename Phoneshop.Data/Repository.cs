@@ -27,7 +27,7 @@ namespace Phoneshop.Data
         private void Create(TEntity entity)
         {
             context.Set<TEntity>().Add(entity);
-            context.SaveChanges();
+            //context.SaveChanges();
         }
 
         private void Delete(int id)
@@ -55,6 +55,7 @@ namespace Phoneshop.Data
         void IRepository<TEntity>.Delete(int id)
         {
             context.Set<TEntity>().Remove(context.Set<TEntity>().Find(id));
+            context.SaveChanges();
         }
     }
 }
