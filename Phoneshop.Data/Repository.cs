@@ -27,10 +27,12 @@ namespace Phoneshop.Data
         void Create(TEntity entity)
         {
             context.Set<TEntity>().Add(entity);
+            context.SaveChanges();
         }
         void Delete(int id)
         {
             context.Set<TEntity>().Remove(context.Set<TEntity>().Find(id)); ;
+            context.SaveChanges();
         }
 
         IQueryable<TEntity> IRepository<TEntity>.GetAll()
@@ -45,7 +47,8 @@ namespace Phoneshop.Data
 
         void IRepository<TEntity>.Create(TEntity entity)
         {
-            throw new NotImplementedException();
+            context.Set<TEntity>().Add(entity);
+            context.SaveChanges();
         }
 
         void IRepository<TEntity>.Delete(int id)

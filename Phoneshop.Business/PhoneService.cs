@@ -3,7 +3,6 @@ using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
 using System.Data.Entity;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Xml;
 namespace Phoneshop.Business;
 
@@ -83,7 +82,7 @@ public class PhoneService : IPhoneService
         var context = new DataContext();
 
         // Query for all blogs with names starting with B
-        var phones = from b in context.Phones
+        var phones = from b in context.Phones.Include(phone => phone.Brand)
                      where b.Description.Contains(input) || b.Type.Contains(input) || b.Brand.Name.Contains(input)
                      select b;
 
@@ -92,59 +91,60 @@ public class PhoneService : IPhoneService
 
     public bool AddPhone(Phone input)
     {
+        repository.Create(input);
+        return true;
+        //        string CheckQuery = @$"SELECT ID
+        //FROM Brands
+        //WHERE Name = '{input.Brand}'; ";
+        //        Debug.WriteLine(CheckQuery);
+        //        bool BrandExists = false;
+        //        Debug.WriteLine(CheckQuery);
+        //        BrandExists = _brandService.DoesBrandExist(CheckQuery, BrandExists);
+        //        if (!BrandExists)
+        //        {
+        //            _brandService.InsertBrand(input);
+        //        }
+        //        int brandID = 0;
 
-        string CheckQuery = @$"SELECT ID
-FROM Brands
-WHERE Name = '{input.Brand}'; ";
-        Debug.WriteLine(CheckQuery);
-        bool BrandExists = false;
-        Debug.WriteLine(CheckQuery);
-        BrandExists = _brandService.DoesBrandExist(CheckQuery, BrandExists);
-        if (!BrandExists)
-        {
-            _brandService.InsertBrand(input);
-        }
-        int brandID = 0;
+        //        using (SqlConnection connection = new SqlConnection(
+        //              _connectionString))
+        //        {
+        //            string GetBrandIDQueryString = @$"SELECT ID FROM Brands Where Name ='{input.Brand.Name}'";
+        //            Debug.WriteLine("nee" + GetBrandIDQueryString);
+        //            SqlCommand command = new SqlCommand(GetBrandIDQueryString, connection);
 
-        using (SqlConnection connection = new SqlConnection(
-              _connectionString))
-        {
-            string GetBrandIDQueryString = @$"SELECT ID FROM Brands Where Name ='{input.Brand.Name}'";
-            Debug.WriteLine("nee" + GetBrandIDQueryString);
-            SqlCommand command = new SqlCommand(GetBrandIDQueryString, connection);
+        //            command.Connection.Open();
 
-            command.Connection.Open();
+        //            SqlDataReader reader = command.ExecuteReader();
 
-            SqlDataReader reader = command.ExecuteReader();
+        //            // Call Read before accessing data.
+        //            if (reader.Read())
+        //            {
+        //                brandID = reader.GetInt32(reader.GetOrdinal("Id"));
+        //            }
 
-            // Call Read before accessing data.
-            if (reader.Read())
-            {
-                brandID = reader.GetInt32(reader.GetOrdinal("Id"));
-            }
+        //            string queryString = @$"INSERT INTO phones (Price,BrandID, Type, Description,stock)
+        //  VALUES({input.Price},{brandID},'{input.Type}','{input.Description}','{input.Stock}');
+        //";
+        //            Debug.WriteLine(queryString);
+        //            using (SqlConnection insertconnection = new SqlConnection(
+        //                       _connectionString))
+        //            {
+        //                SqlCommand getcommand = new SqlCommand(queryString, insertconnection);
+        //                getcommand.Connection.Open();
+        //                int _commandresult = getcommand.ExecuteNonQuery();
+        //                Debug.WriteLine(queryString);
+        //                // Call Read before accessing data.
 
-            string queryString = @$"INSERT INTO phones (Price,BrandID, Type, Description,stock)
-  VALUES({input.Price},{brandID},'{input.Type}','{input.Description}','{input.Stock}');
-";
-            Debug.WriteLine(queryString);
-            using (SqlConnection insertconnection = new SqlConnection(
-                       _connectionString))
-            {
-                SqlCommand getcommand = new SqlCommand(queryString, insertconnection);
-                getcommand.Connection.Open();
-                int _commandresult = getcommand.ExecuteNonQuery();
-                Debug.WriteLine(queryString);
-                // Call Read before accessing data.
+        //                // Call Close when done reading.
 
-                // Call Close when done reading.
-
-                if (_commandresult > 0)
-                {
-                    return true;
-                }
-                return false;
-            }
-        }
+        //                if (_commandresult > 0)
+        //                {
+        //                    return true;
+        //                }
+        //                return false;
+        //            }
+        //        }
 
     }
     List<Phone> XMLRead(string path)
@@ -190,7 +190,6 @@ WHERE Name = '{input.Brand}'; ";
     }
     public List<Phone>? GetPhonesByBrand(Brand brand)
     {
-
 
         List<Phone> _result = new();
         var context = new DataContext();
