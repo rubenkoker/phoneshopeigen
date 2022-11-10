@@ -4,6 +4,7 @@ using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
 using Phoneshop.WinForms;
+
 namespace WinFormsApp
 {
     public partial class PhoneOverview : Form
@@ -137,7 +138,6 @@ namespace WinFormsApp
                 {
                     MessageBox.Show("selecteer een telefoon");
                 }
-
             }
             if (res == DialogResult.Cancel)
             {
@@ -150,8 +150,8 @@ namespace WinFormsApp
         {
             AddPhone addPhone = new AddPhone();
             addPhone.Show();
-
         }
+
         private static void ConfigureServices(ServiceCollection services)
         {
             services.AddScoped<IPhoneService, PhoneService>();
@@ -159,8 +159,6 @@ namespace WinFormsApp
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             services.AddDbContext<DataContext>();
-
         }
-
     }
 }

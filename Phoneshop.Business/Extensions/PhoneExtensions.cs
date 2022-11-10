@@ -8,6 +8,7 @@ public static class PhoneExtensions
     {
         return phone.Price / 1.21m;
     }
+
     public static bool IsValid(this Phone phone, out string message)
     {
         if (phone == null)
@@ -40,7 +41,5 @@ public static class PhoneExtensions
             message = "phone is allright";
             return true;
         }
-
     }
-
 }

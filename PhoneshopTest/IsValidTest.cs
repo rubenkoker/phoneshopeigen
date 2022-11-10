@@ -4,6 +4,7 @@ using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
 using System.Diagnostics;
+
 namespace Phoneshop.Business.Test
 {
     public class IsValidTest
@@ -35,7 +36,6 @@ namespace Phoneshop.Business.Test
                 services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
                 string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
                 services.AddDbContext<DataContext>();
-
             }
         }
 
@@ -62,9 +62,7 @@ namespace Phoneshop.Business.Test
                 services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
                 string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
                 services.AddDbContext<DataContext>();
-
             }
         }
-
     }
 }

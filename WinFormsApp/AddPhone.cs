@@ -3,11 +3,13 @@ using Phoneshop.Business;
 using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
+
 namespace Phoneshop.WinForms
 {
     public partial class AddPhone : Form
     {
         private IPhoneService phoneservice;
+
         public AddPhone()
         {
             InitializeComponent();
@@ -17,15 +19,7 @@ namespace Phoneshop.WinForms
             phoneservice = serviceProvider.GetRequiredService<IPhoneService>();
         }
 
-        private void label4_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void DoneButton_Click(object sender, EventArgs e)
         {
@@ -48,6 +42,7 @@ namespace Phoneshop.WinForms
 
             phoneservice.AddPhone(phone);
         }
+
         private static void ConfigureServices(ServiceCollection services)
         {
             services.AddScoped<IPhoneService, PhoneService>();
@@ -56,7 +51,5 @@ namespace Phoneshop.WinForms
             string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             services.AddDbContext<DataContext>();
         }
-
     }
 }
-

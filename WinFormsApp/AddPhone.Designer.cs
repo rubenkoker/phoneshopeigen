@@ -54,7 +54,7 @@
             this.TypetextBox.Name = "TypetextBox";
             this.TypetextBox.Size = new System.Drawing.Size(125, 27);
             this.TypetextBox.TabIndex = 1;
-            this.TypetextBox.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+           
             // 
             // DescriptiontextBox
             // 
@@ -112,7 +112,7 @@
             this.label4.Size = new System.Drawing.Size(41, 20);
             this.label4.TabIndex = 9;
             this.label4.Text = "Price";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
+            
             // 
             // label5
             // 

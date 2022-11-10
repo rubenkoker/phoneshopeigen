@@ -2,6 +2,7 @@
 
 using System.Data;
 using System.Data.SqlClient;
+
 string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=phoneshop;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 string desc1 = @$"The iPhone 12 Pro is part of the Fall 2020 iPhone 12 series. It comes with the impressive specs we''ve come to expect from Apple, including a gorgeous 6.1-inch screen, excellent camera and blazing-fast hardware.
 
@@ -74,6 +75,5 @@ static void SqlCommandPrepareEx(string connectionString, string description, str
         // Call Prepare after setting the Commandtext and Parameters.
         command.Prepare();
         command.ExecuteNonQuery();
-
     }
 }

@@ -6,6 +6,7 @@ namespace PhoneshopTest
     using Phoneshop.Domain.Interfaces;
     using Phoneshop.Domain.Models;
     using System.Diagnostics;
+
     public class GetPhoneByIdtest
     {
         [Fact]
@@ -20,7 +21,7 @@ namespace PhoneshopTest
             Phone phone = services.GetPhoneById(1042);
             //asses
             Debug.WriteLine(phone.Type);
-            Assert.Equal("IPhone 34", phone.Type);
+            Assert.Equal("IPhone43", phone.Type);
             static void ConfigureServices(ServiceCollection services)
             {
                 services.AddScoped<IPhoneService, PhoneService>();
@@ -28,7 +29,6 @@ namespace PhoneshopTest
                 services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
                 string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
                 services.AddDbContext<DataContext>();
-
             }
         }
 
@@ -56,7 +56,6 @@ namespace PhoneshopTest
                 services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
                 string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
                 services.AddDbContext<DataContext>();
-
             }
         }
 
@@ -84,9 +83,7 @@ namespace PhoneshopTest
                 services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
                 string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
                 services.AddDbContext<DataContext>();
-
             }
         }
-
     }
 }

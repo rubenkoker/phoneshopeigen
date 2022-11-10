@@ -2,6 +2,7 @@ using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
 using System.Data.SqlClient;
 using System.Diagnostics;
+
 namespace Phoneshop.Business;
 
 public class BrandService : IBrandservice
@@ -21,11 +22,10 @@ public class BrandService : IBrandservice
             InsertBrandcommand.Connection.Open();
             int _commandresult = InsertBrandcommand.ExecuteNonQuery();
             Debug.WriteLine(BrandQueryString);
-            // Call Read before accessing data.
 
-            // Call Close when done reading.
         }
     }
+
     public bool DoesBrandExist(string CheckQuery, bool BrandExists)
     {
         using (SqlConnection connection = new SqlConnection(

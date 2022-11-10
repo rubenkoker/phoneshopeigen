@@ -1,7 +1,6 @@
 ﻿namespace Phoneshop.Domain.Models
 
 {
-
     /// <summary>
     /// Phone type with custom ToString function
     /// </summary>
