@@ -6,7 +6,7 @@ namespace Phoneshop.Business;
 
 public class PhoneService : IPhoneService
 {
-    private readonly string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Phoneshop;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
     private BrandService _brandService;
     private readonly IRepository<Phone> repository;
 
@@ -18,7 +18,7 @@ public class PhoneService : IPhoneService
 
     public Phone? GetPhoneById(int id)
     {
-        if (id <= 0)
+        if (id >= 0)
         {
             return repository.GetById(id);
         }

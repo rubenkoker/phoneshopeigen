@@ -1,4 +1,6 @@
-﻿namespace Phoneshop.Domain.Interfaces
+﻿using Phoneshop.Domain.Models;
+
+namespace Phoneshop.Domain.Interfaces
 {
     public interface IRepository<TEntity> where TEntity : EntityBase
     {

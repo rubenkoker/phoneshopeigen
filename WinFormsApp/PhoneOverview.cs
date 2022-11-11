@@ -1,9 +1,12 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Phoneshop.Business;
 using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
 using Phoneshop.WinForms;
+using System.Configuration;
+using System.Diagnostics;
 
 namespace WinFormsApp
 {
@@ -25,7 +28,7 @@ namespace WinFormsApp
             Baselist = phoneservice.GetAllPhones();
             ListChanged += List_ListChanged;
             Currentlist = Baselist;
-
+            Debug.WriteLine(Baselist.Count());
             foreach (var item in Baselist)
             {
                 listBox1.Items.Add($"{item.Brand.Name} {item.Type}");
@@ -152,13 +155,19 @@ namespace WinFormsApp
             addPhone.Show();
         }
 
-        private static void ConfigureServices(ServiceCollection services)
+        public static void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IPhoneService, PhoneService>();
             services.AddScoped<IBrandservice, BrandService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            services.AddDbContext<DataContext>();
+            string connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
+            //string connect = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            Debug.WriteLine("hallo" + connectionString);
+
+            services.AddDbContext<DataContext>(
+                options => options.UseSqlServer(connectionString));
+
         }
+
     }
 }

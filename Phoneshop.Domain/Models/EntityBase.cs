@@ -1,4 +1,4 @@
-﻿namespace Phoneshop.Domain
+﻿namespace Phoneshop.Domain.Models
 {
     public class EntityBase
     {

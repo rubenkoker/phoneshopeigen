@@ -7,13 +7,19 @@ namespace Phoneshop.Data
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=phoneshop;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            //Debug.WriteLine(ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString);
+
             base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         }
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        {
+
+        }
+
 
         //entities
         public DbSet<Phone> Phones { get; set; }

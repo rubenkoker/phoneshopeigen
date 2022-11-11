@@ -5,6 +5,7 @@ namespace PhoneshopTest
     using Phoneshop.Data;
     using Phoneshop.Domain.Interfaces;
     using Phoneshop.Domain.Models;
+    using System.Configuration;
     using System.Diagnostics;
 
     public class GetPhoneByIdtest
@@ -27,7 +28,7 @@ namespace PhoneshopTest
                 services.AddScoped<IPhoneService, PhoneService>();
                 services.AddScoped<IBrandservice, BrandService>();
                 services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-                string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
                 services.AddDbContext<DataContext>();
             }
         }
@@ -54,7 +55,7 @@ namespace PhoneshopTest
                 services.AddScoped<IPhoneService, PhoneService>();
                 services.AddScoped<IBrandservice, BrandService>();
                 services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-                string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                string _connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
                 services.AddDbContext<DataContext>();
             }
         }
@@ -81,7 +82,7 @@ namespace PhoneshopTest
                 services.AddScoped<IPhoneService, PhoneService>();
                 services.AddScoped<IBrandservice, BrandService>();
                 services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-                string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                string _connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
                 services.AddDbContext<DataContext>();
             }
         }
