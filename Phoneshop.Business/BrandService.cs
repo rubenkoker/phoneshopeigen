@@ -9,29 +9,21 @@ namespace Phoneshop.Business;
 public class BrandService : IBrandservice
 {
     private readonly string _connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
-
+    private readonly IRepository<Phone> repository;
     //public void ForceBrandExists(Brand brand);
     public void InsertBrand(Phone input)
     {
-        string BrandQueryString = @$"INSERT INTO Brands (Name)
-  VALUES('{input.Brand.Name}')";
-        Debug.WriteLine("yee" + BrandQueryString);
-        using (SqlConnection connection = new SqlConnection(
-              _connectionString))
-        {
-            SqlCommand InsertBrandcommand = new SqlCommand(BrandQueryString, connection);
-            InsertBrandcommand.Connection.Open();
-            int _commandresult = InsertBrandcommand.ExecuteNonQuery();
-            Debug.WriteLine(BrandQueryString);
+        repository.Create(input);
 
-        }
+
     }
 
-    public bool DoesBrandExist(string CheckQuery, bool BrandExists)
+    public bool DoesBrandExist(string Name)
     {
         using (SqlConnection connection = new SqlConnection(
                                    _connectionString))
         {
+            string CheckQuery = $" SELECT Name FROM Brands WHERE NAME = ${Name}); ";
             SqlCommand getIDcommand = new SqlCommand(CheckQuery, connection);
             getIDcommand.Connection.Open();
             var _commandresult = getIDcommand.ExecuteReader();
