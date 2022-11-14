@@ -1,8 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Phoneshop.Business;
 using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
+using System.Configuration;
 
 namespace Phoneshop.WinForms
 {
@@ -18,8 +20,6 @@ namespace Phoneshop.WinForms
             ServiceProvider serviceProvider = phoneservices.BuildServiceProvider();
             phoneservice = serviceProvider.GetRequiredService<IPhoneService>();
         }
-
-
 
         private void DoneButton_Click(object sender, EventArgs e)
         {
@@ -48,8 +48,10 @@ namespace Phoneshop.WinForms
             services.AddScoped<IPhoneService, PhoneService>();
             services.AddScoped<IBrandservice, BrandService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            services.AddDbContext<DataContext>();
+            string _connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
+
+            services.AddDbContext<DataContext>(
+                options => options.UseSqlServer(_connectionString));
         }
     }
 }

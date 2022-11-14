@@ -1,31 +1,44 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
-using System.Data.Entity;
+using System.Configuration;
 
 namespace Phoneshop.Business;
 
 public class PhoneService : IPhoneService
 {
 
-    private BrandService _brandService;
-    private readonly IRepository<Phone> repository;
-
+    private IBrandservice brandservice;
+    private readonly IRepository<Phone> _repository;
     public PhoneService(IRepository<Phone> repository)
     {
-        _brandService = new BrandService();
-        this.repository = repository;
+        ServiceCollection phoneservices = new();
+        ConfigureServices(phoneservices);
+        ServiceProvider serviceProvider = phoneservices.BuildServiceProvider();
+        brandservice = serviceProvider.GetRequiredService<IBrandservice>();
+
+        void ConfigureServices(IServiceCollection services)
+        {
+
+            services.AddScoped<IBrandservice, BrandService>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            string connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
+
+            services.AddDbContext<DataContext>(
+                options => options.UseSqlServer(connectionString));
+
+        }
+
+        this._repository = repository;
     }
 
     public Phone? GetPhoneById(int id)
     {
-        if (id >= 0)
-        {
-            return repository.GetById(id);
-        }
-        else
-        {
-            return null;
-        }
+
+        return _repository.GetById(id);
+
     }
 
     /// <summary>
@@ -34,7 +47,7 @@ public class PhoneService : IPhoneService
     /// <returns></returns>
     public List<Phone> GetAllPhones()
     {
-        List<Phone> _result = repository.GetAll().Include(Phone => Phone.Brand).ToList();
+        List<Phone> _result = _repository.GetAll().Include(s => s.Brand).ToList();
 
         return _result;
     }
@@ -46,9 +59,9 @@ public class PhoneService : IPhoneService
             return null;
         }
         List<Phone> _result = new();
-        // var context = new DataContext();
-        var phonelist = repository.GetAll();
-        // Query for all blogs with names starting with B
+
+        var phonelist = _repository.GetAll();
+
         var phones = from b in phonelist
                      where b.Description.Contains(input) || b.Type.Contains(input) || b.Brand.Name.Contains(input)
                      select b;
@@ -58,7 +71,12 @@ public class PhoneService : IPhoneService
 
     public bool AddPhone(Phone input)
     {
-        repository.Create(input);
+        if (brandservice.DoesBrandExist(input.Brand.Name))
+        {
+            input.Brand = brandservice.FindBrandByName(input.Brand.Name);
+        }
+        _repository.Create(input);
+        _repository.SaveChanges();
         return true;
 
     }
@@ -66,8 +84,8 @@ public class PhoneService : IPhoneService
     public bool RemovePhone(int input)
     {
         bool IsRemoved = false;
-        repository.Delete(input);
-
+        _repository.Delete(input);
+        _repository.SaveChanges();
         return IsRemoved;
     }
 
@@ -75,7 +93,7 @@ public class PhoneService : IPhoneService
     {
         List<Phone> _result = new();
         //var context = new DataContext();
-        var phonelist = repository.GetAll();
+        var phonelist = _repository.GetAll();
         // Query for all blogs with names starting with B
         var phones = from b in phonelist
                      where b.BrandID == brand.Id

@@ -6,10 +6,11 @@ namespace Phoneshop.Domain.Interfaces
     {
         IQueryable<TEntity> GetAll();
 
-        TEntity GetById(int id);
+        TEntity? GetById(int id);
 
         void Create(TEntity entity);
 
         void Delete(int id);
+        void SaveChanges();
     }
 }

@@ -81,6 +81,7 @@
             this.lblBrand.Size = new System.Drawing.Size(50, 20);
             this.lblBrand.TabIndex = 4;
             this.lblBrand.Text = "label3";
+            this.lblBrand.Click += new System.EventHandler(this.lblBrand_Click);
             // 
             // lblType
             // 

@@ -169,5 +169,9 @@ namespace WinFormsApp
 
         }
 
+        private void lblBrand_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

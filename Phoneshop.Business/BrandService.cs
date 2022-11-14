@@ -1,43 +1,41 @@
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
 using System.Configuration;
-using System.Data.SqlClient;
-using System.Diagnostics;
-
 namespace Phoneshop.Business;
 
 public class BrandService : IBrandservice
 {
     private readonly string _connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
-    private readonly IRepository<Phone> repository;
+    private readonly IRepository<Brand> repository;
     //public void ForceBrandExists(Brand brand);
-    public void InsertBrand(Phone input)
+    public void InsertBrand(Brand input)
     {
         repository.Create(input);
-
 
     }
 
     public bool DoesBrandExist(string Name)
     {
-        using (SqlConnection connection = new SqlConnection(
-                                   _connectionString))
-        {
-            string CheckQuery = $" SELECT Name FROM Brands WHERE NAME = ${Name}); ";
-            SqlCommand getIDcommand = new SqlCommand(CheckQuery, connection);
-            getIDcommand.Connection.Open();
-            var _commandresult = getIDcommand.ExecuteReader();
-            Debug.WriteLine(_commandresult);
-            // Call Read before accessing data.
+        bool brandExists = false;
+        var result = (from t in repository.GetAll()
+                      where t.Name == Name
+                      select t).Any();
 
-            // Call Close when done reading.
 
-            if (_commandresult.Read())
-            {
-                BrandExists = true;
-            }
-        }
 
-        return BrandExists;
+        return result;
+
+
+        return brandExists;
+    }
+    public Brand? FindBrandByName(string Name)
+    {
+        var brandList = repository.GetAll();
+
+        var brand = from b in brandList
+                    where b.Name == Name
+                    select b;
+        return brand.SingleOrDefault();
+
     }
 }

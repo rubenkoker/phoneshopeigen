@@ -1,7 +1,6 @@
 ﻿using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
 using System.Diagnostics;
-
 namespace Phoneshop.Data
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : EntityBase

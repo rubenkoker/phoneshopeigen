@@ -4,11 +4,11 @@ namespace Phoneshop.Domain.Interfaces
 {
     public interface IPhoneService
     {
-        Phone GetPhoneById(int input);
+        Phone? GetPhoneById(int input);
 
         List<Phone> GetAllPhones();
 
-        List<Phone> Search(string input);
+        List<Phone>? Search(string input);
 
         public bool RemovePhone(int input);
 
