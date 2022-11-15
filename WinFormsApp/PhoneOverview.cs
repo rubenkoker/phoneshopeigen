@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Phoneshop.Business;
 using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
@@ -25,6 +26,7 @@ namespace WinFormsApp
             ConfigureServices(phoneservices);
             ServiceProvider serviceProvider = phoneservices.BuildServiceProvider();
             phoneservice = serviceProvider.GetRequiredService<IPhoneService>();
+
             Baselist = phoneservice.GetAllPhones();
             ListChanged += List_ListChanged;
             Currentlist = Baselist;
@@ -160,6 +162,8 @@ namespace WinFormsApp
             services.AddScoped<IPhoneService, PhoneService>();
             services.AddScoped<IBrandservice, BrandService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services
+            .AddLogging(configure => configure.AddDebug()).Configure<LoggerFilterOptions>(options => { options.MinLevel = LogLevel.Debug; });
             string connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
             //string connect = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             Debug.WriteLine("hallo" + connectionString);

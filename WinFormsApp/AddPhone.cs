@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Phoneshop.Business;
 using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
@@ -49,7 +50,9 @@ namespace Phoneshop.WinForms
             services.AddScoped<IBrandservice, BrandService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             string _connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
-
+            services
+           .AddLogging(configure => configure.AddDebug()).Configure<LoggerFilterOptions>(options => { options.MinLevel = LogLevel.Debug; });
+            string connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
             services.AddDbContext<DataContext>(
                 options => options.UseSqlServer(_connectionString));
         }

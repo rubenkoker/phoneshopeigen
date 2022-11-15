@@ -1,9 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Phoneshop.Data;
+using Microsoft.Extensions.Logging;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
-using System.Configuration;
 
 namespace Phoneshop.Business;
 
@@ -12,30 +11,24 @@ public class PhoneService : IPhoneService
 
     private IBrandservice brandservice;
     private readonly IRepository<Phone> _repository;
-    public PhoneService(IRepository<Phone> repository)
+    public readonly ILogger<PhoneService> _logger;
+    public PhoneService(IRepository<Phone> repository, ILogger<PhoneService> logger)
     {
+
         ServiceCollection phoneservices = new();
-        ConfigureServices(phoneservices);
+        //ConfigureServices(phoneservices);
         ServiceProvider serviceProvider = phoneservices.BuildServiceProvider();
-        brandservice = serviceProvider.GetRequiredService<IBrandservice>();
-
-        void ConfigureServices(IServiceCollection services)
-        {
-
-            services.AddScoped<IBrandservice, BrandService>();
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            string connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
-
-            services.AddDbContext<DataContext>(
-                options => options.UseSqlServer(connectionString));
-
-        }
+        //brandservice = serviceProvider.GetRequiredService<IBrandservice>();
+        // _logger = serviceProvider.GetRequiredService<ILogger>();
+        _logger = logger;
 
         this._repository = repository;
     }
 
     public Phone? GetPhoneById(int id)
     {
+        _logger.LogInformation("get phone by ID visited at {DT}",
+            DateTime.UtcNow.ToLongTimeString());
 
         return _repository.GetById(id);
 
@@ -47,13 +40,18 @@ public class PhoneService : IPhoneService
     /// <returns></returns>
     public List<Phone> GetAllPhones()
     {
-        List<Phone> _result = _repository.GetAll().Include(s => s.Brand).ToList();
 
+        List<Phone> _result = _repository.GetAll().Include(s => s.Brand).ToList();
+        _logger.LogInformation("About page visited at {DT}",
+           DateTime.UtcNow.ToLongTimeString());
         return _result;
     }
 
     public List<Phone>? Search(string input)
     {
+        _logger.LogInformation("About page visited at {DT}",
+            DateTime.UtcNow.ToLongTimeString());
+
         if (input == "")
         {
             return null;
@@ -71,6 +69,8 @@ public class PhoneService : IPhoneService
 
     public bool AddPhone(Phone input)
     {
+        _logger.LogInformation("About page visited at {DT}",
+            DateTime.UtcNow.ToLongTimeString());
         if (brandservice.DoesBrandExist(input.Brand.Name))
         {
             input.Brand = brandservice.FindBrandByName(input.Brand.Name);
@@ -83,6 +83,8 @@ public class PhoneService : IPhoneService
 
     public bool RemovePhone(int input)
     {
+        _logger.LogInformation("About page visited at {DT}",
+            DateTime.UtcNow.ToLongTimeString());
         bool IsRemoved = false;
         _repository.Delete(input);
         _repository.SaveChanges();
@@ -91,6 +93,8 @@ public class PhoneService : IPhoneService
 
     public List<Phone>? GetPhonesByBrand(Brand brand)
     {
+        _logger.LogInformation("About page visited at {DT}",
+            DateTime.UtcNow.ToLongTimeString());
         List<Phone> _result = new();
         //var context = new DataContext();
         var phonelist = _repository.GetAll();
