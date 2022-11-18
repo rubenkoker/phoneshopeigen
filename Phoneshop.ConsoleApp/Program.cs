@@ -1,23 +1,27 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Phoneshop.Business;
 using Phoneshop.Business.Extensions;
 using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
+using Phoneshop.Shared;
+using Phoneshop.Shared.extensions;
+using System.Configuration;
 using System.Text;
-
 Console.OutputEncoding = Encoding.UTF8;
 IPhoneService phoneservice;
 ILogger logger;
+
 var services = new ServiceCollection();
 ConfigureServices(services);
 
 ServiceProvider serviceProvider = services.BuildServiceProvider();
-logger = serviceProvider.GetRequiredService<ILogger>();
+logger = serviceProvider.GetRequiredService<ILogger<Program>>();
 phoneservice = serviceProvider.GetRequiredService<IPhoneService>();
 List<Phone> list = phoneservice.GetAllPhones();
-
+logger.LogInformation("starting");
 while (true)
 {
     DisplayPhones();
@@ -113,9 +117,21 @@ static void ConfigureServices(ServiceCollection services)
 {
     services.AddScoped<IPhoneService, PhoneService>();
     services.AddScoped<IBrandservice, BrandService>();
-
+    services.AddScoped<ILogger, CustomLogger>();
     services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-    services.AddLogging(config => config.AddConsole());
-    string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-    services.AddDbContext<DataContext>();
+
+    services.AddLogging(config => config.AddColorConsoleLogger(config =>
+    {
+        config.LogLevelToColorMap[LogLevel.Information] = ConsoleColor.Green;
+        config.LogLevelToColorMap[LogLevel.Warning] = ConsoleColor.Yellow;
+        config.LogLevelToColorMap[LogLevel.Error] = ConsoleColor.Red;
+        config.LogLevelToColorMap[LogLevel.Critical] = ConsoleColor.DarkRed;
+        config.LogLevelToColorMap
+        [LogLevel.Debug] = ConsoleColor.Blue;
+    }));
+
+
+    string _connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
+    services.AddDbContext<DataContext>(
+                 options => options.UseSqlServer(_connectionString));
 }

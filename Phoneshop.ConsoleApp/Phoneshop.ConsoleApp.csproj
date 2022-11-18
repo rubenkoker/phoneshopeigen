@@ -11,11 +11,13 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Phoneshop.Business\Phoneshop.Business.csproj" />
     <ProjectReference Include="..\Phoneshop.Domain\Phoneshop.Domain.csproj" />
+    <ProjectReference Include="..\Phoneshop.Shared\Phoneshop.Shared.csproj" />
   </ItemGroup>
 
 </Project>

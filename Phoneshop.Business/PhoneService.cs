@@ -49,7 +49,7 @@ public class PhoneService : IPhoneService
 
     public List<Phone>? Search(string input)
     {
-        _logger.LogInformation("About page visited at {DT}",
+        _logger.LogInformation("search visited at {DT}",
             DateTime.UtcNow.ToLongTimeString());
 
         if (input == "")
@@ -69,7 +69,8 @@ public class PhoneService : IPhoneService
 
     public bool AddPhone(Phone input)
     {
-        _logger.LogInformation("About page visited at {DT}",
+        _logger.LogInformation("" +
+            "Add phone visited at {DT}",
             DateTime.UtcNow.ToLongTimeString());
         if (brandservice.DoesBrandExist(input.Brand.Name))
         {
@@ -83,7 +84,7 @@ public class PhoneService : IPhoneService
 
     public bool RemovePhone(int input)
     {
-        _logger.LogInformation("About page visited at {DT}",
+        _logger.LogInformation("phone removed visited at {DT}",
             DateTime.UtcNow.ToLongTimeString());
         bool IsRemoved = false;
         _repository.Delete(input);
@@ -93,7 +94,7 @@ public class PhoneService : IPhoneService
 
     public List<Phone>? GetPhonesByBrand(Brand brand)
     {
-        _logger.LogInformation("About page visited at {DT}",
+        _logger.LogInformation("got phones  at {DT}",
             DateTime.UtcNow.ToLongTimeString());
         List<Phone> _result = new();
         //var context = new DataContext();
