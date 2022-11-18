@@ -33,7 +33,7 @@ while (true)
         Console.WriteLine("Wat wil je zoeken?");
         string searchQuery = Console.ReadLine();
         List<Phone> answer = phoneservice.Search(searchQuery);
-
+        Console.ReadKey();
         while (true)
         {
             int count = 1;

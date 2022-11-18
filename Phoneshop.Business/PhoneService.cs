@@ -27,8 +27,8 @@ public class PhoneService : IPhoneService
 
     public Phone? GetPhoneById(int id)
     {
-        _logger.LogInformation("get phone by ID visited at {DT}",
-            DateTime.UtcNow.ToLongTimeString());
+        _logger.LogInformation("get phone by ID{id} visited at {DT}",
+            id, DateTime.UtcNow.ToLongTimeString());
 
         return _repository.GetById(id);
 
@@ -42,15 +42,15 @@ public class PhoneService : IPhoneService
     {
 
         List<Phone> _result = _repository.GetAll().Include(s => s.Brand).ToList();
-        _logger.LogInformation("About page visited at {DT}",
-           DateTime.UtcNow.ToLongTimeString());
+        _logger.LogInformation("About {phones} visited at {DT}",
+           _result.Count(), DateTime.UtcNow.ToLongTimeString());
         return _result;
     }
 
     public List<Phone>? Search(string input)
     {
-        _logger.LogInformation("search visited at {DT}",
-            DateTime.UtcNow.ToLongTimeString());
+        _logger.LogInformation("searched for {query} visited at {DT}",
+            input, DateTime.UtcNow.ToLongTimeString());
 
         if (input == "")
         {
