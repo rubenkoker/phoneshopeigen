@@ -122,14 +122,12 @@ static void ConfigureServices(ServiceCollection services)
 
     services.AddLogging(config => config.AddColorConsoleLogger(config =>
     {
-        config.LogLevelToColorMap[LogLevel.Information] = ConsoleColor.Green;
+        config.LogLevelToColorMap[LogLevel.Information] = ConsoleColor.Cyan;
         config.LogLevelToColorMap[LogLevel.Warning] = ConsoleColor.Yellow;
         config.LogLevelToColorMap[LogLevel.Error] = ConsoleColor.Red;
         config.LogLevelToColorMap[LogLevel.Critical] = ConsoleColor.DarkRed;
-        config.LogLevelToColorMap
-        [LogLevel.Debug] = ConsoleColor.Blue;
+        config.LogLevelToColorMap[LogLevel.Debug] = ConsoleColor.Blue;
     }));
-
 
     string _connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
     services.AddDbContext<DataContext>(

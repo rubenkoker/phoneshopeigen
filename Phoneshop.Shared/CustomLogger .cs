@@ -46,7 +46,7 @@ namespace Phoneshop.Shared
                 Console.Write($"{formatter(state, exception)}");
 
                 Console.ForegroundColor = originalColor;
-                Console.WriteLine();
+                Console.WriteLine("over");
             }
 
         }
