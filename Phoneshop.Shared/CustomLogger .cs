@@ -9,9 +9,8 @@ namespace Phoneshop.Shared
         private readonly string _name;
 
         private readonly Func<ColorConsoleLoggerConfiguration> _getCurrentConfig;
-        public CustomLogger(string name,
-        Func<ColorConsoleLoggerConfiguration> getCurrentConfig) =>
-        (_name, _getCurrentConfig) = (name, getCurrentConfig);
+        public CustomLogger(string name, Func<ColorConsoleLoggerConfiguration> getCurrentConfig) =>
+            (_name, _getCurrentConfig) = (name, getCurrentConfig);
 
         public IDisposable BeginScope<TState>(TState state) where TState : notnull => default!;
 
@@ -20,12 +19,13 @@ namespace Phoneshop.Shared
             Debug.WriteLine(_getCurrentConfig() == null);
             return _getCurrentConfig().LogLevelToColorMap.ContainsKey(logLevel);
         }
+
         public void Log<TState>(
-       LogLevel logLevel,
-       EventId eventId,
-       TState state,
-       Exception? exception,
-       Func<TState, Exception?, string> formatter)
+            LogLevel logLevel,
+            EventId eventId,
+            TState state,
+            Exception? exception,
+            Func<TState, Exception?, string> formatter)
         {
             if (!IsEnabled(logLevel))
             {
@@ -35,7 +35,7 @@ namespace Phoneshop.Shared
             if (config.EventId == 0 || config.EventId == eventId.Id)
             {
                 ConsoleColor originalColor = Console.ForegroundColor;
-
+                Console.WriteLine(DateTime.UtcNow.ToLongTimeString());
                 Console.ForegroundColor = config.LogLevelToColorMap[logLevel];
                 Console.WriteLine($"[{eventId.Id,2}: {logLevel,-12}]");
 

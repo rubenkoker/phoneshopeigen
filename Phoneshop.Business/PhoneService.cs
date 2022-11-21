@@ -27,8 +27,8 @@ public class PhoneService : IPhoneService
 
     public Phone? GetPhoneById(int id)
     {
-        _logger.LogInformation("get phone by ID{id} visited at {DT}",
-            id, DateTime.UtcNow.ToLongTimeString());
+        _logger.LogInformation("get phone by ID{id}",
+            id);
 
         return _repository.GetById(id);
 
@@ -42,15 +42,15 @@ public class PhoneService : IPhoneService
     {
 
         List<Phone> _result = _repository.GetAll().Include(s => s.Brand).ToList();
-        _logger.LogInformation("About {phones} visited at {DT}",
-           _result.Count(), DateTime.UtcNow.ToLongTimeString());
+        _logger.LogInformation("get phones: {phones}",
+           _result.Count());
         return _result;
     }
 
     public List<Phone>? Search(string input)
     {
-        _logger.LogInformation("searched for {query} visited at {DT}",
-            input, DateTime.UtcNow.ToLongTimeString());
+        _logger.LogInformation("searched for {query} ",
+            input);
 
         if (input == "")
         {
@@ -70,8 +70,7 @@ public class PhoneService : IPhoneService
     public bool AddPhone(Phone input)
     {
         _logger.LogInformation("" +
-            "Add phone visited at {DT}",
-            DateTime.UtcNow.ToLongTimeString());
+            "Added phone   ");
         if (brandservice.DoesBrandExist(input.Brand.Name))
         {
             input.Brand = brandservice.FindBrandByName(input.Brand.Name);
