@@ -18,6 +18,7 @@ public class BrandService : IBrandservice
     public bool DoesBrandExist(string Name)
     {
         bool brandExists = false;
+
         var result = (from t in repository.GetAll()
                       where t.Name == Name
                       select t).Any();

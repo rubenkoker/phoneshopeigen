@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
+
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Phoneshop.WebAPI.Controllers
@@ -9,19 +10,23 @@ namespace Phoneshop.WebAPI.Controllers
     [ApiController]
     public class PhonesController : ControllerBase
     {
-
         private IPhoneService phoneService;
+        private IBrandservice brandservice;
+
         private readonly IRepository<Phone> _repository;
-        static ServiceCollection phoneservices = new();
+        private static ServiceCollection phoneservices = new();
+
         //ConfigureServices(phoneservices);
-        ServiceProvider serviceProvider = phoneservices.BuildServiceProvider();
+        private ServiceProvider serviceProvider = phoneservices.BuildServiceProvider();
+
         //brandservice = serviceProvider.GetRequiredService<IBrandservice>();
         // _logger = serviceProvider.GetRequiredService<ILogger>();
-        public PhonesController(IPhoneService phoneService)
+        public PhonesController(IPhoneService phoneService, IBrandservice brandservice)
         {
-
-
             this.phoneService = phoneService;
+            this.brandservice = brandservice;
+
+
         }
 
         //ConfigureServices(phoneservices);
@@ -43,6 +48,7 @@ namespace Phoneshop.WebAPI.Controllers
             }
             return NotFound();
         }
+
         // GET api/<ValuesController>/5
         [HttpGet("search/{search}")]
         public IActionResult GetPhones(string search)
@@ -52,7 +58,6 @@ namespace Phoneshop.WebAPI.Controllers
                 return Ok(phoneService.GetAllPhones());
             }
             return Ok(phoneService.Search(search));
-
         }
 
         // POST api/<ValuesController>
@@ -66,7 +71,6 @@ namespace Phoneshop.WebAPI.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
-
         }
 
         // DELETE api/<ValuesController>/5
@@ -74,7 +78,5 @@ namespace Phoneshop.WebAPI.Controllers
         public void Delete(int id)
         {
         }
-
     }
-
 }

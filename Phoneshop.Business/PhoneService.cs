@@ -12,7 +12,7 @@ public class PhoneService : IPhoneService
     private readonly IRepository<Phone> _repository;
     public readonly ILogger<PhoneService> _logger;
 
-    public PhoneService(IRepository<Phone> repository, ILogger<PhoneService> logger)
+    public PhoneService(IRepository<Phone> repository, ILogger<PhoneService> logger, IBrandservice brandservice)
     {
         ServiceCollection phoneservices = new();
         //ConfigureServices(phoneservices);
@@ -20,7 +20,7 @@ public class PhoneService : IPhoneService
         //brandservice = serviceProvider.GetRequiredService<IBrandservice>();
         // _logger = serviceProvider.GetRequiredService<ILogger>();
         _logger = logger;
-
+        this.brandservice = brandservice;
         this._repository = repository;
     }
 
@@ -43,6 +43,7 @@ public class PhoneService : IPhoneService
            _result.Count());
         return _result;
     }
+
     public List<Phone> Search(string input)
     {
         _logger.LogInformation("searched for {query} ",
