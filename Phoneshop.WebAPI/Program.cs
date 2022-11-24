@@ -5,7 +5,6 @@ using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -18,6 +17,7 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddScoped<IPhoneService, PhoneService>();
 builder.Services.AddScoped<IBrandservice, BrandService>();
 builder.Services.AddScoped(typeof(IRepository<Phone>), typeof(Repository<Phone>));
+builder.Services.AddScoped(typeof(IRepository<Brand>), typeof(Repository<Brand>));
 
 builder.Services.AddLogging(x => x.AddConfiguration(builder.Configuration));
 
@@ -30,7 +30,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

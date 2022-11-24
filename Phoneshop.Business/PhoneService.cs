@@ -15,10 +15,9 @@ public class PhoneService : IPhoneService
     public PhoneService(IRepository<Phone> repository, ILogger<PhoneService> logger, IBrandservice brandservice)
     {
         ServiceCollection phoneservices = new();
-        //ConfigureServices(phoneservices);
+
         ServiceProvider serviceProvider = phoneservices.BuildServiceProvider();
-        //brandservice = serviceProvider.GetRequiredService<IBrandservice>();
-        // _logger = serviceProvider.GetRequiredService<ILogger>();
+
         _logger = logger;
         this.brandservice = brandservice;
         this._repository = repository;

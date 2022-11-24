@@ -7,7 +7,6 @@ namespace Phoneshop.Data
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //Debug.WriteLine(ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString);
             string _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
             optionsBuilder.UseSqlServer(_connectionString);
 

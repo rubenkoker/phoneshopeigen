@@ -17,7 +17,5 @@ namespace Phoneshop.WebAPI.Controllers
         {
             _logger = logger;
         }
-
-
     }
 }

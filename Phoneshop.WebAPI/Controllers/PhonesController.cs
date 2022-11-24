@@ -13,20 +13,10 @@ namespace Phoneshop.WebAPI.Controllers
         private IPhoneService phoneService;
         private IBrandservice brandservice;
 
-        private readonly IRepository<Phone> _repository;
-        private static ServiceCollection phoneservices = new();
-
-        //ConfigureServices(phoneservices);
-        private ServiceProvider serviceProvider = phoneservices.BuildServiceProvider();
-
-        //brandservice = serviceProvider.GetRequiredService<IBrandservice>();
-        // _logger = serviceProvider.GetRequiredService<ILogger>();
         public PhonesController(IPhoneService phoneService, IBrandservice brandservice)
         {
             this.phoneService = phoneService;
             this.brandservice = brandservice;
-
-
         }
 
         //ConfigureServices(phoneservices);
