@@ -20,6 +20,7 @@ namespace Phoneshop.Shared.extensions
 
             return builder;
         }
+
         public static ILoggingBuilder AddColorConsoleLogger(
        this ILoggingBuilder builder, Action<ColorConsoleLoggerConfiguration> configure)
         {

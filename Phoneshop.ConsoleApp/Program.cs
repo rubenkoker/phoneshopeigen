@@ -10,6 +10,7 @@ using Phoneshop.Shared;
 using Phoneshop.Shared.extensions;
 using System.Configuration;
 using System.Text;
+
 Console.OutputEncoding = Encoding.UTF8;
 IPhoneService phoneservice;
 ILogger logger;
@@ -72,7 +73,7 @@ while (true)
         int number;
         if (int.TryParse(inputValue, out number))
         {
-            Phone chosen = phoneservice.GetPhoneById(number);
+            Phone chosen = list[number - 1];
             if (number < 1)
             {
                 Console.WriteLine("getal kan niet onder 1 zijn");

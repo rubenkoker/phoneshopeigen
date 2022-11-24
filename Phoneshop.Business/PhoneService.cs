@@ -8,13 +8,12 @@ namespace Phoneshop.Business;
 
 public class PhoneService : IPhoneService
 {
-
     private IBrandservice brandservice;
     private readonly IRepository<Phone> _repository;
     public readonly ILogger<PhoneService> _logger;
+
     public PhoneService(IRepository<Phone> repository, ILogger<PhoneService> logger)
     {
-
         ServiceCollection phoneservices = new();
         //ConfigureServices(phoneservices);
         ServiceProvider serviceProvider = phoneservices.BuildServiceProvider();
@@ -31,7 +30,6 @@ public class PhoneService : IPhoneService
             id);
 
         return _repository.GetById(id);
-
     }
 
     /// <summary>
@@ -40,14 +38,12 @@ public class PhoneService : IPhoneService
     /// <returns></returns>
     public List<Phone> GetAllPhones()
     {
-
         List<Phone> _result = _repository.GetAll().Include(s => s.Brand).ToList();
         _logger.LogInformation("get phones: {phones}",
            _result.Count());
         return _result;
     }
-
-    public List<Phone>? Search(string input)
+    public List<Phone> Search(string input)
     {
         _logger.LogInformation("searched for {query} ",
             input);
@@ -78,7 +74,6 @@ public class PhoneService : IPhoneService
         _repository.Create(input);
         _repository.SaveChanges();
         return true;
-
     }
 
     public bool RemovePhone(int input)

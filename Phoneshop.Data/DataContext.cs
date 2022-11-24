@@ -15,11 +15,10 @@ namespace Phoneshop.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         }
+
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-
         }
-
 
         //entities
         public DbSet<Phone> Phones { get; set; }

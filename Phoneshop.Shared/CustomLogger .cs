@@ -5,10 +5,10 @@ namespace Phoneshop.Shared
 {
     public class CustomLogger : ILogger
     {
-
         private readonly string _name;
 
         private readonly Func<ColorConsoleLoggerConfiguration> _getCurrentConfig;
+
         public CustomLogger(string name, Func<ColorConsoleLoggerConfiguration> getCurrentConfig) =>
             (_name, _getCurrentConfig) = (name, getCurrentConfig);
 
@@ -48,9 +48,7 @@ namespace Phoneshop.Shared
                 Console.ForegroundColor = originalColor;
                 Console.WriteLine("over");
             }
-
         }
-
     }
 }
 
@@ -59,5 +57,4 @@ public sealed class ColorConsoleLoggerConfiguration
     public int EventId { get; set; }
 
     public Dictionary<LogLevel, ConsoleColor> LogLevelToColorMap { get; set; } = new();
-
 }

@@ -6,7 +6,6 @@
     /// </summary>
     public class Phone : EntityBase
     {
-
         public int BrandID { get; set; }
         public Brand Brand { get; set; } = new Brand();
         public string Type { get; set; } = String.Empty;

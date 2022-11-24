@@ -8,9 +8,9 @@ namespace Phoneshop.Shared
     [ProviderAlias("ColorConsole")]
     public sealed class LoggerProvider : ILoggerProvider
     {
-
         private IDisposable? _onChangeToken;
         private ColorConsoleLoggerConfiguration _currentConfig;
+
         private readonly ConcurrentDictionary<string, CustomLogger> _loggers =
             new(StringComparer.OrdinalIgnoreCase);
 
@@ -34,4 +34,3 @@ namespace Phoneshop.Shared
         }
     }
 }
-

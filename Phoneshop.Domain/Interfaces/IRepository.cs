@@ -11,6 +11,7 @@ namespace Phoneshop.Domain.Interfaces
         void Create(TEntity entity);
 
         void Delete(int id);
+
         void SaveChanges();
     }
 }

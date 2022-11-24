@@ -1,17 +1,18 @@
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
 using System.Configuration;
+
 namespace Phoneshop.Business;
 
 public class BrandService : IBrandservice
 {
     private readonly string _connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
     private readonly IRepository<Brand> repository;
+
     //public void ForceBrandExists(Brand brand);
     public void InsertBrand(Brand input)
     {
         repository.Create(input);
-
     }
 
     public bool DoesBrandExist(string Name)
@@ -21,13 +22,11 @@ public class BrandService : IBrandservice
                       where t.Name == Name
                       select t).Any();
 
-
-
         return result;
-
 
         return brandExists;
     }
+
     public Brand? FindBrandByName(string Name)
     {
         var brandList = repository.GetAll();
@@ -36,6 +35,5 @@ public class BrandService : IBrandservice
                     where b.Name == Name
                     select b;
         return brand.SingleOrDefault();
-
     }
 }

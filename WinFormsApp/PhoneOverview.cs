@@ -170,12 +170,10 @@ namespace WinFormsApp
 
             services.AddDbContext<DataContext>(
                 options => options.UseSqlServer(connectionString));
-
         }
 
         private void lblBrand_Click(object sender, EventArgs e)
         {
-
         }
     }
 }
