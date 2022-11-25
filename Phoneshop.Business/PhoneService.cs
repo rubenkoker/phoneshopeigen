@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
@@ -14,10 +13,6 @@ public class PhoneService : IPhoneService
 
     public PhoneService(IRepository<Phone> repository, ILogger<PhoneService> logger, IBrandservice brandservice)
     {
-        ServiceCollection phoneservices = new();
-
-        ServiceProvider serviceProvider = phoneservices.BuildServiceProvider();
-
         _logger = logger;
         this.brandservice = brandservice;
         this._repository = repository;
@@ -78,11 +73,14 @@ public class PhoneService : IPhoneService
 
     public bool RemovePhone(int input)
     {
+        //TODO fix bool
+        bool IsRemoved = false;
         _logger.LogInformation("phone removed visited at {DT}",
             DateTime.UtcNow.ToLongTimeString());
-        bool IsRemoved = false;
+
         _repository.Delete(input);
         _repository.SaveChanges();
+
         return IsRemoved;
     }
 

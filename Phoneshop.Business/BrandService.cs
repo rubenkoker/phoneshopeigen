@@ -8,10 +8,12 @@ public class BrandService : IBrandservice
 {
     private readonly string _connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
     private readonly IRepository<Brand> repository;
+
     public BrandService(IRepository<Brand> repository)
     {
         this.repository = repository;
     }
+
     public void InsertBrand(Brand input)
     {
         repository.Create(input);

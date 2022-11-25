@@ -11,12 +11,10 @@ namespace Phoneshop.WebAPI.Controllers
     public class PhonesController : ControllerBase
     {
         private IPhoneService phoneService;
-        private IBrandservice brandservice;
 
-        public PhonesController(IPhoneService phoneService, IBrandservice brandservice)
+        public PhonesController(IPhoneService phoneService)
         {
             this.phoneService = phoneService;
-            this.brandservice = brandservice;
         }
 
         //ConfigureServices(phoneservices);
@@ -57,16 +55,18 @@ namespace Phoneshop.WebAPI.Controllers
             phoneService.AddPhone(value);
         }
 
-        // PUT api/<ValuesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
         // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            phoneService.RemovePhone(id);
+        }
+
+        // DELETE api/<ValuesController>/5
+        [HttpGet("teapot")]
+        public IActionResult teapot()
+        {
+            return StatusCode(418);
         }
     }
 }
