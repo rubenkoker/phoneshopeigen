@@ -10,7 +10,7 @@ namespace Phoneshop.Domain.Interfaces
 
         void Create(TEntity entity);
 
-        void Delete(int id);
+        bool Delete(int id);
 
         void SaveChanges();
     }

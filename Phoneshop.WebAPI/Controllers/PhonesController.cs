@@ -17,16 +17,12 @@ namespace Phoneshop.WebAPI.Controllers
             this.phoneService = phoneService;
         }
 
-        //ConfigureServices(phoneservices);
-
-        // GET: api/<ValuesController>
         [HttpGet]
         public IActionResult Get()
         {
             return Ok(phoneService.GetAllPhones());
         }
 
-        // GET api/<ValuesController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -37,7 +33,6 @@ namespace Phoneshop.WebAPI.Controllers
             return NotFound();
         }
 
-        // GET api/<ValuesController>/5
         [HttpGet("search/{search}")]
         public IActionResult GetPhones(string search)
         {
@@ -48,7 +43,6 @@ namespace Phoneshop.WebAPI.Controllers
             return Ok(phoneService.Search(search));
         }
 
-        // POST api/<ValuesController>
         [HttpPost]
         public void Create([FromBody] Phone value)
         {
@@ -57,16 +51,16 @@ namespace Phoneshop.WebAPI.Controllers
 
         // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            phoneService.RemovePhone(id);
-        }
-
-        // DELETE api/<ValuesController>/5
-        [HttpGet("teapot")]
-        public IActionResult teapot()
-        {
-            return StatusCode(418);
+            if (phoneService.RemovePhone(id))
+            {
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }

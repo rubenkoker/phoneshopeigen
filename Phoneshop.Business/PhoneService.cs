@@ -26,10 +26,6 @@ public class PhoneService : IPhoneService
         return _repository.GetById(id);
     }
 
-    /// <summary>
-    /// public getter for the phone list
-    /// </summary>
-    /// <returns></returns>
     public List<Phone> GetAllPhones()
     {
         List<Phone> _result = _repository.GetAll().Include(s => s.Brand).ToList();
@@ -73,12 +69,11 @@ public class PhoneService : IPhoneService
 
     public bool RemovePhone(int input)
     {
-        //TODO fix bool
         bool IsRemoved = false;
         _logger.LogInformation("phone removed visited at {DT}",
             DateTime.UtcNow.ToLongTimeString());
 
-        _repository.Delete(input);
+        IsRemoved = _repository.Delete(input);
         _repository.SaveChanges();
 
         return IsRemoved;

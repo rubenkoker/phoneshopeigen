@@ -31,9 +31,17 @@ namespace Phoneshop.Data
             context.Set<TEntity>().Add(entity);
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
-            context.Set<TEntity>().Remove(context.Set<TEntity>().Find(id)); ;
+            try
+            {
+                context.Set<TEntity>().Remove(context.Set<TEntity>().Find(id));
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public void SaveChanges()

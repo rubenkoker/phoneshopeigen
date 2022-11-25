@@ -1,9 +1,6 @@
 ﻿namespace Phoneshop.Domain.Models
 
 {
-    /// <summary>
-    /// Phone type with custom ToString function
-    /// </summary>
     public class Phone : EntityBase
     {
         public int BrandID { get; set; }
