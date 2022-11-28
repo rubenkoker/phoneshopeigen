@@ -36,7 +36,7 @@ namespace Phoneshop.WebAPI.Controllers
         [HttpGet("search/{search}")]
         public IActionResult GetPhones(string search)
         {
-            if (String.IsNullOrEmpty(search))
+            if (string.IsNullOrEmpty(search))
             {
                 return Ok(phoneService.GetAllPhones());
             }

@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Phoneshop.Business;
 using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
-using Phoneshop.Domain.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -18,8 +17,7 @@ builder.Services.AddDbContext<DataContext>(option => builder
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddScoped<IPhoneService, PhoneService>();
 builder.Services.AddScoped<IBrandservice, BrandService>();
-builder.Services.AddScoped(typeof(IRepository<Phone>), typeof(Repository<Phone>));
-builder.Services.AddScoped(typeof(IRepository<Brand>), typeof(Repository<Brand>));
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 builder.Services.AddLogging(x => x.AddConfiguration(builder.Configuration));
 

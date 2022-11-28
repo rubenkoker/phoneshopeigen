@@ -7,15 +7,15 @@ namespace Phoneshop.Business;
 
 public class PhoneService : IPhoneService
 {
-    private IBrandservice brandservice;
+    private IBrandservice _brandservice;
     private readonly IRepository<Phone> _repository;
     public readonly ILogger<PhoneService> _logger;
 
     public PhoneService(IRepository<Phone> repository, ILogger<PhoneService> logger, IBrandservice brandservice)
     {
         _logger = logger;
-        this.brandservice = brandservice;
-        this._repository = repository;
+        _brandservice = brandservice;
+        _repository = repository;
     }
 
     public Phone? GetPhoneById(int id)
@@ -58,9 +58,9 @@ public class PhoneService : IPhoneService
     {
         _logger.LogInformation("" +
             "Added phone   ");
-        if (brandservice.DoesBrandExist(input.Brand.Name))
+        if (_brandservice.DoesBrandExist(input.Brand.Name))
         {
-            input.Brand = brandservice.FindBrandByName(input.Brand.Name);
+            input.Brand = _brandservice.FindBrandByName(input.Brand.Name);
         }
         _repository.Create(input);
         _repository.SaveChanges();
@@ -69,14 +69,14 @@ public class PhoneService : IPhoneService
 
     public bool RemovePhone(int input)
     {
-        bool IsRemoved = false;
+
         _logger.LogInformation("phone removed visited at {DT}",
             DateTime.UtcNow.ToLongTimeString());
 
-        IsRemoved = _repository.Delete(input);
+        bool isRemoved = _repository.Delete(input);
         _repository.SaveChanges();
 
-        return IsRemoved;
+        return isRemoved;
     }
 
     public List<Phone>? GetPhonesByBrand(Brand brand)
@@ -84,7 +84,7 @@ public class PhoneService : IPhoneService
         _logger.LogInformation("got phones  at {DT}",
             DateTime.UtcNow.ToLongTimeString());
         List<Phone> _result = new();
-        //var context = new DataContext();
+
         var phonelist = _repository.GetAll();
         // Query for all blogs with names starting with B
         var phones = from b in phonelist
