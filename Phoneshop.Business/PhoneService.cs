@@ -18,7 +18,7 @@ public class PhoneService : IPhoneService
         _repository = repository;
     }
 
-    public Phone? GetPhoneById(int id)
+    public async Task<Phone?> GetPhoneById(int id)
     {
         _logger.LogInformation("get phone by ID{id}",
             id);
@@ -26,15 +26,15 @@ public class PhoneService : IPhoneService
         return _repository.GetById(id);
     }
 
-    public List<Phone> GetAllPhones()
+    public async Task<List<Phone>> GetAllPhones()
     {
-        List<Phone> _result = _repository.GetAll().Include(s => s.Brand).ToList();
+        List<Phone> _result = await _repository.GetAll().Include(s => s.Brand).ToListAsync();
         _logger.LogInformation("get phones: {phones}",
            _result.Count());
         return _result;
     }
 
-    public List<Phone> Search(string input)
+    public async Task<List<Phone>> Search(string input)
     {
         _logger.LogInformation("searched for {query} ",
             input);
@@ -51,23 +51,23 @@ public class PhoneService : IPhoneService
                      where b.Description.Contains(input) || b.Type.Contains(input) || b.Brand.Name.Contains(input)
                      select b;
 
-        return phones.ToList();
+        return await phones.ToListAsync();
     }
 
-    public bool AddPhone(Phone input)
+    public async Task<bool> AddPhone(Phone input)
     {
         _logger.LogInformation("" +
             "Added phone   ");
-        if (_brandservice.DoesBrandExist(input.Brand.Name))
+        if (await _brandservice.DoesBrandExist(input.Brand.Name))
         {
-            input.Brand = _brandservice.FindBrandByName(input.Brand.Name);
+            input.Brand = await _brandservice.FindBrandByName(input.Brand.Name);
         }
         _repository.Create(input);
         _repository.SaveChanges();
         return true;
     }
 
-    public bool RemovePhone(int input)
+    public async Task<bool> RemovePhone(int input)
     {
 
         _logger.LogInformation("phone removed visited at {DT}",
@@ -79,7 +79,7 @@ public class PhoneService : IPhoneService
         return isRemoved;
     }
 
-    public List<Phone>? GetPhonesByBrand(Brand brand)
+    public async Task<List<Phone>?> GetPhonesByBrand(Brand brand)
     {
         _logger.LogInformation("got phones  at {DT}",
             DateTime.UtcNow.ToLongTimeString());
@@ -91,6 +91,6 @@ public class PhoneService : IPhoneService
                      where b.BrandID == brand.Id
                      select b;
 
-        return phones.ToList();
+        return await phones.ToListAsync();
     }
 }

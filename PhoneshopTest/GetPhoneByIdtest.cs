@@ -11,7 +11,7 @@ namespace PhoneshopTest
     public class GetPhoneByIdtest
     {
         [Fact]
-        public void GetByIDTest_ShouldReturnIphone()
+        public async Task GetByIDTest_ShouldReturnIphone()
         {
             //arrange
             var phoneservices = new ServiceCollection();
@@ -19,7 +19,7 @@ namespace PhoneshopTest
             ServiceProvider serviceProvider = phoneservices.BuildServiceProvider();
             var services = serviceProvider.GetRequiredService<IPhoneService>();
             //act
-            Phone phone = services.GetPhoneById(1042);
+            Phone phone = await services.GetPhoneById(1042);
             //asses
             Debug.WriteLine(phone.Type);
             Assert.Equal("IPhone43", phone.Type);
@@ -34,7 +34,7 @@ namespace PhoneshopTest
         }
 
         [Fact]
-        public void GetAllPhonesTest_shouldReturn5phones()
+        public async Task GetAllPhonesTest_shouldReturn5phones()
         {
             //arrange
             //arrange
@@ -42,12 +42,12 @@ namespace PhoneshopTest
             ConfigureServices(services);
             ServiceProvider serviceProvider = services.BuildServiceProvider();
             var phoneservices = serviceProvider.GetRequiredService<IPhoneService>();
-            List<Phone> Baselist = phoneservices.GetAllPhones();
+            List<Phone> Baselist = await phoneservices.GetAllPhones();
             //act
-            bool answer = phoneservices.RemovePhone(15);
+            bool answer = await phoneservices.RemovePhone(15);
 
             //act
-            List<Phone> phone = phoneservices.GetAllPhones();
+            List<Phone> phone = await phoneservices.GetAllPhones();
             //asses
             // Assert.Equal(15, phone.Count());
             static void ConfigureServices(ServiceCollection services)
@@ -61,7 +61,7 @@ namespace PhoneshopTest
         }
 
         [Fact]
-        public void GetByIDZeroTest_SHouldReturnNull()
+        public async Task GetByIDZeroTest_SHouldReturnNull()
         {
             //arrange
             //arrange
@@ -69,12 +69,12 @@ namespace PhoneshopTest
             ConfigureServices(services);
             ServiceProvider serviceProvider = services.BuildServiceProvider();
             var phoneservices = serviceProvider.GetRequiredService<IPhoneService>();
-            List<Phone> Baselist = phoneservices.GetAllPhones();
+            List<Phone> Baselist = await phoneservices.GetAllPhones();
             //act
-            bool answer = phoneservices.RemovePhone(15);
+            bool answer = await phoneservices.RemovePhone(15);
 
             //act
-            Phone phone = phoneservices.GetPhoneById(0);
+            Phone phone = await phoneservices.GetPhoneById(0);
             //asses
             Assert.Null(phone);
             static void ConfigureServices(ServiceCollection services)

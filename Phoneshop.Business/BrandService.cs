@@ -1,6 +1,7 @@
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
 using System.Configuration;
+using System.Data.Entity;
 
 namespace Phoneshop.Business;
 
@@ -14,12 +15,12 @@ public class BrandService : IBrandservice
         this.repository = repository;
     }
 
-    public void InsertBrand(Brand input)
+    public async Task InsertBrand(Brand input)
     {
         repository.Create(input);
     }
 
-    public bool DoesBrandExist(string Name)
+    public async Task<bool> DoesBrandExist(string Name)
     {
         bool brandExists = false;
 
@@ -32,13 +33,13 @@ public class BrandService : IBrandservice
         return brandExists;
     }
 
-    public Brand? FindBrandByName(string Name)
+    public async Task<Brand?> FindBrandByName(string Name)
     {
         var brandList = repository.GetAll();
 
         var brand = from b in brandList
                     where b.Name == Name
                     select b;
-        return brand.SingleOrDefault();
+        return await brand.SingleOrDefaultAsync();
     }
 }

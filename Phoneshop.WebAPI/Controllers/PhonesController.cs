@@ -18,13 +18,13 @@ namespace Phoneshop.WebAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            return Ok(phoneService.GetAllPhones());
+            return Ok(await phoneService.GetAllPhones());
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
             if (phoneService.GetPhoneById(id) != null)
             {
@@ -34,7 +34,7 @@ namespace Phoneshop.WebAPI.Controllers
         }
 
         [HttpGet("search/{search}")]
-        public IActionResult GetPhones(string search)
+        public async Task<IActionResult> GetPhones(string search)
         {
             if (string.IsNullOrEmpty(search))
             {
@@ -44,16 +44,16 @@ namespace Phoneshop.WebAPI.Controllers
         }
 
         [HttpPost]
-        public void Create([FromBody] Phone value)
+        public async Task Create([FromBody] Phone value)
         {
             phoneService.AddPhone(value);
         }
 
         // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (phoneService.RemovePhone(id))
+            if (await phoneService.RemovePhone(id))
             {
                 return Ok();
             }
