@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
 
@@ -8,6 +9,7 @@ namespace Phoneshop.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PhonesController : ControllerBase
     {
         private IPhoneService phoneService;

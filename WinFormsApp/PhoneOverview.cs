@@ -26,8 +26,8 @@ namespace WinFormsApp
             ConfigureServices(phoneservices);
             ServiceProvider serviceProvider = phoneservices.BuildServiceProvider();
             phoneservice = serviceProvider.GetRequiredService<IPhoneService>();
+            Task.Run(async () => Baselist = await phoneservice.GetAllPhones());
 
-            Baselist = phoneservice.GetAllPhones();
             ListChanged += List_ListChanged;
             Currentlist = Baselist;
             Debug.WriteLine(Baselist.Count());

@@ -8,16 +8,16 @@ namespace Phoneshop.Business.Test
     public class should__Return_4phones_withcam
     {
         [Fact]
-        public void GetByIDTest_ShouldReturnCamPhones()
+        public async Task GetByIDTest_ShouldReturnCamPhones()
         {
             //arrange
             var services = new ServiceCollection();
             ConfigureServices(services);
             ServiceProvider serviceProvider = services.BuildServiceProvider();
             var phoneservices = serviceProvider.GetRequiredService<IPhoneService>();
-            List<Phone> Baselist = phoneservices.GetAllPhones();
+            List<Phone> Baselist = await phoneservices.GetAllPhones();
             //act
-            bool answer = phoneservices.RemovePhone(15);
+            bool answer = await phoneservices.RemovePhone(15);
             //asses
 
             Assert.True(answer);

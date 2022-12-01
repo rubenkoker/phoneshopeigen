@@ -42,4 +42,17 @@ public class BrandService : IBrandservice
                     select b;
         return await brand.SingleOrDefaultAsync();
     }
+
+    public async Task<Brand?> GetBrandById(int id)
+    {
+        return repository.GetById(id);
+    }
+
+    public async Task<bool> RemoveBrand(int input)
+    {
+        bool isRemoved = repository.Delete(input);
+        repository.SaveChanges();
+
+        return isRemoved;
+    }
 }

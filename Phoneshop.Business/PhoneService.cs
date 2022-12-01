@@ -69,7 +69,6 @@ public class PhoneService : IPhoneService
 
     public async Task<bool> RemovePhone(int input)
     {
-
         _logger.LogInformation("phone removed visited at {DT}",
             DateTime.UtcNow.ToLongTimeString());
 

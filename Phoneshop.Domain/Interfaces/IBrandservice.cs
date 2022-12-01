@@ -9,5 +9,9 @@ namespace Phoneshop.Domain.Interfaces
         Task<Brand?> FindBrandByName(string Name);
 
         public Task<bool> DoesBrandExist(string CheckQuery);
+
+        Task<Brand?> GetBrandById(int id);
+
+        Task<bool> RemoveBrand(int input);
     }
 }

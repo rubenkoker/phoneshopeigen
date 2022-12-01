@@ -8,7 +8,7 @@ namespace Phoneshop.Business.Test.PhoneServiceTests
     public class AddPhoneTest
     {
         [Fact]
-        public void GetByIDTest_ShouldReturnCamPhones()
+        public async Task GetByIDTest_ShouldReturnCamPhones()
         {
             //arrange
             var services = new ServiceCollection();
@@ -23,7 +23,7 @@ namespace Phoneshop.Business.Test.PhoneServiceTests
             phone.Description = "deze nederlandse telefoon is fairtrade en heef 5g";
             phone.Type = "4";
 
-            bool Result = phoneservices.AddPhone(phone);
+            bool Result = await phoneservices.AddPhone(phone);
             //act
 
             //asses

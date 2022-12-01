@@ -21,7 +21,7 @@ ConfigureServices(services);
 ServiceProvider serviceProvider = services.BuildServiceProvider();
 logger = serviceProvider.GetRequiredService<ILogger<Program>>();
 phoneservice = serviceProvider.GetRequiredService<IPhoneService>();
-List<Phone> list = phoneservice.GetAllPhones();
+List<Phone> list = await phoneservice.GetAllPhones();
 logger.LogInformation("starting");
 while (true)
 {
@@ -33,7 +33,7 @@ while (true)
     {
         Console.WriteLine("Wat wil je zoeken?");
         string searchQuery = Console.ReadLine();
-        List<Phone> answer = phoneservice.Search(searchQuery);
+        List<Phone> answer = await phoneservice.Search(searchQuery);
         Console.ReadKey();
         while (true)
         {
