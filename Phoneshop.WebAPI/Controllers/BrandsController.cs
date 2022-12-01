@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
 
@@ -7,6 +8,7 @@ using Phoneshop.Domain.Models;
 namespace Phoneshop.WebAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class BrandController : Controller
     {

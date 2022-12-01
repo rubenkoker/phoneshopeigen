@@ -29,8 +29,20 @@ namespace WinFormsApp
             Task.Run(async () => Baselist = await phoneservice.GetAllPhones());
 
             ListChanged += List_ListChanged;
-            Currentlist = Baselist;
-            Debug.WriteLine(Baselist.Count());
+
+            while (true)
+            {
+                if (Baselist != null)
+                {
+                    Currentlist = Baselist;
+                    Debug.WriteLine(Baselist.Count());
+                    break;
+                }
+                else
+                {
+                    Task.Delay(25);
+                }
+            }
             foreach (var item in Baselist)
             {
                 listBox1.Items.Add($"{item.Brand.Name} {item.Type}");
@@ -58,11 +70,11 @@ namespace WinFormsApp
             }
         }
 
-        private void SearchBar_TextChanged(object sender, EventArgs e)
+        private async Task SearchBar_TextChanged(object sender, EventArgs e)
         {
             if (SearchBar.Text.Length > 3)
             {
-                Currentlist = phoneservice.Search(SearchBar.Text);
+                Currentlist = await phoneservice.Search(SearchBar.Text);
                 if (Currentlist.Count == 0)
 
                 {
@@ -124,7 +136,7 @@ namespace WinFormsApp
             }
         }
 
-        private void MinusButton_Click(object sender, EventArgs e)
+        private async Task MinusButton_Click(object sender, EventArgs e)
         {
             DialogResult res = MessageBox.Show("Are you sure you want to Delete", "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
             if (res == DialogResult.OK)
@@ -135,7 +147,7 @@ namespace WinFormsApp
                     int index = listBox1.SelectedIndex;
                     Phone SelectedPhone = Currentlist[index];
                     phoneservice.RemovePhone(SelectedPhone.Id);
-                    Currentlist = phoneservice.GetAllPhones();
+                    Currentlist = await phoneservice.GetAllPhones();
                     ListChanged(this, EventArgs.Empty);
                     MessageBox.Show(SelectedPhone.Id.ToString());
                 }

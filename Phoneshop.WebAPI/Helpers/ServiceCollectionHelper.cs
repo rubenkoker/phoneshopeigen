@@ -5,6 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using Phoneshop.Business;
 using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
+using Phoneshop.Domain.Models;
+using PhoneShop.API.Models;
 using PhoneShop.Business.Managers;
 using PhoneShop.Contracts.Interfaces;
 
@@ -31,10 +33,10 @@ namespace PhoneShop.API.Helpers
             builder.Services.AddSingleton<IJwtAuthManager, JwtAuthManager>();
 
             builder.Services.AddScoped<IPhoneService, PhoneService>();
-            builder.Services.AddScoped<IBrandService, BrandService>();
+            builder.Services.AddScoped<IBrandservice, BrandService>();
 
-            builder.Services.AddScoped<IRepository<Phone>, PhoneRepository>();
-            builder.Services.AddScoped<IRepository<Brand>, BrandRepository>();
+            builder.Services.AddScoped<IRepository<Phone>, Repository<Phone>>();
+            builder.Services.AddScoped<IRepository<Brand>, Repository<Brand>>();
 
             InitializeMapster();
         }
@@ -59,7 +61,7 @@ namespace PhoneShop.API.Helpers
                  * Indicates that the AppUser and AppUserRole represent the
                  * users and roles which Mocrosoft Identity can use for authorization
                 */
-                .AddEntityFrameworkStores<PhoneShopDbContext>();
+                .AddEntityFrameworkStores<DataContext>();
 
             /*
              * Retrieve the jwtTokenConfig section from the appSettings.json (see appSettings.json, line 17) and

@@ -53,7 +53,7 @@
             this.SearchBar.PlaceholderText = "search";
             this.SearchBar.Size = new System.Drawing.Size(369, 27);
             this.SearchBar.TabIndex = 0;
-            this.SearchBar.TextChanged += new System.EventHandler(this.SearchBar_TextChanged);
+            
             // 
             // label1
             // 
@@ -193,7 +193,7 @@
             this.MinusButton.TabIndex = 17;
             this.MinusButton.Text = "-";
             this.MinusButton.UseVisualStyleBackColor = true;
-            this.MinusButton.Click += new System.EventHandler(this.MinusButton_Click);
+            
             // 
             // PhoneOverview
             // 

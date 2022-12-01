@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Phoneshop.Domain.Models;
+using PhoneShop.Domain;
 
 namespace Phoneshop.Data
 {
-    public class DataContext : IdentityDbContext
+    public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -16,6 +17,7 @@ namespace Phoneshop.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
         }
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)

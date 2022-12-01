@@ -3,9 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using Phoneshop.Business;
 using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
+using Phoneshop.Shared;
+using Phoneshop.Shared.extensions;
 using PhoneShop.API.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
+ILogger logger;
+var services = new ServiceCollection();
+ConfigureServices(services);
 builder.Services.AddControllers()
      .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore); ;
 builder.Services.AddEndpointsApiExplorer();
@@ -16,7 +21,7 @@ builder.Services.AddCors(o => o.AddPolicy("myAllowSpecificOrigins", builder =>
            .AllowAnyHeader();
 }));
 builder.Services.AddSwaggerGen();
-
+ServiceProvider serviceProvider = services.BuildServiceProvider();
 builder.Services.AddDbContext<DataContext>(option => builder
     .Configuration
     .GetConnectionString(System.Configuration.ConfigurationManager
@@ -24,10 +29,11 @@ builder.Services.AddDbContext<DataContext>(option => builder
     .ConnectionString),
     ServiceLifetime.Scoped);
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
+logger = serviceProvider.GetRequiredService<ILogger<Program>>();
 builder.Services.AddScoped<IPhoneService, PhoneService>();
 builder.Services.AddScoped<IBrandservice, BrandService>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddIdentity<IdentityUser, IdentityRole>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(); ;
 builder.Services.AddLogging(x => x.AddConfiguration(builder.Configuration));
 builder.InitAuth();
 var app = builder.Build();
@@ -50,3 +56,23 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+static void ConfigureServices(ServiceCollection services)
+{
+    services.AddScoped<IPhoneService, PhoneService>();
+    services.AddScoped<IBrandservice, BrandService>();
+    services.AddScoped<ILogger, CustomLogger>();
+    services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+    services.AddLogging(config => config.AddColorConsoleLogger(config =>
+    {
+        config.LogLevelToColorMap[LogLevel.Information] = ConsoleColor.Cyan;
+        config.LogLevelToColorMap[LogLevel.Warning] = ConsoleColor.Yellow;
+        config.LogLevelToColorMap[LogLevel.Error] = ConsoleColor.Red;
+        config.LogLevelToColorMap[LogLevel.Critical] = ConsoleColor.DarkRed;
+        config.LogLevelToColorMap[LogLevel.Debug] = ConsoleColor.Blue;
+    }));
+
+    string _connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
+    services.AddDbContext<DataContext>(
+                 options => options.UseSqlServer(_connectionString));
+}

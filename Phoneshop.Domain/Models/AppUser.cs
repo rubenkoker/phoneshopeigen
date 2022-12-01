@@ -8,5 +8,6 @@ namespace PhoneShop.Domain
     /// </summary>
     public class AppUser : IdentityUser<Guid>
     {
+
     }
 }
