@@ -1,16 +1,13 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Phoneshop.Business;
 using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Shared;
 using Phoneshop.Shared.extensions;
-using PhoneShop.API.Helpers;
-
 var builder = WebApplication.CreateBuilder(args);
 ILogger logger;
 var services = new ServiceCollection();
-ConfigureServices(services);
+
 builder.Services.AddControllers()
      .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore); ;
 builder.Services.AddEndpointsApiExplorer();
@@ -29,13 +26,7 @@ builder.Services.AddDbContext<DataContext>(option => builder
     .ConnectionString),
     ServiceLifetime.Scoped);
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
-logger = serviceProvider.GetRequiredService<ILogger<Program>>();
-builder.Services.AddScoped<IPhoneService, PhoneService>();
-builder.Services.AddScoped<IBrandservice, BrandService>();
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(); ;
-builder.Services.AddLogging(x => x.AddConfiguration(builder.Configuration));
-builder.InitAuth();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -72,7 +63,7 @@ static void ConfigureServices(ServiceCollection services)
         config.LogLevelToColorMap[LogLevel.Debug] = ConsoleColor.Blue;
     }));
 
-    string _connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
+    string _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
     services.AddDbContext<DataContext>(
                  options => options.UseSqlServer(_connectionString));
 }
