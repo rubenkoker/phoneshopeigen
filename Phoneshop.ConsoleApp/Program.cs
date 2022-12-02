@@ -22,6 +22,7 @@ ServiceProvider serviceProvider = services.BuildServiceProvider();
 logger = serviceProvider.GetRequiredService<ILogger<Program>>();
 phoneservice = serviceProvider.GetRequiredService<IPhoneService>();
 List<Phone> list = await phoneservice.GetAllPhones();
+
 logger.LogInformation("starting");
 while (true)
 {

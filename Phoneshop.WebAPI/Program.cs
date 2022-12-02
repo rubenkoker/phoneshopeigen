@@ -4,6 +4,10 @@ using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Shared;
 using Phoneshop.Shared.extensions;
+using PhoneShop.API.Helpers;
+using PhoneShop.Business.Managers;
+using PhoneShop.Contracts.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 ILogger logger;
 var services = new ServiceCollection();
@@ -17,7 +21,8 @@ builder.Services.AddCors(o => o.AddPolicy("myAllowSpecificOrigins", builder =>
            .AllowAnyMethod()
            .AllowAnyHeader();
 }));
-builder.Services.AddSwaggerGen();
+builder.InitAuth();
+builder.Services.AddScoped<IJwtAuthManager, JwtAuthManager>();
 ServiceProvider serviceProvider = services.BuildServiceProvider();
 builder.Services.AddDbContext<DataContext>(option => builder
     .Configuration
@@ -25,8 +30,8 @@ builder.Services.AddDbContext<DataContext>(option => builder
     .ConnectionStrings["PhoneshopDatabase"]
     .ConnectionString),
     ServiceLifetime.Scoped);
-builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
+builder.Services.AddRouting(options => options.LowercaseUrls = true); builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
