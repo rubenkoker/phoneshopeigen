@@ -45,7 +45,10 @@ public class BrandService : IBrandservice
 
     public async Task<Brand?> GetBrandById(int id)
     {
-        return repository.GetById(id);
+        var _avatarCache = new SimpleMemoryCache<Brand>();
+        // ...
+        var myAvatar = _avatarCache.GetOrCreate(id, () => repository.GetById(id));
+        return myAvatar;
     }
 
     public async Task<bool> RemoveBrand(int input)
