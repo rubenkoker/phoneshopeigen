@@ -18,7 +18,7 @@ namespace WinFormsApp
         private List<Phone> Currentlist;
         private List<Phone> Baselist;
         private IPhoneService phoneservice;
-
+        
         public PhoneOverview()
         {
             InitializeComponent();
@@ -174,6 +174,7 @@ namespace WinFormsApp
             services.AddScoped<IPhoneService, PhoneService>();
             services.AddScoped<IBrandservice, BrandService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(ICaching<>), typeof(SimpleMemoryCache<>));
             services
             .AddLogging(configure => configure.AddDebug()).Configure<LoggerFilterOptions>(options => { options.MinLevel = LogLevel.Debug; });
             string connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;

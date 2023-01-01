@@ -9,10 +9,11 @@ public class BrandService : IBrandservice
 {
     private readonly string _connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
     private readonly IRepository<Brand> repository;
-
-    public BrandService(IRepository<Brand> repository)
+    private readonly ICaching<Brand> caching;
+    public BrandService(IRepository<Brand> repository, ICaching<Brand> caching)
     {
         this.repository = repository;
+        this.caching = caching;
     }
 
     public async Task InsertBrand(Brand input)
