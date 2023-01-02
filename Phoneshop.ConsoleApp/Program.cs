@@ -121,6 +121,7 @@ static void ConfigureServices(ServiceCollection services)
     services.AddScoped<IBrandservice, BrandService>();
     services.AddScoped<ILogger, CustomLogger>();
     services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+    services.AddScoped(typeof(ICaching<>), typeof(SimpleMemoryCache<>));
 
     services.AddLogging(config => config.AddColorConsoleLogger(config =>
     {
