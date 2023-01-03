@@ -48,7 +48,7 @@ public class BrandService : IBrandservice
     {
         var _avatarCache = new SimpleMemoryCache<Brand>();
         // ...
-        var myAvatar = _avatarCache.GetOrCreate(id, () => repository.GetById(id));
+        var myAvatar = await _avatarCache.GetOrCreate(id, () => repository.GetById(id));
         return myAvatar;
     }
 

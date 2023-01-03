@@ -8,6 +8,6 @@ namespace Phoneshop.Domain.Interfaces
 {
     public interface ICaching<TItem>
     {
-        TItem GetOrCreate(object key, Func<TItem> createItem);
+         Task<TItem> GetOrCreate(object key, Func<TItem> createItem);
     }
 }

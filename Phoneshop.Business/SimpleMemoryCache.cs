@@ -12,7 +12,7 @@ namespace Phoneshop.Business
     {
         private MemoryCache _cache = new MemoryCache(new MemoryCacheOptions());
 
-        public TItem GetOrCreate(object key, Func<TItem> createItem)
+        public async Task<TItem> GetOrCreate(object key, Func<TItem> createItem)
         {
             TItem cacheEntry;
             if (!_cache.TryGetValue(key, out cacheEntry))// Look for cache key.
