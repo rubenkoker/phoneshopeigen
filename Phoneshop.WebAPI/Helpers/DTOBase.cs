@@ -1,14 +1,14 @@
 ﻿using Mapster;
 
-namespace PhoneShop.API.Models
+namespace Phoneshop.WebAPI.Helpers
 {
     public abstract class DTOBase<TEntity> : IRegister
         where TEntity : class, new()
     {
         public void Register(TypeAdapterConfig config)
         {
-            var dtoToEntityMappingConfig = config.ForType(this.GetType(), typeof(TEntity));
-            var entityToDTOMappingConfig = config.ForType(typeof(TEntity), this.GetType());
+            var dtoToEntityMappingConfig = config.ForType(GetType(), typeof(TEntity));
+            var entityToDTOMappingConfig = config.ForType(typeof(TEntity), GetType());
 
             RegisterCustomMappings(dtoToEntityMappingConfig, entityToDTOMappingConfig);
         }

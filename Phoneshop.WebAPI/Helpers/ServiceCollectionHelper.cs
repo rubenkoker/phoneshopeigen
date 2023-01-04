@@ -6,7 +6,7 @@ using Phoneshop.Business;
 using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
-using PhoneShop.API.Models;
+using Phoneshop.WebAPI.Helpers;
 using PhoneShop.Business.Managers;
 using PhoneShop.Contracts.Interfaces;
 
