@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Phoneshop.Domain.Models;
 using PhoneShop.Domain;
 
@@ -7,9 +8,11 @@ namespace Phoneshop.Data
 {
     public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
     {
+        private readonly IConfiguration _config;
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
+            string _connectionString = _config["ConnectionStrings:PhoneshopDatabase"]!;
             optionsBuilder.UseSqlServer(_connectionString);
 
             base.OnConfiguring(optionsBuilder);
@@ -20,8 +23,9 @@ namespace Phoneshop.Data
             base.OnModelCreating(modelBuilder);
         }
 
-        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        public DataContext(DbContextOptions<DataContext> options, IConfiguration config) : base(options)
         {
+            _config = config;
         }
 
         public DbSet<Phone> Phones { get; set; }

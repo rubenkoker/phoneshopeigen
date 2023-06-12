@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
@@ -32,6 +33,9 @@ namespace Phoneshop.Business.Test.PhoneServiceTests
             {
                 services.AddScoped<IPhoneService, PhoneService>();
                 services.AddScoped<IBrandservice, BrandService>();
+                services.AddScoped<ICaching<Brand>, SimpleMemoryCache<Brand>>();
+                services
+            .AddLogging(configure => configure.AddDebug()).Configure<LoggerFilterOptions>(options => { options.MinLevel = LogLevel.Debug; });
                 services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
                 string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
                 services.AddDbContext<DataContext>();

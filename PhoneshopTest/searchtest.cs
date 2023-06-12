@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Phoneshop.Business;
 using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
@@ -9,7 +10,7 @@ namespace PhoneshopTest
     public class searchtest
     {
         [Fact]
-        public void GetByIDTest_ShouldReturnCamPhones()
+        public async void GetByIDTest_ShouldReturnCamPhones()
         {
             //arrange
             var phoneservices = new ServiceCollection();
@@ -17,13 +18,15 @@ namespace PhoneshopTest
             ServiceProvider serviceProvider = phoneservices.BuildServiceProvider();
             var phoneservice = serviceProvider.GetRequiredService<IPhoneService>();
             //act
-            List<Phone> phone = phoneservice.GetAllPhones();
+            List<Phone> phone = await phoneservice.GetAllPhones();
 
             //asses
             Assert.Equal(1, phone.Count());
             static void ConfigureServices(ServiceCollection services)
             {
                 services.AddScoped<IPhoneService, PhoneService>();
+                services
+                .AddLogging(configure => configure.AddDebug()).Configure<LoggerFilterOptions>(options => { options.MinLevel = LogLevel.Debug; });
                 services.AddScoped<IBrandservice, BrandService>();
                 services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
                 string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
@@ -40,7 +43,7 @@ namespace PhoneshopTest
         }
 
         [Fact]
-        public void GetByIDTest_ShouldReturHuaweiPhones()
+        public async void GetByIDTest_ShouldReturHuaweiPhones()
         {
             //arrange
             var phoneservices = new ServiceCollection();
@@ -49,12 +52,14 @@ namespace PhoneshopTest
             var phoneservice = serviceProvider.GetRequiredService<IPhoneService>();
 
             //act
-            List<Phone> phone = phoneservice.Search("Huawei");
+            List<Phone> phone = await phoneservice.Search("Huawei");
             //asses
             Assert.Equal(2, phone.Count());
             static void ConfigureServices(ServiceCollection services)
             {
                 services.AddScoped<IPhoneService, PhoneService>();
+                services
+      .AddLogging(configure => configure.AddDebug()).Configure<LoggerFilterOptions>(options => { options.MinLevel = LogLevel.Debug; });
                 services.AddScoped<IBrandservice, BrandService>();
                 services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
                 string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";

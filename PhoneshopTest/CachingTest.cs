@@ -1,0 +1,69 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Phoneshop.Data;
+using Phoneshop.Domain.Interfaces;
+using Phoneshop.Domain.Models;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Phoneshop.Business.Test
+{
+    public class CachingTest
+    {
+
+        [Fact]
+        public async void CacheBransTest()
+        {
+            var phoneservices = new ServiceCollection();
+            ConfigureServices(phoneservices);
+
+            ServiceProvider serviceProvider = phoneservices.BuildServiceProvider();
+
+            var repository = serviceProvider.GetRequiredService<IRepository<Brand>>();
+            //act
+            var _avatarCache = new SimpleMemoryCache<Brand>();
+            // ...
+            var expected = repository.GetById(2);
+            var myAvatar = await _avatarCache.GetOrCreate(2, () => repository.GetById(2));
+
+            //asses
+            while (true)
+            {
+                if (myAvatar != null)
+                {
+                   
+                    break;
+                }
+                else
+                {
+                    Thread.Sleep(2000);
+                }
+            }
+            Assert.Equal(expected, myAvatar);
+            static void ConfigureServices(ServiceCollection services) { 
+            
+
+                services.AddScoped<IPhoneService, PhoneService>();
+                services.AddScoped<IBrandservice, BrandService>();
+                services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=phoneshop;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                services.AddDbContext<DataContext>();
+                static void ConfigureServices(ServiceCollection services)
+                {
+                    services.AddScoped<IPhoneService, PhoneService>();
+                    services.AddScoped<IBrandservice, BrandService>();
+                    services.AddScoped(typeof(ICaching<>), typeof(SimpleMemoryCache<>));
+                    
+                    services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+                    string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=phoneshop;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                    services.AddDbContext<DataContext>();
+                }
+            }
+        }
+    }       
+}

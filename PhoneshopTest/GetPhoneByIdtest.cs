@@ -2,9 +2,11 @@ namespace PhoneshopTest
 {
     using Microsoft.Extensions.DependencyInjection;
     using Phoneshop.Business;
+    using Phoneshop.Business.Test;
     using Phoneshop.Data;
     using Phoneshop.Domain.Interfaces;
     using Phoneshop.Domain.Models;
+    using System;
     using System.Configuration;
     using System.Diagnostics;
 
@@ -15,7 +17,7 @@ namespace PhoneshopTest
         {
             //arrange
             var phoneservices = new ServiceCollection();
-            ConfigureServices(phoneservices);
+            TestServices.ConfigureServices(phoneservices);
             ServiceProvider serviceProvider = phoneservices.BuildServiceProvider();
             var services = serviceProvider.GetRequiredService<IPhoneService>();
             //act
@@ -39,7 +41,7 @@ namespace PhoneshopTest
             //arrange
             //arrange
             var services = new ServiceCollection();
-            ConfigureServices(services);
+            TestServices.ConfigureServices(services);
             ServiceProvider serviceProvider = services.BuildServiceProvider();
             var phoneservices = serviceProvider.GetRequiredService<IPhoneService>();
             List<Phone> Baselist = await phoneservices.GetAllPhones();
@@ -50,14 +52,7 @@ namespace PhoneshopTest
             List<Phone> phone = await phoneservices.GetAllPhones();
             //asses
             // Assert.Equal(15, phone.Count());
-            static void ConfigureServices(ServiceCollection services)
-            {
-                services.AddScoped<IPhoneService, PhoneService>();
-                services.AddScoped<IBrandservice, BrandService>();
-                services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-                string _connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
-                services.AddDbContext<DataContext>();
-            }
+          
         }
 
         [Fact]
@@ -82,7 +77,7 @@ namespace PhoneshopTest
                 services.AddScoped<IPhoneService, PhoneService>();
                 services.AddScoped<IBrandservice, BrandService>();
                 services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-                string _connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
+                string _connectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = phoneshop; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False;";
                 services.AddDbContext<DataContext>();
             }
         }

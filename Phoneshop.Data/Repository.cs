@@ -33,15 +33,15 @@ namespace Phoneshop.Data
 
         public bool Delete(int id)
         {
-            try
-            {
-                context.Set<TEntity>().Remove(context.Set<TEntity>().Find(id));
-                return true;
-            }
-            catch
+            var item = context.Set<TEntity>().Find(id);
+            if (item == null)
             {
                 return false;
             }
+            context.Set<TEntity>().Remove(context.Set<TEntity>().Find(id));
+            return true;
+
+
         }
 
         public void SaveChanges()

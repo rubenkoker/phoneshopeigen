@@ -21,17 +21,17 @@ public static class PhoneExtensions
             message = "no brand";
             return false;
         }
-        if (String.IsNullOrEmpty(phone.Type))
+        if (string.IsNullOrEmpty(phone.Type))
         {
             message = "no type";
             return false;
         }
-        if (String.IsNullOrEmpty(phone.Brand.Name))
+        if (string.IsNullOrEmpty(phone.Brand.Name))
         {
             message = "brand needs a name";
             return false;
         }
-        if (String.IsNullOrEmpty(phone.Description))
+        if (string.IsNullOrEmpty(phone.Description))
         {
             message = "needs a description";
             return false;

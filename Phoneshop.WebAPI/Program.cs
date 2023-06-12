@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 ILogger logger;
 var services = new ServiceCollection();
 
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddControllers()
      .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore); ;
 builder.Services.AddEndpointsApiExplorer();

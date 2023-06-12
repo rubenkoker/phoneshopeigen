@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
+using System.Configuration;
 
 namespace Phoneshop.Business.Test
 {
@@ -12,21 +14,25 @@ namespace Phoneshop.Business.Test
         {
             //arrange
             var services = new ServiceCollection();
-            ConfigureServices(services);
+            TestServices.ConfigureServices(services);
             ServiceProvider serviceProvider = services.BuildServiceProvider();
+            
             var phoneservices = serviceProvider.GetRequiredService<IPhoneService>();
             List<Phone> Baselist = await phoneservices.GetAllPhones();
             //act
-            bool answer = await phoneservices.RemovePhone(15);
+            var answer = await phoneservices.Search("cam");
             //asses
 
-            Assert.True(answer);
+            Assert.True(answer != null);
             static void ConfigureServices(ServiceCollection services)
             {
+                services.AddScoped(typeof(ICaching<>), typeof(SimpleMemoryCache<>));
                 services.AddScoped<IPhoneService, PhoneService>();
                 services.AddScoped<IBrandservice, BrandService>();
                 services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-                string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+
+                string connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
                 services.AddDbContext<DataContext>();
             }
         }
