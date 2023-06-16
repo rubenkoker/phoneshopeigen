@@ -9,7 +9,7 @@ namespace Phoneshop.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    // [Authorize]
     public class PhonesController : ControllerBase
     {
         private IPhoneService phoneService;
