@@ -7,6 +7,7 @@ using PhoneShop.Contracts.Interfaces;
 using PhoneShop.Domain;
 using System.Security.Claims;
 using System.Text;
+using ValidationExtensions;
 
 namespace PhoneShop.API.Controllers
 {
@@ -73,34 +74,42 @@ namespace PhoneShop.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] LoginModel model, [FromQuery] string returnUrl = null)
         {
-            try
-            {
-                var user = new AppUser
+            if (model.Email.IsValidEmail())
+                try
                 {
-                    UserName = model.Email,
-                    Email = model.Email,
-                };
+                    var user = new AppUser
+                    {
+                        UserName = model.Email,
+                        Email = model.Email,
+                    };
 
-                var result = await _userManager.CreateAsync(user, model.Password);
+                    var result = await _userManager.CreateAsync(user, model.Password);
 
-                if (!result.Succeeded)
-                    return AddIdentityErrors(result);
+                    if (!result.Succeeded)
+                        return AddIdentityErrors(result);
 
-                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
 
-                return Ok(new
+                    return Ok(new
+                    {
+                        Succes = true,
+                        ConfirmationCode = code
+                    });
+                }
+                catch (Exception ex)
                 {
-                    Succes = true,
-                    ConfirmationCode = code
-                });
-            }
-            catch (Exception ex)
+                    return BadRequest(new
+                    {
+                        ex.Message,
+                        InnerExceptionMessage = ex.InnerException?.Message
+                    });
+                }
+            else
             {
                 return BadRequest(new
                 {
-                    ex.Message,
-                    InnerExceptionMessage = ex.InnerException?.Message
+                    InnerExceptionMessage = "not a valid email adress"
                 });
             }
         }

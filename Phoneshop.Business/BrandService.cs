@@ -7,9 +7,11 @@ namespace Phoneshop.Business;
 
 public class BrandService : IBrandservice
 {
-   // private readonly string _connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
+    // private readonly string _connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
     private readonly IRepository<Brand> repository;
+
     private readonly ICaching<Brand> caching;
+
     public BrandService(IRepository<Brand> repository, ICaching<Brand> caching)
     {
         this.repository = repository;
@@ -30,24 +32,22 @@ public class BrandService : IBrandservice
                       select t).Any();
 
         return result;
-
-        return brandExists;
     }
 
-    public  Task<Brand?> FindBrandByName(string Name)
+    public Task<Brand?> FindBrandByName(string Name)
     {
         var brandList = repository.GetAll();
 
         var brand = from b in brandList
                     where b.Name == Name
                     select b;
-        return  brand.SingleOrDefaultAsync();
+        return brand.SingleOrDefaultAsync();
     }
 
     public async Task<Brand?> GetBrandById(int id)
     {
         var _avatarCache = new SimpleMemoryCache<Brand>();
-        
+
         var myAvatar = await _avatarCache.GetOrCreate(id, () => repository.GetById(id));
         return myAvatar;
     }

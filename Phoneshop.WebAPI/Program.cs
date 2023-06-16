@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Phoneshop.Business;
 using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
+using Phoneshop.Domain.Models;
 using Phoneshop.Shared;
 using Phoneshop.Shared.extensions;
 using PhoneShop.API.Helpers;
@@ -23,8 +24,15 @@ builder.Services.AddCors(o => o.AddPolicy("myAllowSpecificOrigins", builder =>
            .AllowAnyHeader();
 }));
 builder.InitAuth();
+
+builder.Services.AddScoped<ICaching<Brand>, SimpleMemoryCache<Brand>>();
 builder.Services.AddScoped<IJwtAuthManager, JwtAuthManager>();
-ServiceProvider serviceProvider = services.BuildServiceProvider();
+builder.Services.AddScoped<IBrandservice, BrandService>();
+builder.Services.AddScoped<IRepository<Phone>, Repository<Phone>>();
+builder.Services.AddScoped<IRepository<Brand>, Repository<Brand>>();
+builder.Services.AddScoped<IPhoneService, PhoneService>();
+
+//ServiceProvider serviceProvider = services.BuildServiceProvider();
 builder.Services.AddDbContext<DataContext>(option => builder
     .Configuration
     .GetConnectionString(System.Configuration.ConfigurationManager
@@ -53,24 +61,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-static void ConfigureServices(ServiceCollection services)
-{
-    services.AddScoped<IPhoneService, PhoneService>();
-    services.AddScoped<IBrandservice, BrandService>();
-    services.AddScoped<ILogger, CustomLogger>();
-    services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-    services.AddScoped(typeof(ICaching<>), typeof(SimpleMemoryCache<>));
-
-    services.AddLogging(config => config.AddColorConsoleLogger(config =>
-    {
-        config.LogLevelToColorMap[LogLevel.Information] = ConsoleColor.Cyan;
-        config.LogLevelToColorMap[LogLevel.Warning] = ConsoleColor.Yellow;
-        config.LogLevelToColorMap[LogLevel.Error] = ConsoleColor.Red;
-        config.LogLevelToColorMap[LogLevel.Critical] = ConsoleColor.DarkRed;
-        config.LogLevelToColorMap[LogLevel.Debug] = ConsoleColor.Blue;
-    }));
-
-    string _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
-    services.AddDbContext<DataContext>(
-                 options => options.UseSqlServer(_connectionString));
-}
