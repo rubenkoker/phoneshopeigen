@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  phoneshop.webapi:
+    image: ${DOCKER_REGISTRY-}phoneshopwebapi
+    build:
+      context: .
+      dockerfile: Phoneshop.WebAPI/Dockerfile
+  sqlserver:
+      image: mcr.microsoft.com/mssql/server:2022-latest    
+      environment:
+       - ACCEPT_EULA=YES
+       - SA_PASSWORD=GeitenMekker21!
+      ports:
+        - 1433:1433
+            

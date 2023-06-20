@@ -1,0 +1,25 @@
+<p>contact works!</p>
+<form (ngSubmit)="onSubmit()" #ContactForm="ngForm"></form>
+<div class="form-group">
+  <label for="name">Name</label>
+  <input type="text" class="form-control" id="name"
+         required
+         [(ngModel)]="model.name" name="name">
+</div>
+
+<div class="form-group">
+  <label for="Email">Email</label>
+  <input type="email" ngModel email class="form-control" id="Email"
+         [(ngModel)]="model.email" name="Email">
+</div>
+
+<div class="form-group">
+  <label for="Message">message</label>
+  <input type="text"  class="form-control" id="alterEgo"
+         [(ngModel)]="model.message" name="alterEgo">
+</div>
+<button type="submit" class="btn btn-success" [disabled]="!ContactForm.form.valid">Submit</button>
+<div [hidden]="!submitted">
+
+
+</div>

@@ -1,0 +1,20 @@
+
+<div class ="maindiv" *ngIf="this.Phone != undefined">
+    <div class="wrapper">
+        <div class="one">
+            <p><span class="ListItem">{{Phone.brand.brandName}} - {{Phone.type}}</span> </p>
+        </div>
+        <div class="two">
+            <button [routerLink]="'/overview'">go back</button>
+        </div>
+        <div class="three">
+        <div class="placeholder"></div>
+        </div>
+        <p><span class="ListItem"> {{Phone.price}}</span> </p>
+        <p><span class="ListItem">{{Phone.stock}}</span> </p>
+        <p><span class="ListItem">{{Phone.description}}</span> </p>
+        <div *ngIf="Phone.stock <= 5; else elseBlock">Almost out of stock! Only {{Phone.stock}} left!​</div>
+        <ng-template #elseBlock>{{Phone.stock}} in stock.</ng-template>
+    </div>
+</div>
+

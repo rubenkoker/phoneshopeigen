@@ -4,6 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>00103964-a790-4cc7-a655-bbd6a93f1df6</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +14,7 @@
 
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="C:\Users\ruben\Source\Repos\phoneshopeigen\Phoneshop.WebAPI\.editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +22,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.11" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
@@ -29,6 +33,10 @@
     <ProjectReference Include="..\Phoneshop.Business\Phoneshop.Business.csproj" />
     <ProjectReference Include="..\Phoneshop.Domain\Phoneshop.Domain.csproj" />
     <ProjectReference Include="..\Phoneshop.Shared\Phoneshop.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\ruben\Source\Repos\phoneshopeigen\Phoneshop.WebAPI\.editorconfig" />
   </ItemGroup>
 
 </Project>

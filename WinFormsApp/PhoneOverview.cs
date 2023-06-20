@@ -18,7 +18,7 @@ namespace WinFormsApp
         private List<Phone> Currentlist;
         private List<Phone> Baselist;
         private IPhoneService phoneservice;
-        
+
         public PhoneOverview()
         {
             InitializeComponent();

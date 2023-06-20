@@ -1,10 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Phoneshop.Business.Extensions;
-using Phoneshop.Data;
-using Phoneshop.Domain.Interfaces;
+﻿using Phoneshop.Business.Extensions;
 using Phoneshop.Domain.Models;
-using Phoneshop.Shared;
 using System.Diagnostics;
 
 namespace Phoneshop.Business.Test
@@ -14,7 +9,6 @@ namespace Phoneshop.Business.Test
         [Fact]
         public void IsValidTestPositive()
         {
-
             //tuseen haakjes
             var phone = new Phone()
             {
@@ -23,20 +17,14 @@ namespace Phoneshop.Business.Test
                 Stock = 42,
                 Type = "3s",
                 Description = "deze vietnamese telefoon is perfect voor lange afstands bellen"
-
-
             };
-          
-            
-           
 
             string message;
             bool result = phone.IsValid(out message);
             Debug.WriteLine(message);
             Assert.True(result);
-           
         }
-    
+
         [Fact]
         public void IsValidTestNegative()
         {
@@ -46,11 +34,9 @@ namespace Phoneshop.Business.Test
             phone.Stock = 42;
 
             phone.BrandID = phone.Brand.Id;
-           
 
             string message;
             Assert.False(phone.IsValid(out message));
-           
         }
     }
 }

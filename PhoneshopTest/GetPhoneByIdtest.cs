@@ -6,8 +6,6 @@ namespace PhoneshopTest
     using Phoneshop.Data;
     using Phoneshop.Domain.Interfaces;
     using Phoneshop.Domain.Models;
-    using System;
-    using System.Configuration;
     using System.Diagnostics;
 
     public class GetPhoneByIdtest
@@ -52,7 +50,6 @@ namespace PhoneshopTest
             List<Phone> phone = await phoneservices.GetAllPhones();
             //asses
             // Assert.Equal(15, phone.Count());
-          
         }
 
         [Fact]

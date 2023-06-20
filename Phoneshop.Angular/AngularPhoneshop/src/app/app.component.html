@@ -1,0 +1,11 @@
+<mat-toolbar>
+  <span [style.cursor]="'pointer'" routerLink="/" class="item">Phones</span>
+  <span   [style.cursor]="'pointer'" routerLink="/contact" class="item" class="item">Contact</span>
+</mat-toolbar>
+<mat-sidenav-container>
+<mat-sidenav mode="side" >Start</mat-sidenav>
+<mat-sidenav-content [style.cursor]="'pointer'" routerLink="/" class="item">Phones</mat-sidenav-content>
+<mat-sidenav-content [style.cursor]="'pointer'" routerLink="/contact" class="item" class="item">Contact</mat-sidenav-content>
+</mat-sidenav-container>
+
+<router-outlet></router-outlet>

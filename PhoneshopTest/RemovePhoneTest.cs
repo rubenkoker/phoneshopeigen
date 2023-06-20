@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
@@ -16,7 +15,7 @@ namespace Phoneshop.Business.Test
             var services = new ServiceCollection();
             TestServices.ConfigureServices(services);
             ServiceProvider serviceProvider = services.BuildServiceProvider();
-            
+
             var phoneservices = serviceProvider.GetRequiredService<IPhoneService>();
             List<Phone> Baselist = await phoneservices.GetAllPhones();
             //act
@@ -31,8 +30,6 @@ namespace Phoneshop.Business.Test
                 services.AddScoped<IBrandservice, BrandService>();
                 services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
-
-                string connectionString = ConfigurationManager.ConnectionStrings["PhoneshopDatabase"].ConnectionString;
                 services.AddDbContext<DataContext>();
             }
         }

@@ -1,0 +1,27 @@
+.ListItem{
+    background-color: aquamarine;
+    margin-right: 0px;
+    margin-left: auto;
+    position: relative;
+}
+.placeholder{
+    border-color: black;
+    border: 5px;
+    border-style: solid;
+    width: 100px;
+    height: 100px;
+    
+    position:relative;
+    margin-right: auto;
+    margin-left: 0px;
+    width: 70px;
+  height: 70px;
+  background-color: linen;
+  background-size: 50px 50px;
+  background-repeat: repeat-x;
+  background-image: 
+                    linear-gradient(45deg, black 25px, black 25px, transparent 26px, transparent);
+  background-position: left 30px top,
+                       left 5px bottom,
+                       left 5px center;
+}

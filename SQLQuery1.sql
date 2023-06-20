@@ -1,4 +1,2 @@
-﻿SELECT Brand.Name ,Phones.type,Phones.Description,Phones.Price,Phones.Stock,Phones.Id
-FROM Phones
-INNER JOIN Brands ON Phones.BrandID=Brands.ID
-WHERE Brand.name LIKE '%sams%' OR Type LIKE '%sams%' OR Description LIKE '%sams%';
+﻿INSERT INTO dbo.Phones( BrandID, Type, Description,Price,Stock)
+VALUES (1, 'hooliphone', 'push to talk phone description by Josh@Hooli.com', 250,500); 

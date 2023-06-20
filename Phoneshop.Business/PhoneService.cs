@@ -34,7 +34,7 @@ public class PhoneService : IPhoneService
         return _result;
     }
 
-    public  Task<List<Phone>> Search(string searchquery)
+    public Task<List<Phone>> Search(string searchquery)
     {
         _logger.LogInformation("searched for {query} ",
             searchquery);
@@ -50,27 +50,24 @@ public class PhoneService : IPhoneService
                      where b.Description.Contains(searchquery) || b.Type.Contains(searchquery) || b.Brand.Name.Contains(searchquery)
                      select b;
 
-        return  phones.ToListAsync();
+        return phones.ToListAsync();
     }
 
     public async Task<bool> AddPhone(Phone input)
     {
-       
         if (await _brandservice.DoesBrandExist(input.Brand.Name))
         {
             input.Brand = await _brandservice.FindBrandByName(input.Brand.Name);
         }
         _repository.Create(input);
         _repository.SaveChanges();
-             _logger.LogInformation("" +
-            "Added phone   ");
+        _logger.LogInformation("" +
+       "Added phone   ");
         return true;
     }
 
     public async Task<bool> RemovePhone(int input)
     {
-        
-
         bool isRemoved = _repository.Delete(input);
         _repository.SaveChanges();
         _logger.LogInformation("phone removed visited at {DT}",
@@ -80,11 +77,10 @@ public class PhoneService : IPhoneService
 
     public async Task<List<Phone>?> GetPhonesByBrand(Brand brand)
     {
-       
         List<Phone> _result = new();
 
         var phonelist = _repository.GetAll();
-        
+
         var phones = from b in phonelist
                      where b.BrandID == brand.Id
                      select b;

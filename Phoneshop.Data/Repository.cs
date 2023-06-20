@@ -40,8 +40,6 @@ namespace Phoneshop.Data
             }
             context.Set<TEntity>().Remove(context.Set<TEntity>().Find(id));
             return true;
-
-
         }
 
         public void SaveChanges()

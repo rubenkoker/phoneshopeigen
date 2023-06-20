@@ -4,18 +4,12 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Phoneshop.Data;
 using Phoneshop.Domain.Interfaces;
-using Phoneshop.Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Phoneshop.Business.Test
 {
     internal class TestServices
     {
-       public static void ConfigureServices(ServiceCollection services)
+        public static void ConfigureServices(ServiceCollection services)
         {
             services.AddScoped(typeof(ICaching<>), typeof(SimpleMemoryCache<>));
             services
@@ -27,7 +21,7 @@ namespace Phoneshop.Business.Test
             string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=phoneshop;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             config.Setup(x => x["ConnectionStrings:PhoneshopDatabase"])
                 .Returns(_connectionString);
-            services.AddSingleton(config.Object) ;
+            services.AddSingleton(config.Object);
             services.AddDbContext<DataContext>();
         }
     }

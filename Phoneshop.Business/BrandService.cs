@@ -1,7 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
-using System.Configuration;
-using System.Data.Entity;
 
 namespace Phoneshop.Business;
 
@@ -41,6 +40,7 @@ public class BrandService : IBrandservice
         var brand = from b in brandList
                     where b.Name == Name
                     select b;
+
         return brand.SingleOrDefaultAsync();
     }
 
