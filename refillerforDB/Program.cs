@@ -3,7 +3,7 @@
 using System.Data;
 using System.Data.SqlClient;
 
-string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=phoneshop;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+string _connectionString = "Data Source=sqlserver;User ID=SA;Password=GeitenMekker21!;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 string desc1 = @$"The iPhone 12 Pro is part of the Fall 2020 iPhone 12 series. It comes with the impressive specs we''ve come to expect from Apple, including a gorgeous 6.1-inch screen, excellent camera and blazing-fast hardware.
 
 			It also looks great with its matte and angular finish. With support for 5G Internet, you''ll have access to the fastest network and be ready for the future. All in all, Apple has delivered another great device!

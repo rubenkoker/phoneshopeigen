@@ -13,4 +13,11 @@ services:
        - SA_PASSWORD=GeitenMekker21!
       ports:
         - 1433:1433
-            
+  frontend:
+        image:  ${DOCKER_REGISTRY-}phoneshopangular
+        build:
+            context: Phoneshop.Angular/AngularPhoneshop
+            dockerfile: Dockerfile
+        ports:
+            - 4200:4200
+        command: ng serve --host 0.0.0.0

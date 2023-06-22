@@ -140,7 +140,7 @@ internal class Program
             config.LogLevelToColorMap[LogLevel.Debug] = ConsoleColor.Blue;
         }));
 
-        string _connectionString = "Data Source=sqlserver,1433;User ID=sa;Password=GeitenMekker21!;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+        string _connectionString = "Data Source=sqlserver;User ID=SA;Password=GeitenMekker21!;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
         services.AddDbContext<DataContext>(
                      options => options.UseSqlServer(_connectionString));
     }

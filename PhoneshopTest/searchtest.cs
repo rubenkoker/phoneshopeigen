@@ -29,14 +29,14 @@ namespace PhoneshopTest
                 .AddLogging(configure => configure.AddDebug()).Configure<LoggerFilterOptions>(options => { options.MinLevel = LogLevel.Debug; });
                 services.AddScoped<IBrandservice, BrandService>();
                 services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-                string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
                 services.AddDbContext<DataContext>();
                 static void ConfigureServices(ServiceCollection services)
                 {
                     services.AddScoped<IPhoneService, PhoneService>();
                     services.AddScoped<IBrandservice, BrandService>();
                     services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-                    string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
                     services.AddDbContext<DataContext>();
                 }
             }
@@ -62,7 +62,7 @@ namespace PhoneshopTest
       .AddLogging(configure => configure.AddDebug()).Configure<LoggerFilterOptions>(options => { options.MinLevel = LogLevel.Debug; });
                 services.AddScoped<IBrandservice, BrandService>();
                 services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-                string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneshopEntities;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
                 services.AddDbContext<DataContext>();
             }
         }

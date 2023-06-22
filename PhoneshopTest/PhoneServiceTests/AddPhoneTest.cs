@@ -37,7 +37,7 @@ namespace Phoneshop.Business.Test.PhoneServiceTests
                 services
             .AddLogging(configure => configure.AddDebug()).Configure<LoggerFilterOptions>(options => { options.MinLevel = LogLevel.Debug; });
                 services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-                string _connectionString = "Data Source=localhost;User ID=sa;Password=********;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+
                 services.AddDbContext<DataContext>();
             }
         }
