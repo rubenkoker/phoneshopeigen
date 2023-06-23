@@ -12,10 +12,10 @@ export class PhoneService {
   }
   GetPhones(): Observable<phone[]>{
     console.log("hallo");
-    return this.httpClient.get<phone[]>("http://localhost:8080/api/phones");
+    return this.httpClient.get<phone[]>("https://localhost:4330/api/phones");
    }
    GetPhoneById(input:number): Observable<phone>{
     
-    return this.httpClient.get<phone>(`http://localhost:8080/phone/${input}`);
+    return this.httpClient.get<phone>(`https://localhost:4330/phone/${input}`);
    }
 }

@@ -14,9 +14,9 @@ builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddControllers()
      .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore); ;
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddCors(o => o.AddPolicy("myAllowSpecificOrigins", builder =>
+builder.Services.AddCors(o => o.AddPolicy(name: myAllowSpecificOrigins, policy =>
 {
-    builder.AllowAnyOrigin()
+    policy.AllowAnyOrigin()
            .AllowAnyMethod()
            .AllowAnyHeader();
 }));
@@ -53,7 +53,8 @@ app.UseSwaggerUI(options =>
     options.RoutePrefix = string.Empty;
 });
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
+app.UseRouting();
 app.UseCors(myAllowSpecificOrigins);
 app.UseAuthorization();
 

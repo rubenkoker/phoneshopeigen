@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Phoneshop.Domain.Interfaces;
 using Phoneshop.Domain.Models;
 using ValidationExtensions;
@@ -7,6 +8,7 @@ using ValidationExtensions;
 
 namespace Phoneshop.WebAPI.Controllers
 {
+    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class PhonesController : ControllerBase
