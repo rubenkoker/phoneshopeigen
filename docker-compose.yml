@@ -7,8 +7,9 @@ services:
       context: .
       dockerfile: Phoneshop.WebAPI/Dockerfile
     ports:
-        - 80:80
-        - 443:443
+        - 8080:80
+        - 4430:443
+
   sqlserver:
       image: mcr.microsoft.com/mssql/server:2022-latest    
       environment:

@@ -9,7 +9,7 @@ using PhoneShop.Contracts.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = new ServiceCollection();
-
+string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddControllers()
      .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore); ;
@@ -18,8 +18,7 @@ builder.Services.AddCors(o => o.AddPolicy("myAllowSpecificOrigins", builder =>
 {
     builder.AllowAnyOrigin()
            .AllowAnyMethod()
-           .AllowAnyHeader()
-           .AllowCredentials();
+           .AllowAnyHeader();
 }));
 builder.InitAuth();
 
@@ -37,9 +36,12 @@ builder.Services.AddDbContext<DataContext>(option => option.UseSqlServer(builder
     ServiceLifetime.Scoped);
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true); builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
+
 using (var scope = app.Services.CreateScope())
     scope.ServiceProvider.GetRequiredService<DataContext>().Database.Migrate();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -51,8 +53,8 @@ app.UseSwaggerUI(options =>
     options.RoutePrefix = string.Empty;
 });
 
-app.UseHttpsRedirection();
-
+//app.UseHttpsRedirection();
+app.UseCors(myAllowSpecificOrigins);
 app.UseAuthorization();
 
 app.MapControllers();
