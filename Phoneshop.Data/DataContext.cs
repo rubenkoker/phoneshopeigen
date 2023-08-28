@@ -27,6 +27,7 @@ namespace Phoneshop.Data
             var brandPronoun = new Brand { Name = "Pronoun", Id = 1 };
             modelBuilder.Entity<Brand>().HasData(brandPronoun);
             modelBuilder.Entity<Phone>().HasData(new Phone { BrandID = brandPronoun.Id, Type = "ourphone", Description = "our newest phone comrade", Price = 5, Id = 1 });
+
             //modelBuilder.Entity<Phone>().HasData(new Phone { BrandID = 1, Type = "yourphone", Description = "freedom isn't free", Price = 5, Id = 2 });
         }
 
